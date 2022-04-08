@@ -7,7 +7,7 @@ Blazor Server App used for managing and creating forms
 ![GitHub repo size](https://img.shields.io/github/repo-size/ac111897/AvcolForms)
 
 ## Other README Files
-[Web Project README](https://github.com/ac111897/AvcolForms/AvcolForms.Web/README.MD)</br>
-[Core Library README](https://github.com/ac111897/AvcolForms/AvcolForms.Core/README.MD)</br>
-[Data Library README](https://github.com/ac111897/AvcolForms/AvcolForms.Core.Data/README.MD)</br>
-[Components README](https://github.com/ac111897/AvcolForms/AvcolForms.Core.Components/README.MD)</br>
+[Web Project README](https://github.com/ac111897/AvcolForms/tree/master/AvcolForms.Web/README.MD)</br>
+[Core Library README](https://github.com/ac111897/AvcolForms/tree/master/AvcolForms.Core/README.MD)</br>
+[Data Library README](https://github.com/ac111897/AvcolForms/tree/master/AvcolForms.Core.Data/README.MD)</br>
+[Components README](https://github.com/ac111897/AvcolForms/tree/masterAvcolForms.Core.Components/README.MD)</br>
