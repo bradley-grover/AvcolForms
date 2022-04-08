@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Authors>Bradley Grover</Authors>
+    <Product>AvcolForms</Product>
+    <Description>Data library to be linked with AvcolForms.Core</Description>
+    <Copyright>Licensed under the MIT License, Copyright (c) Bradley Grover</Copyright>
+    <PackageProjectUrl>https://github.com/ac111897/AvcolForms</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ac111897/AvcolForms</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+</Project>
