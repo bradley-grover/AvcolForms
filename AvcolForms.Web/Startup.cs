@@ -3,8 +3,13 @@
  * Copyright (c) 2022 Bradley Grover
  */
 
+using AvcolForms.Web.ServiceConfigures;
+
 namespace AvcolForms.Web;
 
+/// <summary>
+/// Startup class to register application services and the HTTP Request Pipeline
+/// </summary>
 public class Startup
 {
     /// <summary>
@@ -29,6 +34,8 @@ public class Startup
     {
         services.AddRazorPages();
         services.AddServerSideBlazor();
+
+        services.AddDb(Configuration);
     }
 
     /// <summary>
