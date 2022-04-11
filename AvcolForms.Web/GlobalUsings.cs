@@ -12,4 +12,5 @@ global using AvcolForms.Core.Data;
 global using System.Text.Json;
 #endregion
 #region External NuGet
+global using Microsoft.EntityFrameworkCore;
 #endregion
