@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using AvcolForms.Core.FileSaving;
 
-namespace AvcolForms.Tests.Core;
+namespace AvcolForms.Tests.Unit.Core;
 
 /// <summary>
 /// Unit tests for an implementation of <see cref="IFileSaver"/>
