@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Web", "AvcolForms.Web\AvcolForms.Web.csproj", "{969E9462-9BB3-43BE-8CEE-224D6FEA13B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Web", "AvcolForms.Web\AvcolForms.Web.csproj", "{969E9462-9BB3-43BE-8CEE-224D6FEA13B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Core.Data", "AvcolForms.Core.Data\AvcolForms.Core.Data.csproj", "{C6A8F39B-0C90-4CE3-86B9-84CD353DAD4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Data", "AvcolForms.Core.Data\AvcolForms.Core.Data.csproj", "{C6A8F39B-0C90-4CE3-86B9-84CD353DAD4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Core", "AvcolForms.Core\AvcolForms.Core.csproj", "{0D8F15B0-62E5-43E1-AEC4-C5BA729FD6E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core", "AvcolForms.Core\AvcolForms.Core.csproj", "{0D8F15B0-62E5-43E1-AEC4-C5BA729FD6E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Core.Components", "AvcolForms.Core.Components\AvcolForms.Core.Components.csproj", "{F9177998-2C8C-42F1-916F-D58852E87E02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Components", "AvcolForms.Core.Components\AvcolForms.Core.Components.csproj", "{F9177998-2C8C-42F1-916F-D58852E87E02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Tests", "AvcolForms.Tests\AvcolForms.Tests.csproj", "{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Tests", "AvcolForms.Tests\AvcolForms.Tests.csproj", "{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Console.Configuration", "AvcolForms.Console.Configuration\AvcolForms.Console.Configuration.csproj", "{2645018B-D9B8-4D9C-988D-A13BBC1BA2CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2645018B-D9B8-4D9C-988D-A13BBC1BA2CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2645018B-D9B8-4D9C-988D-A13BBC1BA2CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2645018B-D9B8-4D9C-988D-A13BBC1BA2CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2645018B-D9B8-4D9C-988D-A13BBC1BA2CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
