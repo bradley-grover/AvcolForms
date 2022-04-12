@@ -23,7 +23,9 @@ internal static class DatabaseServiceExtensions
         {
             string connectionString = configuration.GetConnectionString("Default");
 #if DEBUG
-            options.UseInMemoryDatabase("AvcolForms");
+            options.UseInMemoryDatabase("AvcolForms")
+            .EnableDetailedErrors()
+            .EnableSensitiveDataLogging();
 #else
             switch (configuration.GetValue<string>("Db-Provider").ToUpper())
             {
