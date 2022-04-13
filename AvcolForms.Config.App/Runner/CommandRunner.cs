@@ -1,4 +1,4 @@
-﻿namespace AvcolForms.Console.Configuration.Runner;
+﻿namespace AvcolForms.Config.App.Runner;
 
 public class CommandRunner
 {

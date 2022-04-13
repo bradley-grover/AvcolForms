@@ -1,6 +1,6 @@
-﻿namespace AvcolForms.Console.Configuration.Attributes;
+﻿namespace AvcolForms.Config.App.Attributes;
 
-[AttributeUsage(AttributeTargets.Method)]
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
 public class CommandAttribute : Attribute
 {
 #nullable disable

@@ -1,6 +1,6 @@
-﻿namespace AvcolForms.Console.Configuration.Attributes;
+﻿namespace AvcolForms.Config.App.Attributes;
 
-[AttributeUsage(AttributeTargets.Class)]
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 public class ModuleAttribute : Attribute
 {
 #nullable disable

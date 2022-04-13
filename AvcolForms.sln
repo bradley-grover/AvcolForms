@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Components"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Tests", "AvcolForms.Tests\AvcolForms.Tests.csproj", "{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Console.Configuration", "AvcolForms.Console.Configuration\AvcolForms.Console.Configuration.csproj", "{2645018B-D9B8-4D9C-988D-A13BBC1BA2CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Config.App", "AvcolForms.Config.App\AvcolForms.Config.App.csproj", "{74257001-F173-4357-923E-A33F5FED1A09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2645018B-D9B8-4D9C-988D-A13BBC1BA2CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2645018B-D9B8-4D9C-988D-A13BBC1BA2CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2645018B-D9B8-4D9C-988D-A13BBC1BA2CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2645018B-D9B8-4D9C-988D-A13BBC1BA2CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

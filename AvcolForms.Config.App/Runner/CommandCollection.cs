@@ -1,16 +1,18 @@
 ﻿using System.Reflection;
 
-namespace AvcolForms.Console.Configuration.Runner;
+namespace AvcolForms.Config.App;
 
 public class CommandCollection : ICommandCollection
 {
     private readonly Dictionary<string, Func<Task>> _commands;
     private readonly Dictionary<string, Func<string[], Task>> _commandsWithParameters;
+    private readonly Dictionary<string, string> _aliases;
 
     public CommandCollection()
     {
         _commands = new Dictionary<string, Func<Task>>();
         _commandsWithParameters = new();
+        _aliases = new();
         Initialize();
 
     }
@@ -44,24 +46,44 @@ public class CommandCollection : ICommandCollection
                 }
 
                 var methodAttribute = method.GetCustomAttribute<CommandAttribute>()!;
+                var aliases = method.GetCustomAttribute<AliasAttribute>();
 
                 ParameterInfo[] parameters = method.GetParameters();
 
                 if (parameters.Length == 0)
                 {
-                    var del = (Func<Task>)Delegate.CreateDelegate(typeof(Func<Task>), method);
-                    _commands.Add(methodAttribute.Name.ToLower().Trim(), del);
+                    var del = method.CreateDelegate<Func<Task>>();
+                    string methodName = methodAttribute.Name.ToLower().Trim();
+                    _commands.Add(methodName, del);
+
+                    if (aliases is not null)
+                    {
+                        if (aliases.Aliases is not null)
+                        {
+                            Array.ForEach(aliases.Aliases, alias => _aliases.Add(alias, methodName));
+                        }
+                    }
+
                     continue;
                 }
 
-                var methodWithParam = (Func<string[], Task>)Delegate.CreateDelegate(typeof(Func<string[], Task>), method);
+                var methodWithParam = method.CreateDelegate<Func<string[],Task>>();
 
+                var methodWithParamName = methodAttribute.Name.ToLower().Trim();
                 _commandsWithParameters.Add(methodAttribute.Name.ToLower().Trim(), methodWithParam);
+
+
+                if (aliases is not null)
+                {
+                    if (aliases.Aliases is not null)
+                    {
+                        Array.ForEach(aliases.Aliases, alias => _aliases.Add(alias, methodWithParamName));
+                    }
+                }
             }
         }
 
     }
-
 
     public bool CommandExistsWithoutParameters(string commandName)
     {
@@ -70,7 +92,7 @@ public class CommandCollection : ICommandCollection
 
     public bool CommandExistsWithParameters(string commandName)
     {
-        return _commands.ContainsKey((commandName.ToLower().Trim()));
+        return _commandsWithParameters.ContainsKey((commandName.ToLower().Trim()));
     }
 
     public async Task RunCommandAsync(string commandName)
