@@ -1,9 +1,11 @@
-﻿namespace AvcolForms.Tests.Unit.Core.Files;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace AvcolForms.Tests.Unit.Core.Files;
 
 /// <summary>
-/// Tests saving with the <see cref="Memory{T}"/> overload of <see cref="IFileSaver.SaveAsync(Memory{byte}, string, CancellationToken)"/>
+/// Tests for when an form file is save using <see cref="IFil"/>
 /// </summary>
-public class SaveOnArrayTests
+public class SaveOnFormFile
 {
     private static readonly IFileSaver _fileSaver = new FileSaver();
     private readonly string _filePath = Path.Join(Directory.GetCurrentDirectory(), "/Assets/savedFile.png");
@@ -15,7 +17,7 @@ public class SaveOnArrayTests
     [Fact]
     public async Task Save_Should_Throw_OnEmpty()
     {
-        static async Task func() => await _fileSaver.SaveAsync(Array.Empty<byte>(), null!);
+        static async Task func() => await _fileSaver.SaveAsync(new FormFile(Stream.Null, 0, 2, "ok", "ok"), null!);
 
         await Assert.ThrowsAnyAsync<ArgumentException>(func);
     }
@@ -27,7 +29,7 @@ public class SaveOnArrayTests
     [Fact]
     public async Task Save_Should_Throw_OnPath()
     {
-        static async Task func() => await _fileSaver.SaveAsync(new byte[] { 0, 1, 2 }, null!);
+        static async Task func() => await _fileSaver.SaveAsync(new FormFile(Stream.Null, 0, 0, "ok", "ok"), null!);
         await Assert.ThrowsAnyAsync<ArgumentNullException>(func);
     }
 
@@ -49,16 +51,10 @@ public class SaveOnArrayTests
             File.Delete(savePath);
         }
 
-        MemoryStream memoryStream = new();
+        var file = new FormFile(stream, 0, stream.Length, "1", "someFile.png");
 
 
-        stream.CopyTo(memoryStream);
-
-        Memory<byte> memory = memoryStream.ToArray();
-
-        await _fileSaver.SaveAsync(memory, savePath);
-
-        stream?.Dispose();
+        await _fileSaver.SaveAsync(file, savePath);
 
         using var fileStream = File.Open(savePath, FileMode.Open);
 
