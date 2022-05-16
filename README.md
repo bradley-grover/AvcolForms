@@ -7,6 +7,7 @@ Blazor Server App used for managing and creating forms
 
 # Status
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ac111897/AvcolForms/.NET)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/ac111897/AvcolForms/.NET/development?label=dev-build)
 ![Website](https://img.shields.io/website?down_color=red&label=website-docs&up_message=online%21&url=https%3A%2F%2Facvolforms-docs.ac111897.repl.co)
 
 # Installation/Running
