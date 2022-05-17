@@ -6,6 +6,7 @@
 using AvcolForms.Web.ServiceConfigures;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using MudBlazor.Services;
 
 namespace AvcolForms.Web;
 
@@ -34,6 +35,7 @@ public class Startup
     /// <param name="services">The service collection to add services for dependency injection</param>
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddMudServices();
         services.AddRazorPages();
         services.AddServerSideBlazor();
 
