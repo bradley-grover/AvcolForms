@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core", "AvcolFor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Tests", "AvcolForms.Tests\AvcolForms.Tests.csproj", "{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Core.Data.Migrations", "AvcolForms.Core.Data.Migrations\AvcolForms.Core.Data.Migrations.csproj", "{19B7A86B-F3DC-447C-94C5-455B07E6F31B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Data.Migrations", "AvcolForms.Core.Data.Migrations\AvcolForms.Core.Data.Migrations.csproj", "{19B7A86B-F3DC-447C-94C5-455B07E6F31B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
