@@ -3,6 +3,8 @@
  * Copyright (c) 2022 Bradley Grover
  */
 
+using Microsoft.AspNetCore.Identity;
+
 namespace AvcolForms.Web.ServiceConfigures;
 
 /// <summary>
@@ -43,6 +45,11 @@ internal static class DatabaseServiceExtensions
             }
 #endif
         });
+
+        services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
         return services;
     }
 }
