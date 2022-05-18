@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
@@ -12,6 +11,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Tests", "AvcolForms.Tests\AvcolForms.Tests.csproj", "{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Data.Migrations", "AvcolForms.Core.Data.Migrations\AvcolForms.Core.Data.Migrations.csproj", "{19B7A86B-F3DC-447C-94C5-455B07E6F31B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Config.App", "AvcolForms.Config.App\AvcolForms.Config.App.csproj", "{74257001-F173-4357-923E-A33F5FED1A09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +40,10 @@ Global
 		{19B7A86B-F3DC-447C-94C5-455B07E6F31B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19B7A86B-F3DC-447C-94C5-455B07E6F31B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19B7A86B-F3DC-447C-94C5-455B07E6F31B}.Release|Any CPU.Build.0 = Release|Any CPU
+    {74257001-F173-4357-923E-A33F5FED1A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
