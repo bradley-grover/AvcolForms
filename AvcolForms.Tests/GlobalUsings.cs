@@ -7,3 +7,4 @@
 
 global using Xunit;
 global using AvcolForms;
+global using AvcolForms.Core.FileSaving;

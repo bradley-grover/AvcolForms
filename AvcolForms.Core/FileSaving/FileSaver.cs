@@ -39,6 +39,11 @@ public class FileSaver : IFileSaver
     {
         ArgumentNullException.ThrowIfNull(path, nameof(path));
 
+        if (stream == Stream.Null)
+        {
+            throw new ArgumentException("There should be a non null stream passed", nameof(stream));
+        }
+
         if (stream.Length == 0)
         {
             throw new ArgumentException("There should be some bytes in the data passed", nameof(stream));

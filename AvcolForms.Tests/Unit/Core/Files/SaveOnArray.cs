@@ -1,22 +1,19 @@
-﻿using System.Reflection;
-using AvcolForms.Core.FileSaving;
-
-namespace AvcolForms.Tests.Core;
+﻿namespace AvcolForms.Tests.Unit.Core.Files;
 
 /// <summary>
-/// Unit tests for an implementation of <see cref="IFileSaver"/>
+/// Tests saving with the <see cref="Memory{T}"/> overload of <see cref="IFileSaver.SaveAsync(Memory{byte}, string, CancellationToken)"/>
 /// </summary>
-public class FileSavingTests
+public class SaveOnArrayTests
 {
     private static readonly IFileSaver _fileSaver = new FileSaver();
     private readonly string _filePath = Path.Join(Directory.GetCurrentDirectory(), "/Assets/savedFile.png");
 
     /// <summary>
-    /// Checks if the file saver validates the arguments
+    /// Save should throw on an empty memory block
     /// </summary>
-    /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
+    /// <returns>A <see cref="Task"/></returns>
     [Fact]
-    public async Task MemorySave_ShouldThrowOnEmpty()
+    public async Task Save_Should_Throw_OnEmpty()
     {
         static async Task func() => await _fileSaver.SaveAsync(Array.Empty<byte>(), null!);
 
@@ -24,22 +21,22 @@ public class FileSavingTests
     }
 
     /// <summary>
-    /// Checks if the file saver validates the path being null
+    /// Save should throw when trying to save to a bad path
     /// </summary>
-    /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
+    /// <returns>A <see cref="Task"/></returns>
     [Fact]
-    public async Task MemorySave_ShowThrowOnPath()
+    public async Task Save_Should_Throw_OnPath()
     {
         static async Task func() => await _fileSaver.SaveAsync(new byte[] { 0, 1, 2 }, null!);
         await Assert.ThrowsAnyAsync<ArgumentNullException>(func);
     }
 
     /// <summary>
-    /// Should save the image correctly
+    /// Save should work as intended
     /// </summary>
-    /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
+    /// <returns></returns>
     [Fact]
-    public async Task MemorySave_ShouldWork()
+    public async Task Should_Save()
     {
         FileStream stream = File.OpenRead(_filePath);
 
@@ -52,7 +49,14 @@ public class FileSavingTests
             File.Delete(savePath);
         }
 
-        await _fileSaver.SaveAsync(stream, savePath);
+        MemoryStream memoryStream = new();
+
+
+        stream.CopyTo(memoryStream);
+
+        Memory<byte> memory = memoryStream.ToArray();
+
+        await _fileSaver.SaveAsync(memory, savePath);
 
         stream?.Dispose();
 

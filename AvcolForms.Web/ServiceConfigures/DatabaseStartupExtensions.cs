@@ -3,6 +3,8 @@
  * Copyright (c) 2022 Bradley Grover
  */
 
+using Microsoft.AspNetCore.Identity;
+
 namespace AvcolForms.Web.ServiceConfigures;
 
 /// <summary>
@@ -27,22 +29,29 @@ internal static class DatabaseServiceExtensions
             .EnableDetailedErrors()
             .EnableSensitiveDataLogging();
 #else
+            string migrationsAssembly = "AvcolForms.Core.Data.Migrations";
+
             switch (configuration.GetValue<string>("Db-Provider").ToUpper())
             {
                 case "SQLSERVER":
-                    options.UseSqlServer(connectionString);
+                    options.UseSqlServer(connectionString, x => x.MigrationsAssembly(migrationsAssembly));
                     break;
                 case "SQLITE":
-                    options.UseSqlite(connectionString);
+                    options.UseSqlite(connectionString, x => x.MigrationsAssembly(migrationsAssembly));
                     break;
                 case "POSTGRES":
-                    options.UseNpgsql(connectionString);
+                    options.UseNpgsql(connectionString, x => x.MigrationsAssembly(migrationsAssembly));
                     break;
                 default:
                     throw new InvalidOperationException($"{configuration.GetValue<string>("Db-Provider")} is not a valid provider, check documentation for valid ones");
             }
 #endif
         });
+
+        services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
         return services;
     }
 }

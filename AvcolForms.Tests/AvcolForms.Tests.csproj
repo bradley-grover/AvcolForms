@@ -40,10 +40,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AvcolForms.Core.Components\AvcolForms.Core.Components.csproj" />
     <ProjectReference Include="..\AvcolForms.Core.Data\AvcolForms.Core.Data.csproj" />
     <ProjectReference Include="..\AvcolForms.Core\AvcolForms.Core.csproj" />
     <ProjectReference Include="..\AvcolForms.Web\AvcolForms.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Integration\" />
   </ItemGroup>
 
 </Project>
