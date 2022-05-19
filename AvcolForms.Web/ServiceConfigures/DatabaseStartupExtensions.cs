@@ -3,6 +3,7 @@
  * Copyright (c) 2022 Bradley Grover
  */
 
+using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 
 namespace AvcolForms.Web.ServiceConfigures;
@@ -12,6 +13,10 @@ namespace AvcolForms.Web.ServiceConfigures;
 /// </summary>
 internal static class DatabaseServiceExtensions
 {
+    private const string SqliteProvider = "Sqlite";
+    private const string SqlServerProvider = "SqlServer";
+    private const string PostgresProvider = "Postgres";
+
     /// <summary>
     /// Adds the DbContext to the <see cref="IServiceCollection"/> with the specifed <see cref="IConfiguration"/>
     /// </summary>
@@ -23,24 +28,29 @@ internal static class DatabaseServiceExtensions
     {
         services.AddDbContextFactory<ApplicationDbContext>(options =>
         {
-            string connectionString = configuration.GetConnectionString("Default");
 #if DEBUG
             options.UseInMemoryDatabase("AvcolForms")
             .EnableDetailedErrors()
             .EnableSensitiveDataLogging();
 #else
-            string migrationsAssembly = "AvcolForms.Core.Data.Migrations";
+            string migrationsAssembly = "AvcolForms.Core.Data.Migrations.";
 
-            switch (configuration.GetValue<string>("Db-Provider").ToUpper())
+            switch (configuration.GetValue<string>("Db-Provider"))
             {
-                case "SQLSERVER":
-                    options.UseSqlServer(connectionString, x => x.MigrationsAssembly(migrationsAssembly));
+                case SqlServerProvider:
+                    migrationsAssembly += SqlServerProvider;
+                    options.UseSqlServer(configuration.GetConnectionString(SqlServerProvider), 
+                        x => x.MigrationsAssembly(migrationsAssembly));
                     break;
-                case "SQLITE":
-                    options.UseSqlite(connectionString, x => x.MigrationsAssembly(migrationsAssembly));
+                case SqliteProvider:
+                    migrationsAssembly += SqliteProvider;
+                    options.UseSqlite(configuration.GetConnectionString(SqliteProvider),
+                        x => x.MigrationsAssembly(migrationsAssembly));
                     break;
-                case "POSTGRES":
-                    options.UseNpgsql(connectionString, x => x.MigrationsAssembly(migrationsAssembly));
+                case PostgresProvider:
+                    migrationsAssembly += "Postgres";
+                    options.UseNpgsql(configuration.GetConnectionString(PostgresProvider), 
+                        x => x.MigrationsAssembly(migrationsAssembly));
                     break;
                 default:
                     throw new InvalidOperationException($"{configuration.GetValue<string>("Db-Provider")} is not a valid provider, check documentation for valid ones");
