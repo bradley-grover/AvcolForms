@@ -33,7 +33,7 @@ internal static class DatabaseServiceExtensions
             .EnableDetailedErrors()
             .EnableSensitiveDataLogging();
 #else
-            string migrationsAssembly = "AvcolForms.Core.Data.Migrations.";
+            string migrationsAssembly = "AvcolForms.Core.Data.";
 
             switch (configuration.GetValue<string>("Db-Provider"))
             {

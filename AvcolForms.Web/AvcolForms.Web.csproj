@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AvcolForms.Core.Data.Migrations.Sqlite\AvcolForms.Core.Data.Migrations.Sqlite.csproj" />
-    <ProjectReference Include="..\AvcolForms.Core.Data.Migrations.SqlServer\AvcolForms.Core.Data.Migrations.SqlServer.csproj" />
+    <ProjectReference Include="..\AvcolForms.Core.Data.Sqlite\AvcolForms.Core.Data.Sqlite.csproj" />
+    <ProjectReference Include="..\AvcolForms.Core.Data.SqlServer\AvcolForms.Core.Data.SqlServer.csproj" />
     <ProjectReference Include="..\AvcolForms.Core.Data\AvcolForms.Core.Data.csproj" />
     <ProjectReference Include="..\AvcolForms.Core\AvcolForms.Core.csproj" />
   </ItemGroup>

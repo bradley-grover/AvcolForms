@@ -60,7 +60,7 @@ public class CommandCollection : ICommandCollection
                     {
                         if (aliases.Aliases is not null)
                         {
-                            Array.ForEach(aliases.Aliases, alias => _aliases.Add(alias, methodName));
+                            //Array.ForEach(aliases.Aliases, alias => _aliases.Add(alias, methodName));
                         }
                     }
 
@@ -77,7 +77,7 @@ public class CommandCollection : ICommandCollection
                 {
                     if (aliases.Aliases is not null)
                     {
-                        Array.ForEach(aliases.Aliases, alias => _aliases.Add(alias, methodWithParamName));
+                        //Array.ForEach(aliases.Aliases, alias => _aliases.Add(alias, methodWithParamName));
                     }
                 }
             }
