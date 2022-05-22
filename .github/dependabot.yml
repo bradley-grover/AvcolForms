@@ -4,4 +4,5 @@ updates:
     directory: "/AvcolForms.Web"
     schedule:
       interval: "daily"
+    target-branch: "development"
     open-pull-requests-limit: 5
