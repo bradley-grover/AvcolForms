@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "nuget"
-  directory: "/AvcolForms.Web"
-  schedule:
-    interval: "daily"
+    directory: "/AvcolForms.Web"
+    schedule:
+      interval: "daily"
     open-pull-requests-limit: 5
