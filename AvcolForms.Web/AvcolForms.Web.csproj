@@ -19,6 +19,7 @@
     </PackageReference>
     <PackageReference Include="MudBlazor" Version="6.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
+   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AvcolForms.Core.Data.Sqlite\AvcolForms.Core.Data.Sqlite.csproj" />
