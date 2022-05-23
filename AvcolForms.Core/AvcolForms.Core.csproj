@@ -16,13 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.16" />
     <PackageReference Include="SendGrid" Version="9.28.0" />
-=======
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
-    <PackageReference Include="SendGrid" Version="9.27.0" />
->>>>>>> master
   </ItemGroup>
 
   <ItemGroup>
