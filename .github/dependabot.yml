@@ -41,3 +41,10 @@ updates:
       interval: "daily"
     target-branch: "development"
     open-pull-requests-limit: 5
+    
+  - package-ecosystem: "nuget"
+    directory: "/AvcolForms.Config.App" # config app
+    schedule:
+      interval: "daily"
+    target-branch: "development"
+    open-pull-requests-limit: 5
