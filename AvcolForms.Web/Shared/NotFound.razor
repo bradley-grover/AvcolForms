@@ -1,0 +1,19 @@
+﻿@inject NavigationManager NavigationManager;
+
+<MudAlert
+    Severity=Severity.Error 
+    ContentAlignment=HorizontalAlignment.Center     
+    Variant=Variant.Filled>
+    Error: 404 - Not Found
+</MudAlert>
+
+<MudButton OnClick="ReturnToHomePage">
+    Return to the home page
+</MudButton>
+
+@code {
+    void ReturnToHomePage()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

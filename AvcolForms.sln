@@ -1,17 +1,20 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Web", "AvcolForms.Web\AvcolForms.Web.csproj", "{969E9462-9BB3-43BE-8CEE-224D6FEA13B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Web", "AvcolForms.Web\AvcolForms.Web.csproj", "{969E9462-9BB3-43BE-8CEE-224D6FEA13B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Core.Data", "AvcolForms.Core.Data\AvcolForms.Core.Data.csproj", "{C6A8F39B-0C90-4CE3-86B9-84CD353DAD4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Data", "AvcolForms.Core.Data\AvcolForms.Core.Data.csproj", "{C6A8F39B-0C90-4CE3-86B9-84CD353DAD4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Core", "AvcolForms.Core\AvcolForms.Core.csproj", "{0D8F15B0-62E5-43E1-AEC4-C5BA729FD6E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core", "AvcolForms.Core\AvcolForms.Core.csproj", "{0D8F15B0-62E5-43E1-AEC4-C5BA729FD6E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Core.Components", "AvcolForms.Core.Components\AvcolForms.Core.Components.csproj", "{F9177998-2C8C-42F1-916F-D58852E87E02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Tests", "AvcolForms.Tests\AvcolForms.Tests.csproj", "{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Tests", "AvcolForms.Tests\AvcolForms.Tests.csproj", "{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Config.App", "AvcolForms.Config.App\AvcolForms.Config.App.csproj", "{74257001-F173-4357-923E-A33F5FED1A09}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Data.SqlServer", "AvcolForms.Core.Data.SqlServer\AvcolForms.Core.Data.SqlServer.csproj", "{E3A21999-C88E-4859-89C7-F07DE68579AA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Data.Sqlite", "AvcolForms.Core.Data.Sqlite\AvcolForms.Core.Data.Sqlite.csproj", "{264D360F-892C-4105-9074-3589ABDB000D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +34,22 @@ Global
 		{0D8F15B0-62E5-43E1-AEC4-C5BA729FD6E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D8F15B0-62E5-43E1-AEC4-C5BA729FD6E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D8F15B0-62E5-43E1-AEC4-C5BA729FD6E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9177998-2C8C-42F1-916F-D58852E87E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9177998-2C8C-42F1-916F-D58852E87E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9177998-2C8C-42F1-916F-D58852E87E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9177998-2C8C-42F1-916F-D58852E87E02}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3B50CD7-F8CB-4E43-A7D4-045DBA7D9302}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74257001-F173-4357-923E-A33F5FED1A09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3A21999-C88E-4859-89C7-F07DE68579AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3A21999-C88E-4859-89C7-F07DE68579AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3A21999-C88E-4859-89C7-F07DE68579AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3A21999-C88E-4859-89C7-F07DE68579AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{264D360F-892C-4105-9074-3589ABDB000D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{264D360F-892C-4105-9074-3589ABDB000D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{264D360F-892C-4105-9074-3589ABDB000D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{264D360F-892C-4105-9074-3589ABDB000D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
