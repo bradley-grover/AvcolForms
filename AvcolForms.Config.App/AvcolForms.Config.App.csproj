@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.4" />
-    <PackageReference Include="PrettyPrompt" Version="3.0.5" />
+    <PackageReference Include="PrettyPrompt" Version="3.0.6" />
     <PackageReference Include="System.Management.Automation" Version="7.2.4" />
   </ItemGroup>
 
