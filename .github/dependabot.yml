@@ -1,7 +1,42 @@
 version: 2
 updates:
   - package-ecosystem: "nuget"
-    directory: "/AvcolForms.Web"
+    directory: "/AvcolForms.Web" # web project
+    schedule:
+      interval: "daily"
+    target-branch: "development"
+    open-pull-requests-limit: 5
+    
+  - package-ecosystem: "nuget"
+    directory: "/AvcolForms.Core" # core lib
+    schedule:
+      interval: "daily"
+    target-branch: "development"
+    open-pull-requests-limit: 5
+    
+  - package-ecosystem: "nuget"
+    directory: "/AvcolForms.Tests" # test lib
+    schedule:
+      interval: "daily"
+    target-branch: "development"
+    open-pull-requests-limit: 5
+    
+  - package-ecosystem: "nuget"
+    directory: "/AvcolForms.Core.Data" # dal lib
+    schedule:
+      interval: "daily"
+    target-branch: "development"
+    open-pull-requests-limit: 5
+    
+  - package-ecosystem: "nuget"
+    directory: "/AvcolForms.Core.Data.Sqlite" # sqlite migrations
+    schedule:
+      interval: "daily"
+    target-branch: "development"
+    open-pull-requests-limit: 5
+    
+  - package-ecosystem: "nuget"
+    directory: "/AvcolForms.Core.Data.SqlServer" # sql-server migrations
     schedule:
       interval: "daily"
     target-branch: "development"
