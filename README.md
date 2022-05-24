@@ -14,6 +14,15 @@ Blazor Server App used for managing and creating forms
 ## Prerequsites:
 - .NET 6 runtime
 
+## Notes:
+- Before running the project I advise you to configure some things as you may not like the defaults
+### Database & Entity Framework Core:
+- If your run your project in debug it will use [an in memory provider](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory)
+- If you run in release it will use the selected provider and run the `Database.EnsureCreated()` function which creates the db if it doesn't exist already
+- Db-Provider in [./appsettings.json](https://github.com/ac111897/AvcolForms/master/AvcolForms.Web/appsettings.json)
+
+
+
 ## Git Commands:
 ### Running the web project
 1. ```git clone https://github.com/ac111897/AvcolForms.git```
