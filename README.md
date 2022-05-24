@@ -13,6 +13,19 @@ Blazor Server App used for managing and creating forms
 # Installation/Running
 ## Prerequsites:
 - .NET 6 runtime
+- Powershell Script Exectuion Access (Optional), this is to generate migrations faster you don't actually need this
+
+## Notes:
+- Before running the project I advise you to configure some things as you may not like the defaults
+### Database & Entity Framework Core:
+- If your run your project in debug it will use [an in memory provider](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory)
+- If you run in release it will use the selected provider and run the `Database.EnsureCreated()` function which creates the db if it doesn't exist already
+- Db-Provider in [./appsettings.json](https://github.com/ac111897/AvcolForms/master/AvcolForms.Web/appsettings.json)
+- Once the provider is set you can use the powershell scripts in the project root to create a migration
+- You should run `./setup.ps1` if you don't have Entity Framework Tools installed, or if you need to update them as you might need to update them for new versions of the app
+- To run for a provider the syntax is `./[provider-name]-migrate.ps1 [migration-name]`
+- For example `./sqlite-migrate.ps1 InitialCreate`
+
 
 ## Git Commands:
 ### Running the web project
@@ -30,3 +43,7 @@ Blazor Server App used for managing and creating forms
 [Web Project README](https://github.com/ac111897/AvcolForms/tree/master/AvcolForms.Web/README.MD)</br>
 [Core Library README](https://github.com/ac111897/AvcolForms/tree/master/AvcolForms.Core/README.MD)</br>
 [Data Library README](https://github.com/ac111897/AvcolForms/tree/master/AvcolForms.Core.Data/README.MD)</br>
+
+### Special thanks to these libraries
+<img src="./resources/mudblazor-logo.png" width="100" height="100" alt="MudBlazor">
+<a href="https://mudblazor.com">MudBlazor</a>
