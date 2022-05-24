@@ -40,6 +40,7 @@ public class Startup
         services.AddServerSideBlazor();
 
         services.AddDb(Configuration);
+        services.AddSingletons();
 
         services.AddDatabaseDeveloperPageExceptionFilter();
     }

@@ -3,7 +3,7 @@
 namespace AvcolForms.Tests.Unit.Core.Files;
 
 /// <summary>
-/// Tests for when an form file is save using <see cref="IFil"/>
+/// Tests for when an form file is save using <see cref="IFileSaver"/>
 /// </summary>
 public class SaveOnFormFile
 {
