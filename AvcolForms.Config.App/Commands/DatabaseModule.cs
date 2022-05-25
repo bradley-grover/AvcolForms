@@ -23,34 +23,30 @@ public class DatabaseModule
 
         var iss = InitialSessionState.CreateDefault2();
 
+
         iss.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Bypass;
 
         using var ps = PowerShell.Create(iss);
 
+        ps.Runspace.SessionStateProxy.Path.SetLocation(result);
+
         string path = Path.Join(result, "sqlite-migrate.ps1");
 
-        ps.AddScript(path)
+        PSDataCollection<PSObject> output = new();
+
+        output.DataAdded += Output_DataAdded;
+
+        ps.AddCommand(path)
             .AddArgument(parameters.FirstOrDefault());
 
+        var res = ps.BeginInvoke<PSObject, PSObject>(null, output);
 
+        res.AsyncWaitHandle.WaitOne();
+    }
 
-        var psResults = await ps.InvokeAsync();
-
-
-        var stringBuilder = new StringBuilder();
-
-
-        foreach (PSObject obj in psResults)
-        {
-            Console.WriteLine(obj.ToString());
-        }
-
-        if (ps.HadErrors)
-        {
-            foreach (var error in ps.Streams.Error)
-            {
-                Console.WriteLine(error.Exception.Message);
-            }
-        }
+    private static void Output_DataAdded(object? sender, DataAddedEventArgs e)
+    {
+        PSObject newRecord = ((PSDataCollection<PSObject>)sender!)[e.Index];
+        Console.WriteLine(newRecord);
     }
 }
