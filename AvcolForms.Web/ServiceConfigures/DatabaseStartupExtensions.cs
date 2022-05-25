@@ -13,9 +13,11 @@ namespace AvcolForms.Web.ServiceConfigures;
 /// </summary>
 internal static class DatabaseServiceExtensions
 {
+#if !DEBUG
     private const string SqliteProvider = "Sqlite";
     private const string SqlServerProvider = "SqlServer";
     private const string PostgresProvider = "Postgres";
+#endif
 
     /// <summary>
     /// Adds the DbContext to the <see cref="IServiceCollection"/> with the specifed <see cref="IConfiguration"/>
