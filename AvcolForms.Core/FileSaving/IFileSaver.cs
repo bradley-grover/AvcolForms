@@ -13,7 +13,7 @@ public interface IFileSaver
     /// <param name="data"></param>
     /// <param name="path"></param>
     /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
     Task SaveAsync(Memory<byte> data, string path, CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -22,7 +22,7 @@ public interface IFileSaver
     /// <param name="stream"></param>
     /// <param name="path"></param>
     /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
     Task SaveAsync(Stream stream, string path, CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -31,6 +31,6 @@ public interface IFileSaver
     /// <param name="file"></param>
     /// <param name="path"></param>
     /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
     Task SaveAsync(IFormFile file, string path, CancellationToken cancellationToken = default);
 }

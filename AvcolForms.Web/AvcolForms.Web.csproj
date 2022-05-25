@@ -22,6 +22,7 @@
    </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AvcolForms.Core.Data.Postgres\AvcolForms.Core.Data.Postgres.csproj" />
     <ProjectReference Include="..\AvcolForms.Core.Data.Sqlite\AvcolForms.Core.Data.Sqlite.csproj" />
     <ProjectReference Include="..\AvcolForms.Core.Data.SqlServer\AvcolForms.Core.Data.SqlServer.csproj" />
     <ProjectReference Include="..\AvcolForms.Core.Data\AvcolForms.Core.Data.csproj" />
