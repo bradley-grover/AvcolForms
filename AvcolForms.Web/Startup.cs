@@ -39,6 +39,9 @@ public class Startup
         services.AddRazorPages();
         services.AddServerSideBlazor();
 
+        services.AddOptions();
+        services.AddAuthorizationCore();
+
         services.AddDb(Configuration);
         services.AddSingletons();
 

@@ -30,7 +30,7 @@ internal static class DatabaseServiceExtensions
             .EnableSensitiveDataLogging();
 #else
 
-            switch (configuration.GetValue<string>("Db-Provider"))
+            switch (configuration.GetValue<string>(Providers.DbProviderKey))
             {
                 case Providers.SqlServerProvider:
                     options.UseSqlServer(configuration.GetConnectionString(Providers.SqlServerProvider), 
@@ -45,7 +45,7 @@ internal static class DatabaseServiceExtensions
                         x => x.MigrationsAssembly(Providers.PostgresAssembly));
                     break;
                 default:
-                    throw new InvalidOperationException($"{configuration.GetValue<string>("Db-Provider")} is not a valid provider, check documentation for valid ones");
+                    throw new InvalidOperationException($"{configuration.GetValue<string>(Providers.DbProviderKey)} is not a valid provider, check documentation for valid ones");
             }
 #endif
         });
