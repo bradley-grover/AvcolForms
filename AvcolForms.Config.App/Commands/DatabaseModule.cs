@@ -2,6 +2,8 @@
 using System.Management.Automation.Runspaces;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
+using AvcolForms.Core.Data;
 
 namespace AvcolForms.Config.App.Commands;
 
@@ -22,13 +24,23 @@ public class DatabaseModule
         string provider = parameters[0];
         string migrationName = parameters[1];
 
-        var json = File.ReadAllText("config-appsettings.json");
-        var appSettings = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-        var result = appSettings.RootElement.GetProperty("Solution-Directory").GetString();
-
-        if (result is null)
+        if (!TryGetWorkingDirectory(out var result))
         {
-            Console.WriteLine("Solution-Directory is not configured");
+            Console.WriteLine("Couldn't get working directory");
+            return;
+        }
+
+
+        string webConfigurationPath = Path.Join(result, "/AvcolForms.Web/appsettings.json");
+
+
+        var webJson = File.ReadAllText(webConfigurationPath);
+
+        var node = JsonNode.Parse(webJson);
+
+        if (node is null)
+        {
+            Console.WriteLine("Failed to pass frontend web config check AvcolForms.Web/");
             return;
         }
 
@@ -50,6 +62,32 @@ public class DatabaseModule
                 return;
         }
 
+
+        node[Providers.DbProviderKey] = Enum.GetName(Providers.GetProvider(provider)!.Value);
+
+        await File.WriteAllTextAsync(webConfigurationPath, JsonSerializer.Serialize(node, options: new()
+        {
+            WriteIndented = true,
+        }));
+
+
+        RunPowershellScript(path, result!, migrationName);
+    }
+
+    private static bool TryGetWorkingDirectory(out string? value)
+    {
+        var json = File.ReadAllText("config-appsettings.json");
+
+        var appSettings = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+
+        value = appSettings.RootElement.GetProperty("Solution-Directory").GetString();
+
+        return value is not null;
+    }
+
+
+    private static void RunPowershellScript(string path, string dir, string migrationName)
+    {
         var iss = InitialSessionState.CreateDefault2();
 
 
@@ -57,14 +95,14 @@ public class DatabaseModule
 
         using var ps = PowerShell.Create(iss);
 
-        ps.Runspace.SessionStateProxy.Path.SetLocation(result);
+        ps.Runspace.SessionStateProxy.Path.SetLocation(dir);
 
         PSDataCollection<PSObject> output = new();
 
         output.DataAdded += Output_DataAdded;
 
         ps.AddCommand(path)
-            .AddArgument(parameters.FirstOrDefault());
+            .AddArgument(migrationName);
 
         var res = ps.BeginInvoke<PSObject, PSObject>(null, output);
 
@@ -95,6 +133,12 @@ public class DatabaseModule
         if (parameters[1] is null)
         {
             errorMessage = $"Command requires migration name: {Usage}";
+            return false;
+        }
+
+        if (!Providers.IsSupportedProvider(parameters[0]))
+        {
+            errorMessage = $"Provider is not supported";
             return false;
         }
 
