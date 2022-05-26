@@ -45,5 +45,6 @@ Blazor Server App used for managing and creating forms
 [Data Library README](https://github.com/ac111897/AvcolForms/tree/master/AvcolForms.Core.Data/README.MD)</br>
 
 ### Libraries Used
-<img src="./resources/mudblazor-logo.png" width="100" height="100" alt="MudBlazor" width="18%"><img 
+<img src="./resources/dotnet-logo.png" width="100" height="100" alt="dotnet" width="18%"><img 
+                                                                                              src="./resources/mudblazor-logo.png" width="100" height="100" alt="MudBlazor" width="18%"><img 
                                                                                                     src="./resources/blazor-logo.png" width="100" height="100" alt="Blazor" width="18%">
