@@ -2,55 +2,154 @@
 using System.Management.Automation.Runspaces;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
+using AvcolForms.Core.Data;
 
 namespace AvcolForms.Config.App.Commands;
 
 [Module("Database", "Commands Related to the database")]
 public class DatabaseModule
 {
+    private const string Usage = "migrate [provider] [migration-name]";
+
     [Command("migrate", "migrates a provider")]
     public static async Task CreateMigrationAsync(string[] parameters)
     {
-        var json = File.ReadAllText("config-appsettings.json");
-        var appSettings = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-        var result = appSettings.RootElement.GetProperty("Solution-Directory").GetString();
-
-        if (result is null)
+        if (!ValidateParameters(parameters, out var err))
         {
-            Console.WriteLine("Solution-Directory is not configured");
+            Console.WriteLine(err);
             return;
         }
 
+        string provider = parameters[0];
+        string migrationName = parameters[1];
+
+        if (!TryGetWorkingDirectory(out var result))
+        {
+            Console.WriteLine("Couldn't get working directory");
+            return;
+        }
+
+
+        string webConfigurationPath = Path.Join(result, "/AvcolForms.Web/appsettings.json");
+
+
+        var webJson = File.ReadAllText(webConfigurationPath);
+
+        var node = JsonNode.Parse(webJson);
+
+        if (node is null)
+        {
+            Console.WriteLine("Failed to pass frontend web config check AvcolForms.Web/");
+            return;
+        }
+
+        string path;
+
+        switch (provider.ToLower())
+        {
+            case "sqlite":
+                path = Path.Join(result, "sqlite-migrate.ps1");
+                break;
+            case "sqlserver":
+                path = Path.Join(result, "sqlserver-migrate.ps1");
+                break;
+            case "postgres":
+                path = Path.Join(result, "postgres-migrate.ps1");
+                break;
+            default:
+                Console.WriteLine($"{provider} is not a valid provider");
+                return;
+        }
+
+
+        node[Providers.DbProviderKey] = Enum.GetName(Providers.GetProvider(provider)!.Value);
+
+        await File.WriteAllTextAsync(webConfigurationPath, JsonSerializer.Serialize(node, options: new()
+        {
+            WriteIndented = true,
+        }));
+
+
+        RunPowershellScript(path, result!, migrationName);
+    }
+
+    private static bool TryGetWorkingDirectory(out string? value)
+    {
+        var json = File.ReadAllText("config-appsettings.json");
+
+        var appSettings = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
+
+        value = appSettings.RootElement.GetProperty("Solution-Directory").GetString();
+
+        return value is not null;
+    }
+
+
+    private static void RunPowershellScript(string path, string dir, string migrationName)
+    {
         var iss = InitialSessionState.CreateDefault2();
+
 
         iss.ExecutionPolicy = Microsoft.PowerShell.ExecutionPolicy.Bypass;
 
         using var ps = PowerShell.Create(iss);
 
-        string path = Path.Join(result, "sqlite-migrate.ps1");
+        ps.Runspace.SessionStateProxy.Path.SetLocation(dir);
 
-        ps.AddScript(path)
-            .AddArgument(parameters.FirstOrDefault());
+        PSDataCollection<PSObject> output = new();
+
+        output.DataAdded += Output_DataAdded;
+
+        ps.AddCommand(path)
+            .AddArgument(migrationName);
+
+        var res = ps.BeginInvoke<PSObject, PSObject>(null, output);
+
+        res.AsyncWaitHandle.WaitOne();
+    }
 
 
-
-        var psResults = await ps.InvokeAsync();
-
-
-        var stringBuilder = new StringBuilder();
-
-
-        foreach (PSObject obj in psResults)
+    private static bool ValidateParameters(string[] parameters, out string errorMessage)
+    {
+        if (parameters is null)
         {
-            Console.WriteLine(obj.ToString());
+            errorMessage = $"Command should have paramters: {Usage}";
+            return false;
         }
 
-        if (ps.HadErrors)
+        if (parameters.FirstOrDefault() is null)
         {
-            foreach (var error in ps.Streams.Error)
-            {
-                Console.WriteLine(error.Exception.Message);
-            }
+            errorMessage = $"Command requires provider: {Usage}";
+            return false;
         }
+
+        if (!(parameters.Length == 2))
+        {
+            errorMessage = $"Command requires 2 parameters: {Usage}";
+            return false;
+        }
+
+        if (parameters[1] is null)
+        {
+            errorMessage = $"Command requires migration name: {Usage}";
+            return false;
+        }
+
+        if (!Providers.IsSupportedProvider(parameters[0]))
+        {
+            errorMessage = $"Provider is not supported";
+            return false;
+        }
+
+        errorMessage = string.Empty;
+
+        return true;
+    }
+
+    private static void Output_DataAdded(object? sender, DataAddedEventArgs e)
+    {
+        PSObject newRecord = ((PSDataCollection<PSObject>)sender!)[e.Index];
+        Console.WriteLine(newRecord);
     }
 }

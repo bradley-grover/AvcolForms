@@ -23,4 +23,8 @@
     <PackageReference Include="System.Management.Automation" Version="7.2.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AvcolForms.Core.Data\AvcolForms.Core.Data.csproj" />
+  </ItemGroup>
+
 </Project>

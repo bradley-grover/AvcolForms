@@ -13,10 +13,6 @@ namespace AvcolForms.Web.ServiceConfigures;
 /// </summary>
 internal static class DatabaseServiceExtensions
 {
-    private const string SqliteProvider = "Sqlite";
-    private const string SqlServerProvider = "SqlServer";
-    private const string PostgresProvider = "Postgres";
-
     /// <summary>
     /// Adds the DbContext to the <see cref="IServiceCollection"/> with the specifed <see cref="IConfiguration"/>
     /// </summary>
@@ -33,24 +29,20 @@ internal static class DatabaseServiceExtensions
             .EnableDetailedErrors()
             .EnableSensitiveDataLogging();
 #else
-            string migrationsAssembly = "AvcolForms.Core.Data.";
 
             switch (configuration.GetValue<string>("Db-Provider"))
             {
-                case SqlServerProvider:
-                    migrationsAssembly += SqlServerProvider;
-                    options.UseSqlServer(configuration.GetConnectionString(SqlServerProvider), 
-                        x => x.MigrationsAssembly(migrationsAssembly));
+                case Providers.SqlServerProvider:
+                    options.UseSqlServer(configuration.GetConnectionString(Providers.SqlServerProvider), 
+                        x => x.MigrationsAssembly(Providers.SqlServerAssembly));
                     break;
-                case SqliteProvider:
-                    migrationsAssembly += SqliteProvider;
-                    options.UseSqlite(configuration.GetConnectionString(SqliteProvider),
-                        x => x.MigrationsAssembly(migrationsAssembly));
+                case Providers.SqliteProvider:
+                    options.UseSqlite(configuration.GetConnectionString(Providers.SqliteProvider),
+                        x => x.MigrationsAssembly(Providers.SqliteAssembly));
                     break;
-                case PostgresProvider:
-                    migrationsAssembly += "Postgres";
-                    options.UseNpgsql(configuration.GetConnectionString(PostgresProvider), 
-                        x => x.MigrationsAssembly(migrationsAssembly));
+                case Providers.PostgresProvider:
+                    options.UseNpgsql(configuration.GetConnectionString(Providers.PostgresProvider), 
+                        x => x.MigrationsAssembly(Providers.PostgresAssembly));
                     break;
                 default:
                     throw new InvalidOperationException($"{configuration.GetValue<string>("Db-Provider")} is not a valid provider, check documentation for valid ones");
