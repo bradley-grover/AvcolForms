@@ -11,9 +11,9 @@ Blazor Server App used for managing and creating forms
 ![Website](https://img.shields.io/website?down_color=red&label=website-docs&up_message=online%21&url=https%3A%2F%2Facvolforms-docs.ac111897.repl.co)
 
 # Installation/Running
-## Prerequsites:
+## Prerequisites:
 - .NET 6 runtime
-- Powershell Script Exectuion Access (Optional), this is to generate migrations faster you don't actually need this
+- Powershell Script Exectuion Access (Optional), this is to generate migrations faster you don't actually need this, although to run ef scripts you should build in release
 
 ## Notes:
 - Before running the project I advise you to configure some things as you may not like the defaults
@@ -44,6 +44,7 @@ Blazor Server App used for managing and creating forms
 [Core Library README](https://github.com/ac111897/AvcolForms/tree/master/AvcolForms.Core/README.MD)</br>
 [Data Library README](https://github.com/ac111897/AvcolForms/tree/master/AvcolForms.Core.Data/README.MD)</br>
 
-### Special thanks to these libraries
-<img src="./resources/mudblazor-logo.png" width="100" height="100" alt="MudBlazor">
-<a href="https://mudblazor.com">MudBlazor</a>
+### Libraries Used
+<img src="./resources/dotnet-logo.png" width="100" height="100" alt="dotnet" width="18%"><img 
+                                                                                              src="./resources/mudblazor-logo.png" width="100" height="100" alt="MudBlazor" width="18%"><img 
+                                                                                                    src="./resources/blazor-logo.png" width="100" height="100" alt="Blazor" width="18%">
