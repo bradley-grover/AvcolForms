@@ -44,6 +44,7 @@ public class Startup
 
         services.AddDb(Configuration);
         services.AddSingletons();
+        services.AddScopedServices();
 
         services.AddDatabaseDeveloperPageExceptionFilter();
     }

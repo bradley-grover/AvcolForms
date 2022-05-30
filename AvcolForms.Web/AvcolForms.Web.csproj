@@ -29,4 +29,8 @@
     <ProjectReference Include="..\AvcolForms.Core\AvcolForms.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\" />
+  </ItemGroup>
+
 </Project>
