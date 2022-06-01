@@ -4,9 +4,17 @@
             <AuthorizeRouteView RouteData="@routeData" 
                 DefaultLayout="@typeof(MainLayout)">
                 <NotAuthorized>
-                    <h1>Sorry</h1>
-                    <p>You're not authorized to reach this page.</p>
-                    <p>You may need to log in as a different user.</p>
+                    @if (!context!.User!.Identity!.IsAuthenticated)
+                    {
+                        <LoginRedirect></LoginRedirect>
+                    }
+                    else
+                    {
+                        <h1>Sorry</h1>
+                        <p>You're not authorized to reach this page.</p>
+                        <p>You may need to log in as a different user.</p>
+                    }
+
                 </NotAuthorized>
                 <Authorizing>
                     <h1>Authorization in progress</h1>
