@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using SendGrid;
-using SendGrid.Helpers.Mail;
+using MailKit;
+using MimeKit;
+using MimeKit.Text;
+using MailKit.Net.Smtp;
 
 namespace AvcolForms.Core.Email;
 
@@ -18,62 +20,54 @@ public class EmailSender : IEmailSender
     /// </summary>
     /// <param name="options">Options to configure authentication for the email client</param>
     /// <param name="logger">Logger to log events</param>
-    public EmailSender(IOptions<AuthMessageSenderOptions> options, ILogger<IEmailSender> logger)
+    public EmailSender(IOptions<EmailSettings> options, ILogger<IEmailSender> logger)
     {
         Options = options.Value;
         Logger = logger;
     }
 
     /// <summary>
-    /// Authorizes clients
+    /// Settings used for the email sender
     /// </summary>
-    public AuthMessageSenderOptions Options { get; }
+    public EmailSettings Options { get; }
 
     /// <inheritdoc></inheritdoc>
     public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
-        if (string.IsNullOrEmpty(Options.SendGridKey))
-        {
-            throw new InvalidOperationException($"{nameof(Options.SendGridKey)} is not configured");
-        }
-
-        await ExecuteAsync(Options.SendGridKey, subject, htmlMessage, email);
+        await ExecuteAsync(subject, htmlMessage, email);
     }
 
 
     /// <summary>
     /// Operation of sending a user an email
     /// </summary>
-    /// <param name="apiKey">Api key for the email client</param>
     /// <param name="subject">The subject of the email</param>
     /// <param name="message">The message of the email</param>
     /// <param name="toEmail"></param>
     /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
-    public async Task ExecuteAsync(string apiKey, string subject, string message, string toEmail)
+    public async Task ExecuteAsync(string subject, string message, string toEmail)
     {
-        var client = new SendGridClient(apiKey);
-
-        var sendGridMessage = new SendGridMessage()
+        var email = new MimeMessage
         {
-            From = new EmailAddress("joe@contoso.com", "Password Recovery"),
+            Sender = MailboxAddress.Parse(Options.FromEmail),
             Subject = subject,
-            PlainTextContent = message,
-            HtmlContent = message
+            Body = new TextPart(TextFormat.Html) { Text = message }
         };
 
-        sendGridMessage.AddTo(toEmail);
+        email.Sender.Name = Options.SenderName;
 
-        sendGridMessage.SetClickTracking(false, false); // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html for relevant implications of this setting being applied on the email
+        email.From.Add(email.Sender);
 
-        var response = await client.SendEmailAsync(sendGridMessage).ConfigureAwait(false);
+        email.To.Add(MailboxAddress.Parse(toEmail));
 
-        if (response.IsSuccessStatusCode)
-        {
-            Logger.LogInformation("Email to {toEmail} queued successfully", toEmail);
-        }
-        else
-        {
-            Logger.LogInformation("Email to {toEmail} has failed", toEmail);
-        }
+        using var smtpClient = new SmtpClient();
+
+        await smtpClient.ConnectAsync(Options.SmtpServer, Options.Port, true).ConfigureAwait(false);
+
+        await smtpClient.AuthenticateAsync(Options.UserName, Options.Password).ConfigureAwait(false);
+
+        var response = await smtpClient.SendAsync(email).ConfigureAwait(false);
+
+        Logger.LogInformation("{response}", response);
     }
 }

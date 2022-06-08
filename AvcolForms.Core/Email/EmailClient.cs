@@ -3,9 +3,6 @@
  * Copyright (c) 2022 Bradley Grover
  */
 
-using SendGrid;
-using SendGrid.Helpers.Mail;
-
 namespace AvcolForms.Core.Email;
 
 /// <summary>
