@@ -34,6 +34,7 @@ public class EmailSender : IEmailSender
     /// <inheritdoc></inheritdoc>
     public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
+        Logger.LogInformation("Executing sending email operation to {email}", email);
         await ExecuteAsync(subject, htmlMessage, email);
     }
 

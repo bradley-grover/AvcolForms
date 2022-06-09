@@ -17,7 +17,7 @@ internal static class TransientConfigures
     internal static IServiceCollection AddTransientServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<IEmailSender, EmailSender>();
-        services.Configure<EmailSettings>(configuration);
+        services.Configure<EmailSettings>(configuration.GetSection(nameof(EmailSettings)));
 
         return services;
     }
