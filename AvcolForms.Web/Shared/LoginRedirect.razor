@@ -1,7 +1,7 @@
 ﻿@inject NavigationManager UriHelper
 
 @code {
-    protected override void OnAfterRender(bool firstRender)
+    protected override void OnInitialized()
     {
         UriHelper.NavigateTo("/Identity/Account/Login");
     }
