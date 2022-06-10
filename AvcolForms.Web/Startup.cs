@@ -37,6 +37,7 @@ public class Startup
     {
         services.AddMudServices();
         services.AddRazorPages();
+        services.AddControllers();
         services.AddServerSideBlazor();
 
         services.AddOptions();
@@ -74,6 +75,7 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapControllers();
             endpoints.MapBlazorHub();
             endpoints.MapFallbackToPage("/_Host");
         });

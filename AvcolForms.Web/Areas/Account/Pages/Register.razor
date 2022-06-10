@@ -1,0 +1,61 @@
+﻿@page "/account/register"
+@layout MainLayout
+@inject UserManager<IdentityUser> UserManager;
+@inject NavigationManager NavManager;
+
+<EditForm Model="@Registration" OnValidSubmit="@RegisterAsync">
+<DataAnnotationsValidator/>
+<MudGrid>
+    <MudItem xs="12" sm="7">
+        <MudCard>
+            <MudCardContent>
+                <MudTextField Label="Email" Class="mt-3"
+                              @bind-Value="Registration.Email" For="@(() => Registration.Email)"/>
+                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                              @bind-Value="Registration.Password" For="@(() => Registration.Password)" InputType="InputType.Password"/>
+                <MudTextField Label="Password" HelperText="Repeat the password" Class="mt-3"
+                              @bind-Value="Registration.ConfirmPassword" For="@(() => Registration.ConfirmPassword)" InputType="InputType.Password"/>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="12" sm="5">
+        <MudPaper Class="pa-4 mud-height-full">
+            <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
+            @if (success)
+            {
+                <MudText Color="Color.Success">Success</MudText>
+            }
+            else
+            {
+                <MudText Color="@Color.Error">
+                    <ValidationSummary />
+                </MudText>
+            }
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12">
+        <MudText Typo="Typo.body2" Align="Align.Center">
+            Fill out the form correctly to see the success message.
+        </MudText>
+    </MudItem>
+</MudGrid>
+</EditForm>
+
+@code {
+    RegisterAccount Registration = new();
+    bool success;
+
+    async Task RegisterAsync()
+    {
+        var result = await UserManager.CreateAsync(new IdentityUser { UserName = Registration.Email, Email = Registration.Email, EmailConfirmed = true }, Registration.Password);
+
+        if (result.Succeeded)
+        {
+            NavManager.NavigateTo("account/login");
+            return;
+        }
+    }
+}
