@@ -1,7 +1,16 @@
 ﻿@page "/"
+@attribute [Authorize]
+@inject AuthenticationStateProvider authenticationStateProvider
 
 <PageTitle>Home</PageTitle>
 
 <MudText>
-    Hello From Home!
+    Logged in!
 </MudText>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await authenticationStateProvider.GetAuthenticationStateAsync();
+    }
+}

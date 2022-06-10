@@ -44,7 +44,7 @@ public class Startup
         services.AddAuthorizationCore();
 
         services.AddDb(Configuration);
-        services.AddSingletons();
+        services.AddSingletons(Configuration);
         services.AddScopedServices();
         services.AddTransientServices(Configuration);
 
