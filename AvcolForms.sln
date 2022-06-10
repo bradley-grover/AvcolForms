@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Data.Sqlite
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Data.Postgres", "AvcolForms.Core.Data.Postgres\AvcolForms.Core.Data.Postgres.csproj", "{8337F91F-8ACA-4E37-B4AE-6158BEA40998}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvcolForms.Core.Components", "AvcolForms.Core.Components\AvcolForms.Core.Components.csproj", "{33F1D667-0123-4DA3-B7A1-ED01B97E8F7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvcolForms.Core.Components", "AvcolForms.Core.Components\AvcolForms.Core.Components.csproj", "{33F1D667-0123-4DA3-B7A1-ED01B97E8F7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
