@@ -13,7 +13,7 @@ public class PrivacyRetriever : IPrivacyRetriever
 
     private string? _privacyContent = null;
     private bool retrieved;
-    private object _lock = new();
+    private readonly object _lock = new();
 
     /// <summary>
     /// 
