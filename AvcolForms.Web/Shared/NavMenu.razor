@@ -1,3 +1,31 @@
-﻿<MudNavMenu>
+﻿@inject IDialogService Dialog;
+@inject NavigationManager NavManager;
+
+<MudNavMenu>
     <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
 </MudNavMenu>
+<AuthorizeView>
+    <MudNavLink Href="/account" Icon="@Icons.Material.Filled.AccountCircle">Account</MudNavLink>
+    <MudNavLink Icon="@Icons.Material.Filled.Logout" OnClick="@Logout">Logout</MudNavLink>
+</AuthorizeView>
+
+@code {
+    async void Logout()
+    {
+        var parameters = new DialogParameters();
+        parameters.Add("ContentText", "Do you really want to logout?");
+        parameters.Add("ButtonText", "Sign Out");
+        parameters.Add("Color", Color.Error);
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = Dialog.Show<DeleteConfirmation>("Logout", parameters, options);
+
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            NavManager.NavigateTo("/account/logout", forceLoad: true);
+        }
+    }
+}

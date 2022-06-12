@@ -1,0 +1,76 @@
+﻿@page "/account/register"
+@page "/register"
+@layout MainLayout
+@inject UserManager<IdentityUser> UserManager;
+@inject NavigationManager NavManager;
+@inject IDialogService Dialog;
+
+<MudBreadcrumbs Items="@items"></MudBreadcrumbs>
+
+<MudText Typo="Typo.h2">
+    Register
+</MudText>
+
+<EditForm Model="@Registration" OnValidSubmit="@RegisterAsync">
+<DataAnnotationsValidator/>
+<MudGrid>
+    <MudItem xs="12" sm="7">
+        <MudCard>
+            <MudCardContent>
+                <MudTextField Label="Email" Class="mt-3"
+                              @bind-Value="Registration.Email" For="@(() => Registration.Email)"/>
+                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                              @bind-Value="Registration.Password" For="@(() => Registration.Password)" InputType="InputType.Password"/>
+                <MudTextField Label="Confirm Password" HelperText="Repeat the password" Class="mt-3"
+                              @bind-Value="Registration.ConfirmPassword" For="@(() => Registration.ConfirmPassword)" InputType="InputType.Password"/>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="@OpenDialogAsync" Variant="Variant.Filled" Color="Color.Primary">Privacy Policy</MudButton>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+</EditForm>
+
+<MudSpacer/>
+<MudButton Color="Color.Transparent" OnClick="@(() => GoToLogin())">
+    Already have an account? Click here to login
+</MudButton>
+
+@code {
+    private List<BreadcrumbItem> items = new()
+    {
+        new("Account", href: null, disabled: true, Icons.Material.Filled.AccountCircle),
+        new("Register", href: null, disabled: true, Icons.Material.Filled.AppRegistration)
+    };
+    RegisterAccount Registration = new();
+    bool acceptedLicense;
+    bool success;
+
+    void GoToLogin()
+    {
+        NavManager.NavigateTo("/account/login");
+    }
+
+    async Task OpenDialogAsync()
+    {
+        var result = await Dialog.Show<PrivacyDialog>("Privacy Policy").Result;
+
+        if (!result.Cancelled)
+        {
+            acceptedLicense = (bool)(result.Data ?? false);
+        }
+    }
+
+    async Task RegisterAsync()
+    {
+        var result = await UserManager.CreateAsync(new IdentityUser { UserName = Registration.Email, Email = Registration.Email, EmailConfirmed = true }, Registration.Password);
+
+        if (result.Succeeded)
+        {
+            NavManager.NavigateTo("account/login");
+            return;
+        }
+    }
+}

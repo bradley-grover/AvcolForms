@@ -1,4 +1,5 @@
 ﻿using AvcolForms.Core.FileSaving;
+using AvcolForms.Core.Privacy;
 
 namespace AvcolForms.Web.ServiceConfigures;
 
@@ -12,9 +13,13 @@ internal static class SingletonConfigures
     /// </summary>
     /// <param name="services">The service collection to configure</param>
     /// <returns>The same <see cref="IServiceCollection"/> used for chaining</returns>
-    internal static IServiceCollection AddSingletons(this IServiceCollection services)
+    internal static IServiceCollection AddSingletons(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<IFileSaver, FileSaver>();
+
+        services.Configure<PrivacyOptions>(configuration.GetSection(nameof(PrivacyOptions)));
+
+        services.AddSingleton<IPrivacyRetriever, PrivacyRetriever>();
 
         return services;
     }
