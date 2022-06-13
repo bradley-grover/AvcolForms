@@ -1,9 +1,7 @@
 ﻿@page "/account/register"
 @page "/register"
 @layout MainLayout
-@inject UserManager<IdentityUser> UserManager;
-@inject NavigationManager NavManager;
-@inject IDialogService Dialog;
+
 
 <MudBreadcrumbs Items="@items"></MudBreadcrumbs>
 
@@ -13,6 +11,7 @@
 
 <EditForm Model="@Registration" OnValidSubmit="@RegisterAsync">
 <DataAnnotationsValidator/>
+<ValidationSummary/>
 <MudGrid>
     <MudItem xs="12" sm="7">
         <MudCard>
@@ -26,6 +25,7 @@
             </MudCardContent>
             <MudCardActions>
                 <MudButton OnClick="@OpenDialogAsync" Variant="Variant.Filled" Color="Color.Primary">Privacy Policy</MudButton>
+                <MudCheckBox @bind-bind-Checked="@acceptedLicense" T="bool" Required="true" RequiredError="You must agree" Class="ml-n2" Label="I agree!"/>
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
             </MudCardActions>
         </MudCard>
@@ -37,40 +37,3 @@
 <MudButton Color="Color.Transparent" OnClick="@(() => GoToLogin())">
     Already have an account? Click here to login
 </MudButton>
-
-@code {
-    private List<BreadcrumbItem> items = new()
-    {
-        new("Account", href: null, disabled: true, Icons.Material.Filled.AccountCircle),
-        new("Register", href: null, disabled: true, Icons.Material.Filled.AppRegistration)
-    };
-    RegisterAccount Registration = new();
-    bool acceptedLicense;
-    bool success;
-
-    void GoToLogin()
-    {
-        NavManager.NavigateTo("/account/login");
-    }
-
-    async Task OpenDialogAsync()
-    {
-        var result = await Dialog.Show<PrivacyDialog>("Privacy Policy").Result;
-
-        if (!result.Cancelled)
-        {
-            acceptedLicense = (bool)(result.Data ?? false);
-        }
-    }
-
-    async Task RegisterAsync()
-    {
-        var result = await UserManager.CreateAsync(new IdentityUser { UserName = Registration.Email, Email = Registration.Email, EmailConfirmed = true }, Registration.Password);
-
-        if (result.Succeeded)
-        {
-            NavManager.NavigateTo("account/login");
-            return;
-        }
-    }
-}

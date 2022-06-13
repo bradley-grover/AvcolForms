@@ -13,4 +13,8 @@ global using System.Text.Json;
 #endregion
 #region External NuGet
 global using Microsoft.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Components;
+global using MudBlazor;
+global using AvcolForms.Core.Components;
 #endregion
