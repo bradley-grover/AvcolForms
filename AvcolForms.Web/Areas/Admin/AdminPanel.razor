@@ -1,0 +1,8 @@
+﻿@page "/admin_page"
+@attribute [Authorize(Roles = "Admin")]
+
+<MudBreadcrumbs Items="@items"></MudBreadcrumbs>
+
+<MudText Typo="Typo.h2">
+    Administration Page
+</MudText>
