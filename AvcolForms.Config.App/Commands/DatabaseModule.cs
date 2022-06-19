@@ -1,4 +1,5 @@
-﻿using System.Management.Automation;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using System.Text;
 using System.Text.Json;
@@ -71,10 +72,10 @@ public class DatabaseModule
         }));
 
 
-        RunPowershellScript(path, result!, migrationName);
+        RunPowershellScript(path, result, migrationName);
     }
 
-    private static bool TryGetWorkingDirectory(out string? value)
+    private static bool TryGetWorkingDirectory([NotNullWhen(true)] out string? value)
     {
         var json = File.ReadAllText("config-appsettings.json");
 
@@ -110,7 +111,7 @@ public class DatabaseModule
     }
 
 
-    private static bool ValidateParameters(string[] parameters, out string errorMessage)
+    private static bool ValidateParameters(string[] parameters, [NotNullWhen(true)] out string errorMessage)
     {
         if (parameters is null)
         {
