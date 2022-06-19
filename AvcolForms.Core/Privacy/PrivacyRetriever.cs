@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AvcolForms.Core.Options;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace AvcolForms.Core.Privacy;

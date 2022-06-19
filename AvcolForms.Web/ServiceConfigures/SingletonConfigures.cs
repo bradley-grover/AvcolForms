@@ -14,8 +14,6 @@ internal static class SingletonConfigures
     /// <returns>The same <see cref="IServiceCollection"/> used for chaining</returns>
     internal static IServiceCollection AddSingletons(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<PrivacyOptions>(configuration.GetSection(nameof(PrivacyOptions)));
-
         services.AddSingleton<IPrivacyRetriever, PrivacyRetriever>();
 
         return services;

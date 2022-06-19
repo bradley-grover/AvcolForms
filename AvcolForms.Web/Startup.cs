@@ -40,7 +40,7 @@ public class Startup
         services.AddControllers();
         services.AddServerSideBlazor();
 
-        services.AddOptions();
+        services.AddApplicationOptions(Configuration);
         services.AddAuthorizationCore();
 
         services.AddDb(Configuration);
