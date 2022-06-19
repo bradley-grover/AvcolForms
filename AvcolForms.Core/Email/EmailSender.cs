@@ -5,6 +5,7 @@ using MailKit;
 using MimeKit;
 using MimeKit.Text;
 using MailKit.Net.Smtp;
+using AvcolForms.Core.Options;
 
 namespace AvcolForms.Core.Email;
 
@@ -20,7 +21,7 @@ public class EmailSender : IEmailSender
     /// </summary>
     /// <param name="options">Options to configure authentication for the email client</param>
     /// <param name="logger">Logger to log events</param>
-    public EmailSender(IOptions<EmailSettings> options, ILogger<IEmailSender> logger)
+    public EmailSender(IOptions<EmailOptions> options, ILogger<IEmailSender> logger)
     {
         Options = options.Value;
         Logger = logger;
@@ -29,7 +30,7 @@ public class EmailSender : IEmailSender
     /// <summary>
     /// Settings used for the email sender
     /// </summary>
-    public EmailSettings Options { get; }
+    public EmailOptions Options { get; }
 
     /// <inheritdoc></inheritdoc>
     public async Task SendEmailAsync(string email, string subject, string htmlMessage)

@@ -10,8 +10,6 @@ public class Program
 
         CommandRunner runner = new();
 
-        
-
         Prompt prompt = new(configuration: 
             new PromptConfiguration
             (prompt: new PrettyPrompt.Highlighting.FormattedString(">> ")

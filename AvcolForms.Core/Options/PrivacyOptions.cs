@@ -1,4 +1,6 @@
-﻿namespace AvcolForms.Core.Privacy;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AvcolForms.Core.Options;
 
 #nullable disable
 
@@ -10,5 +12,6 @@ public class PrivacyOptions
     /// <summary>
     /// The file name that the privacy policy is stored in
     /// </summary>
+    [Required]
     public string FileName { get; set; }
 }

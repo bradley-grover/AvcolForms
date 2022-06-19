@@ -1,4 +1,6 @@
 ﻿using AvcolForms.Core.Email;
+using AvcolForms.Core.FileSaving;
+using AvcolForms.Core.Options;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace AvcolForms.Web.ServiceConfigures;
@@ -16,8 +18,8 @@ internal static class TransientConfigures
     /// <returns>The same <see cref="IServiceCollection"/> used for chaining</returns>
     internal static IServiceCollection AddTransientServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddTransient<IFileSaver, FileSaver>();
         services.AddTransient<IEmailSender, EmailSender>();
-        services.Configure<EmailSettings>(configuration.GetSection(nameof(EmailSettings)));
 
         return services;
     }

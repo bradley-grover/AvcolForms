@@ -1,21 +1,8 @@
 ﻿@page "/account/logged_out"
 @inject NavigationManager NavManager;
 
+<PageTitle>Signed Out</PageTitle>
+
 <MudText>
-    You are now signed out and will be redirected to the login page in @seconds seconds
+    You are now signed out and will be redirected to the login page in @Seconds seconds
 </MudText>
-
-@code {
-    int seconds = 5;
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        for (; seconds > 0; seconds--)
-        {
-            Thread.Sleep(1000);
-            StateHasChanged();
-        }
-
-        NavManager.NavigateTo("/account/login");
-    }
-}

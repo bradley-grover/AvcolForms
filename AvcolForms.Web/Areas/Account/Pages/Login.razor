@@ -1,10 +1,7 @@
 ﻿@page "/account/login"
 @page "/login"
-@using Microsoft.AspNetCore.DataProtection
-@inject UserManager<IdentityUser> UserManager;
-@inject SignInManager<IdentityUser> SignInManager;
-@inject NavigationManager NavManager;
-@inject IDataProtectionProvider ProtectionProvider;
+
+<PageTitle>Login</PageTitle>
 
 <MudBreadcrumbs Items="@items"></MudBreadcrumbs>
 
@@ -25,9 +22,9 @@
     <MudItem xs="12" sm="7">
         <MudCard>
             <MudCardContent>
-                <MudTextField Label="Email" Class="mt-3"
+                <MudTextField Label="Email*" Class="mt-3"
                               @bind-Value="SignIn.Email" For="@(() => SignIn.Email)"/>
-                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                <MudTextField Label="Password*" Class="mt-3"
                               @bind-Value="SignIn.Password" For="@(() => SignIn.Password)" InputType="InputType.Password"/>
             </MudCardContent>
             <MudCardActions>
@@ -41,52 +38,3 @@
 <MudButton Color="Color.Transparent" OnClick="@(() => GoToRegister())">
     Don't have an account? Register Now
 </MudButton>
-
-@code {
-    private List<BreadcrumbItem> items = new()
-    {
-        new("Account", href: null, disabled: true, icon: Icons.Material.Filled.AccountCircle),
-        new("Login", href: null, disabled: true, icon: Icons.Material.Filled.Login)
-    };
-
-    private bool showLoginError = false;
-
-    LoginAccount SignIn = new();
-
-    void GoToRegister()
-    {
-        NavManager.NavigateTo("/account/register");
-    }
-
-    async Task LoginAsync()
-    {
-        var user = await UserManager.FindByEmailAsync(SignIn.Email);
-
-        if (user is not null && await UserManager.CheckPasswordAsync(user, SignIn.Password))
-        {
-            showLoginError = false;
-            var token = await UserManager.GenerateUserTokenAsync(user, TokenOptions.DefaultProvider, "Login");
-
-            var data = $"{user.Id}|{token}";
-
-            var parsedQuery = System.Web.HttpUtility.ParseQueryString(new Uri(NavManager.Uri).Query);
-
-            var returnUrl = parsedQuery["returnUrl"];
-
-            if (!string.IsNullOrWhiteSpace(returnUrl))
-            {
-                data += $"|{returnUrl}";
-            }
-
-            var protector = ProtectionProvider.CreateProtector("Login");
-
-            var protectedData = protector.Protect(data);
-
-            NavManager.NavigateTo("account/authenticate_login?t=" + protectedData, forceLoad: true);
-        }
-        else
-        {
-            showLoginError = true;
-        }
-    }
-}
