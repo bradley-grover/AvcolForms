@@ -63,7 +63,7 @@ public class SaveOnFormFile
             Assert.True(File.Exists(savePath));
             Assert.Equal(length, fileStream.Length);
         }
-        catch (IOException ex) when (ex.Message.EndsWith("because it is using by another process.")) // hack the runner
+        catch (IOException ex) when (ex.Message.EndsWith("because it is being used by another process.")) // hack the runner
         {
 
         }
