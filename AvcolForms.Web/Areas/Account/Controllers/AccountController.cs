@@ -8,10 +8,10 @@ namespace AvcolForms.Web.Areas.Account.Controllers;
 public class AccountController : Controller
 {
     private IDataProtector Protector { get; }
-    public UserManager<IdentityUser> UserManager { get; }
-    public SignInManager<IdentityUser> SignInManager { get; }
+    public UserManager<ApplicationUser> UserManager { get; }
+    public SignInManager<ApplicationUser> SignInManager { get; }
 
-    public AccountController(IDataProtectionProvider dataProtectionProvider, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public AccountController(IDataProtectionProvider dataProtectionProvider, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
     {
         UserManager = userManager;
         SignInManager = signInManager;

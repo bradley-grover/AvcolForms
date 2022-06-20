@@ -10,7 +10,7 @@ public partial class Register
 {
 #nullable disable
     [Inject]
-    private UserManager<IdentityUser> UserManager { get; set; }
+    private UserManager<ApplicationUser> UserManager { get; set; }
 
     [Inject]
     private NavigationManager NavManager { get; set; }
@@ -59,7 +59,7 @@ public partial class Register
 
     private async Task RegisterAsync()
     {
-        var result = await UserManager.CreateAsync(new IdentityUser { UserName = Registration.Email, Email = Registration.Email, EmailConfirmed = true }, Registration.Password);
+        var result = await UserManager.CreateAsync(new ApplicationUser { UserName = Registration.Email, Email = Registration.Email, EmailConfirmed = true }, Registration.Password);
 
         if (result.Succeeded)
         {

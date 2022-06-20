@@ -6,7 +6,7 @@ public partial class Login
 {
 #nullable disable
     [Inject]
-    UserManager<IdentityUser> UserManager { get; set; }
+    UserManager<ApplicationUser> UserManager { get; set; }
 
     [Inject]
     private NavigationManager NavManager { get; set; }
