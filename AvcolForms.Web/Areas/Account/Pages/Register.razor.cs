@@ -1,5 +1,9 @@
-﻿using AvcolForms.Core.Components.Dialogs;
-
+﻿using System.Text;
+using System.Text.Encodings.Web;
+using AvcolForms.Core.Components.Dialogs;
+using AvcolForms.Web.Areas.Account.ViewModels;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace AvcolForms.Web.Areas.Account.Pages;
 
@@ -17,6 +21,12 @@ public partial class Register
 
     [Inject]
     private IDialogService Dialog { get; set; }
+
+    [Inject]
+    private IDataProtectionProvider ProtectionProvider { get; set; }
+
+    [Inject]
+    private IEmailSender EmailSender { get; set; }
 #nullable restore
 
 
@@ -59,11 +69,31 @@ public partial class Register
 
     private async Task RegisterAsync()
     {
-        var result = await UserManager.CreateAsync(new ApplicationUser { UserName = Registration.Email, Email = Registration.Email, EmailConfirmed = true }, Registration.Password);
+        var user = new ApplicationUser { UserName = Registration.Email, Email = Registration.Email };
+
+        var result = await UserManager.CreateAsync(user, Registration.Password);
 
         if (result.Succeeded)
         {
-            NavManager.NavigateTo("account/login");
+            var userId = await UserManager.GetUserIdAsync(user);
+
+            var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+
+            var protecter = ProtectionProvider.CreateProtector(Protected.ConfirmEmail);
+
+            string value = $"{userId}|{code}";
+
+            value = protecter.Protect(value);
+
+            Uri uri = NavManager.ToAbsoluteUri($"{AccountRoutes.EmailConfirmGet}?t={value}");
+
+            await EmailSender.SendEmailAsync(Registration.Email, "Confirm Your Account",
+                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(uri.ToString())}'>clicking here</a>.");
+
+            var email = Convert.ToBase64String(Encoding.UTF8.GetBytes(Registration.Email));
+
+            NavManager.NavigateTo($"/account/sent_confirmation/{email}", forceLoad: true);
+
             return;
         }
     }

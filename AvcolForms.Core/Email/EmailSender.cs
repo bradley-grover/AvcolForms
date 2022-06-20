@@ -64,7 +64,7 @@ public class EmailSender : IEmailSender
 
         using var smtpClient = new SmtpClient();
 
-        await smtpClient.ConnectAsync(Options.SmtpServer, Options.Port, true).ConfigureAwait(false);
+        await smtpClient.ConnectAsync(Options.SmtpServer, Options.Port, MailKit.Security.SecureSocketOptions.StartTls).ConfigureAwait(false);
 
         await smtpClient.AuthenticateAsync(Options.UserName, Options.Password).ConfigureAwait(false);
 

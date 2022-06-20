@@ -7,7 +7,8 @@ namespace AvcolForms.Web.Areas.Account.Controllers;
 
 public class AccountController : Controller
 {
-    private IDataProtector Protector { get; }
+    private IDataProtector LoginProtector { get; }
+    private IDataProtector EmailConfirmProtector { get; }
     public UserManager<ApplicationUser> UserManager { get; }
     public SignInManager<ApplicationUser> SignInManager { get; }
 
@@ -15,18 +16,19 @@ public class AccountController : Controller
     {
         UserManager = userManager;
         SignInManager = signInManager;
-        Protector = dataProtectionProvider.CreateProtector("Login");
+        LoginProtector = dataProtectionProvider.CreateProtector(Protected.Login);
+        EmailConfirmProtector = dataProtectionProvider.CreateProtector(Protected.ConfirmEmail);
     }
-    [HttpGet("account/authenticate_login")]
+    [HttpGet("/account/authenticate_login")]
     public async Task<IActionResult> AuthenticateLoginAsync(string t)
     {
-        var data = Protector.Unprotect(t);
+        var data = LoginProtector.Unprotect(t);
 
         var parts = data.Split('|');
 
         var user = await UserManager.FindByIdAsync(parts[0]);
 
-        var isTokenValid = await UserManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, "Login", parts[1]);
+        var isTokenValid = await UserManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, Protected.Login, parts[1]);
 
         if (isTokenValid)
         {
@@ -44,6 +46,25 @@ public class AccountController : Controller
         }
     }
 
+    [HttpGet(AccountRoutes.EmailConfirmGet)]
+    public async Task<IActionResult> AuthenticateEmailAsync(string t)
+    {
+        var data = EmailConfirmProtector.Unprotect(t);
+
+        var parts = data.Split('|');
+
+        var user = await UserManager.FindByIdAsync(parts[0]);
+
+        var confirmResult = await UserManager.ConfirmEmailAsync(user, parts[1]);
+
+        if (!confirmResult.Succeeded)
+        {
+            return BadRequest("Failed to authenticate the email");
+        }
+
+        return Redirect("/account/email_confirmed");
+    }
+
     [Authorize]
     [HttpGet("account/logout")]
     public async Task<IActionResult> LogOutAsync()
@@ -52,4 +73,5 @@ public class AccountController : Controller
 
         return Redirect("/account/logged_out");
     }
+
 }

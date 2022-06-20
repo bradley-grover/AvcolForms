@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.DataProtection;
+﻿using AvcolForms.Web.Areas.Account.ViewModels;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace AvcolForms.Web.Areas.Account.Pages;
 
@@ -37,7 +38,14 @@ public partial class Login
         if (user is not null && await UserManager.CheckPasswordAsync(user, SignIn.Password))
         {
             showLoginError = false;
-            var token = await UserManager.GenerateUserTokenAsync(user, TokenOptions.DefaultProvider, "Login");
+
+            if (!await UserManager.IsEmailConfirmedAsync(user))
+            {
+                NavManager.NavigateTo(AccountRoutes.ConfirmEmailPage);
+                return;
+            }
+
+            var token = await UserManager.GenerateUserTokenAsync(user, TokenOptions.DefaultProvider, Protected.Login);
 
             var data = $"{user.Id}|{token}";
 
@@ -50,11 +58,11 @@ public partial class Login
                 data += $"|{returnUrl}";
             }
 
-            var protector = ProtectionProvider.CreateProtector("Login");
+            var protector = ProtectionProvider.CreateProtector(Protected.Login);
 
             var protectedData = protector.Protect(data);
 
-            NavManager.NavigateTo("account/authenticate_login?t=" + protectedData, forceLoad: true);
+            NavManager.NavigateTo("/account/authenticate_login?t=" + protectedData, forceLoad: true);
         }
         else
         {
