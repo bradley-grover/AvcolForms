@@ -8,4 +8,5 @@ internal static class AccountRoutes
     public const string Register = $"{Account}/register";
     public const string EmailConfirmGet = $"{Account}/authenticate_email";
     public const string ConfirmEmailPage = $"{Account}/confirm_email";
+    public const string ResendConfirmation = $"{Account}/resend_email";
 }

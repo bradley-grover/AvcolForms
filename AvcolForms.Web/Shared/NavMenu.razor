@@ -6,6 +6,11 @@
 </MudNavMenu>
 <AuthorizeView>
     <MudNavLink Href="/account" Icon="@Icons.Material.Filled.AccountCircle">Account</MudNavLink>
+</AuthorizeView>
+<AuthorizeView Roles="Admin">
+    <MudNavLink Href="/admin_page" Icon="@Icons.Material.Filled.AdminPanelSettings">Admin</MudNavLink>
+</AuthorizeView>
+<AuthorizeView>
     <MudNavLink Icon="@Icons.Material.Filled.Logout" OnClick="@Logout">Logout</MudNavLink>
 </AuthorizeView>
 

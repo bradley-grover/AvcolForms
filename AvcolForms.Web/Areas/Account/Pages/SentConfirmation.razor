@@ -6,6 +6,17 @@
 
 <MudBreadcrumbs Items="@items"></MudBreadcrumbs>
 
+<MudAlert Severity="Severity.Normal">You may need to wait a few minutes for the email to go through</MudAlert>
+
+<br/>
+
 <MudText Typo="Typo.h3">
     We sent an email confirmation to @Encoding.UTF8.GetString(Convert.FromBase64String(Email))
+</MudText>
+
+<br/>
+<br />
+
+<MudText>
+    Didn't get it? Check your junk mail or <MudLink Href="@AccountRoutes.ResendConfirmation">click here</MudLink> to resend confirmation email
 </MudText>

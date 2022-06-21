@@ -3,6 +3,8 @@
  * Copyright (c) 2022 Bradley Grover
  */
 
+using System.Reflection;
+
 namespace AvcolForms.Web;
 
 /// <summary>
@@ -16,6 +18,8 @@ public class Program
     /// <param name="args">Arguments supplied for the builder passed in</param>
     public static void Main(string[] args)
     {
+        Console.Title = Assembly.GetCallingAssembly().GetName().FullName;
+
         CreateHostBuilder(args).Build().Run();
     }
     /// <summary>

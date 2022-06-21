@@ -5,18 +5,21 @@ namespace AvcolForms.Core.Accounts;
 #nullable disable
 
 /// <summary>
-/// Settings to add a admin user to the debug database for easier testing
+/// The login model to sign into the account
 /// </summary>
-public class SudoSettings
+public class LoginModel
 {
     /// <summary>
-    /// The email for the account
+    /// Email address for the account
     /// </summary>
+    [Required]
     [EmailAddress]
     public string Email { get; set; }
 
     /// <summary>
-    /// Password to sign up the account
+    /// Password to authenticate the sign in
     /// </summary>
+    [Required]
+    [DataType(DataType.Password)]
     public string Password { get; set; }
 }

@@ -14,6 +14,11 @@ public partial class Register
 {
 #nullable disable
     [Inject]
+    private ISnackbar Snackbar { get; set; }
+    [Inject]
+    private ILogger<Register> Logger { get; set; }
+
+    [Inject]
     private UserManager<ApplicationUser> UserManager { get; set; }
 
     [Inject]
@@ -36,6 +41,7 @@ public partial class Register
     bool dialogIsAlreadyOpen = false;
     bool acceptedLicense;
     bool success;
+    private string? error = null;
 
     void GoToLogin()
     {
@@ -75,6 +81,9 @@ public partial class Register
 
         if (result.Succeeded)
         {
+            success = true;
+            error = null;
+
             var userId = await UserManager.GetUserIdAsync(user);
 
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
@@ -87,14 +96,36 @@ public partial class Register
 
             Uri uri = NavManager.ToAbsoluteUri($"{AccountRoutes.EmailConfirmGet}?t={value}");
 
-            await EmailSender.SendEmailAsync(Registration.Email, "Confirm Your Account",
+            try
+            {
+                await EmailSender.SendEmailAsync(Registration.Email, "Confirm Your Account",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(uri.ToString())}'>clicking here</a>.");
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError("{exception}", exception);
+                success = false;
+                error = $"An error occured whilst trying to send you a confirmation email, resend by <a href='{AccountRoutes.ResendConfirmation}'>clicking here</a>.";
+                return;
+            }
 
             var email = Convert.ToBase64String(Encoding.UTF8.GetBytes(Registration.Email));
+
+            Snackbar.Add("Succesfully Registered!", Severity.Success, c =>
+            {
+                c.ShowCloseIcon = true;
+                c.VisibleStateDuration = 2 * 1000;
+            });
 
             NavManager.NavigateTo($"/account/sent_confirmation/{email}", forceLoad: true);
 
             return;
+        }
+        else
+        {
+            success = false;
+
+            error = string.Join("\n", result.Errors.Select(x => x.Description));
         }
     }
 }

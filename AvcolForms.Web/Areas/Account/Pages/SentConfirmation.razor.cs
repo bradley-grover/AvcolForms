@@ -5,6 +5,9 @@ public partial class SentConfirmation
 #nullable disable
     [Parameter]
     public string Email { get; set; }
+
+    [Inject]
+    private NavigationManager NavManager { get; set; }
 #nullable restore
 
 
@@ -12,6 +15,11 @@ public partial class SentConfirmation
     {
         new("Home", href: "#", disabled: false, Icons.Material.Filled.Home),
         new("Account", href: null, disabled: true, icon: Icons.Material.Filled.AccountCircle),
-        new("Sent Confirm", href: null, disabled: true, icon: Icons.Material.Filled.ConfirmationNumber)
+        new("Confirm Your Email", href: null, disabled: true, icon: Icons.Material.Filled.ConfirmationNumber)
     };
+
+    public void GoToResend()
+    {
+        NavManager.NavigateTo(AccountRoutes.ResendConfirmation);
+    }
 }
