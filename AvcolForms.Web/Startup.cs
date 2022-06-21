@@ -3,6 +3,7 @@
  * Copyright (c) 2022 Bradley Grover
  */
 
+using AvcolForms.Web.Initialization;
 using AvcolForms.Web.ServiceConfigures;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,6 +54,8 @@ public class Startup
         services.AddTransientServices(Configuration);
 
         services.AddDatabaseDeveloperPageExceptionFilter();
+
+        services.AddTransient<IDataInitializor, DataInitializer>();
     }
 
     /// <summary>
@@ -60,7 +63,7 @@ public class Startup
     /// </summary>
     /// <param name="app">The web host environment automatically passed in</param>
     /// <param name="env">The application builder automatically passed in</param>
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataInitializor initializer)
     {
         if (!env.IsDevelopment())
         {
@@ -83,5 +86,7 @@ public class Startup
             endpoints.MapBlazorHub();
             endpoints.MapFallbackToPage("/_Host");
         });
+
+        initializer.Initialize();
     }
 }
