@@ -1,4 +1,5 @@
-﻿using AvcolForms.Web.Areas.Account.ViewModels;
+﻿using AvcolForms.Core.Accounts;
+using AvcolForms.Web.Areas.Account.ViewModels;
 using Microsoft.AspNetCore.DataProtection;
 
 namespace AvcolForms.Web.Areas.Account.Pages;
@@ -24,7 +25,7 @@ public partial class Login
 
     private bool showLoginError = false;
 
-    private LoginAccount SignIn { get; } = new();
+    private LoginModel SignIn { get; } = new();
 
     void GoToRegister()
     {

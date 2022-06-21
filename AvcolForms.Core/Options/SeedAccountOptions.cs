@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AvcolForms.Core.Accounts;
 
 namespace AvcolForms.Core.Options;
-
-#nullable disable
 
 /// <summary>
 /// Used for seeding accounts
@@ -12,6 +11,5 @@ public class SeedAccountOptions
     /// <summary>
     /// Accounts to add to the application
     /// </summary>
-    [Required]
-    public AccountModel[] Accounts { get; set; }
+    public AccountModel[]? Accounts { get; set; }
 }

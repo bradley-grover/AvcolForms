@@ -14,11 +14,11 @@ internal static class OptionExtensions
     {
         services.AddOptions();
 
-
         services.ConfigureAndValidate<PrivacyOptions>(nameof(PrivacyOptions), configuration);
         services.ConfigureAndValidate<EmailOptions>(nameof(EmailOptions), configuration);
         services.ConfigureAndValidate<WebsiteOptions>(nameof(WebsiteOptions), configuration);
         services.ConfigureAndValidate<SeedAccountOptions>(nameof(SeedAccountOptions), configuration);
+        services.ConfigureAndValidate<RootUserOptions>(nameof(RootUserOptions), configuration);
 
         return services;
     }

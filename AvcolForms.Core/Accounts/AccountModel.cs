@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AvcolForms.Core.Options;
+namespace AvcolForms.Core.Accounts;
 
 #nullable disable
 
@@ -20,7 +20,7 @@ public class AccountModel
     /// Password for the account
     /// </summary>
     [Required]
-    [DataType(DataType.Password)] 
+    [DataType(DataType.Password)]
     public string Password { get; set; }
 
 #nullable restore

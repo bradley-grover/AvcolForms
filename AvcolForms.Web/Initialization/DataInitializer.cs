@@ -1,4 +1,5 @@
-﻿using AvcolForms.Core.Options;
+﻿using AvcolForms.Core.Accounts;
+using AvcolForms.Core.Options;
 using Microsoft.Extensions.Options;
 
 namespace AvcolForms.Web.Initialization;
@@ -12,6 +13,8 @@ public class DataInitializer : IDataInitializor
     private UserManager<ApplicationUser> UserManager { get; }
 
     private IOptions<SeedAccountOptions> SeededAccounts { get; }
+    private IOptions<RootUserOptions> RootUserOptions { get; }
+
     private ILogger<IDataInitializor> Logger { get; }
 
     public DataInitializer(IServiceProvider provider)
@@ -21,6 +24,7 @@ public class DataInitializer : IDataInitializor
         RoleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
         UserManager = provider.GetRequiredService<UserManager<ApplicationUser>>();
         SeededAccounts = provider.GetRequiredService<IOptions<SeedAccountOptions>>();
+        RootUserOptions = provider.GetRequiredService<IOptions<RootUserOptions>>();
         Logger = provider.GetRequiredService<ILogger<IDataInitializor>>();
     }
 
@@ -34,6 +38,38 @@ public class DataInitializer : IDataInitializor
             Async.RunSync(() => RoleManager.CreateAsync(new IdentityRole(Roles.Admin)));
         }
 
+
+        InitializeMultipleUsers();
+        InitializeRootUser();
+    }
+    private void InitializeRootUser()
+    {
+        Logger.LogInformation("R-User: {email} | {passwordLength} | Root", RootUserOptions.Value.Email, new string('*', RootUserOptions.Value.Password.Length));
+
+        var user = Async.RunSync(() => UserManager.FindByEmailAsync(RootUserOptions.Value.Email));
+
+        if (user is not null)
+        {
+            return;
+        }
+
+        ApplicationUser rootAccount = new()
+        {
+            Email = RootUserOptions.Value.Email,
+            UserName = RootUserOptions.Value.Email,
+            EmailConfirmed = true
+        };
+
+        var result = Async.RunSync(() => UserManager.CreateAsync(rootAccount, RootUserOptions.Value.Password));
+
+        if (result.Succeeded)
+        {
+            Async.RunSync(() => UserManager.AddToRoleAsync(rootAccount, Roles.Admin));
+        }
+    }
+
+    private void InitializeMultipleUsers()
+    {
         if (SeededAccounts.Value.Accounts is null || SeededAccounts.Value.Accounts.Length == 0)
         {
             Logger.LogInformation("There are zero accounts to be added for seeding");
