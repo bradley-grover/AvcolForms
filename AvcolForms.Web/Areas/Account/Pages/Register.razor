@@ -10,6 +10,16 @@
     Register
 </MudText>
 
+@if (!success)
+{
+    @if (error is not null)
+    {
+        <MudAlert Severity="Severity.Error">
+            @error
+        </MudAlert>
+    }
+}
+
 <EditForm Model="@Registration" OnValidSubmit="@RegisterAsync">
 <ValidationSummary/>
 <MudGrid>

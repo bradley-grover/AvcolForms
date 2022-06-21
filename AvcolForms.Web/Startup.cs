@@ -35,7 +35,11 @@ public class Startup
     /// <param name="services">The service collection to add services for dependency injection</param>
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddMudServices();
+        services.AddMudServices(configuration =>
+        {
+            configuration.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomLeft;
+        });
+
         services.AddRazorPages();
         services.AddControllers();
         services.AddServerSideBlazor();
