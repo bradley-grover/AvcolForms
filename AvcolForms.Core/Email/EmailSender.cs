@@ -14,6 +14,9 @@ namespace AvcolForms.Core.Email;
 /// </summary>
 public class EmailSender : IEmailSender
 {
+    /// <summary>
+    /// Logger for the email sender
+    /// </summary>
     private ILogger<IEmailSender> Logger { get; }
 
     /// <summary>

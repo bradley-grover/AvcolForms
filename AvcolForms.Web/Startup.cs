@@ -8,6 +8,7 @@ using AvcolForms.Web.ServiceConfigures;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
+using Serilog;
 
 namespace AvcolForms.Web;
 
@@ -23,6 +24,9 @@ public class Startup
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configuration)
+            .CreateLogger();
     }
 
     /// <summary>
