@@ -20,23 +20,28 @@
     }
 }
 
+@if (proccessing)
+{
+    <MudProgressLinear Color="Color.Primary" Striped="true" Size="Size.Large" Value="75" Class="my-7" />
+}
+
 <EditForm Model="@Registration" OnValidSubmit="@RegisterAsync">
 <ValidationSummary/>
 <MudGrid>
     <MudItem xs="12" sm="7">
         <MudCard>
             <MudCardContent>
-                <MudTextField Label="Email" Class="mt-3"
+                <MudTextField Label="Email" Class="mt-3" Required=true
                               @bind-Value="Registration.Email" For="@(() => Registration.Email)"/>
-                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                <MudTextField Label="Password" Required=true HelperText="Choose a strong password" Class="mt-3"
                               @bind-Value="Registration.Password" For="@(() => Registration.Password)" InputType="InputType.Password"/>
-                <MudTextField Label="Confirm Password" HelperText="Repeat the password" Class="mt-3"
+                <MudTextField Label="Confirm Password" Required=true HelperText="Repeat the password" Class="mt-3"
                               @bind-Value="Registration.ConfirmPassword" For="@(() => Registration.ConfirmPassword)" InputType="InputType.Password"/>
             </MudCardContent>
             <MudCardActions>
                 <MudButton OnClick="@OpenDialogAsync" Variant="Variant.Filled" Color="Color.Primary">Privacy Policy</MudButton>
                 <MudCheckBox @bind-bind-Checked="@acceptedLicense" T="bool" Required="true" RequiredError="You must agree" Class="ml-n2" Label="I agree!"/>
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Disabled="@registerButtonLock">Register</MudButton>
             </MudCardActions>
         </MudCard>
     </MudItem>

@@ -41,7 +41,11 @@ public partial class Register
     bool dialogIsAlreadyOpen = false;
     bool acceptedLicense;
     bool success;
+
     private string? error = null;
+
+    bool registerButtonLock = false;
+    bool proccessing = false;
 
     void GoToLogin()
     {
@@ -75,6 +79,9 @@ public partial class Register
 
     private async Task RegisterAsync()
     {
+        registerButtonLock = true;
+        proccessing = true;
+
         var user = new ApplicationUser { UserName = Registration.Email, Email = Registration.Email };
 
         var result = await UserManager.CreateAsync(user, Registration.Password);
@@ -106,6 +113,7 @@ public partial class Register
                 Logger.LogError("{exception}", exception);
                 success = false;
                 error = $"An error occured whilst trying to send you a confirmation email, resend by <a href='{AccountRoutes.ResendConfirmation}'>clicking here</a>.";
+                proccessing = false;
                 return;
             }
 
@@ -114,10 +122,13 @@ public partial class Register
             Snackbar.Add("Succesfully Registered!", Severity.Success, c =>
             {
                 c.ShowCloseIcon = true;
-                c.VisibleStateDuration = 2 * 1000;
+                c.CloseAfterNavigation = false;
+                c.VisibleStateDuration = 10 * 1000;
             });
 
             NavManager.NavigateTo($"/account/sent_confirmation/{email}", forceLoad: true);
+
+            proccessing = false;
 
             return;
         }
@@ -126,6 +137,9 @@ public partial class Register
             success = false;
 
             error = string.Join("\n", result.Errors.Select(x => x.Description));
+
+            proccessing = false;
+            registerButtonLock = false;
         }
     }
 }
