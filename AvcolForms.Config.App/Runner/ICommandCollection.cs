@@ -1,4 +1,9 @@
-﻿namespace AvcolForms.Config.App.Runner;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+namespace AvcolForms.Config.App.Runner;
 
 /// <summary>
 /// A command collection to store and run commands

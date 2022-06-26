@@ -1,4 +1,9 @@
-﻿namespace AvcolForms.Config.App.Commands;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+namespace AvcolForms.Config.App.Commands;
 
 /// <summary>
 /// Time module to get time information

@@ -1,4 +1,9 @@
-﻿namespace AvcolForms.Config.App.Attributes;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+namespace AvcolForms.Config.App.Attributes;
 
 /// <summary>
 /// Alias attribute, provides aliases for <see cref="CommandAttribute"/> so that they can be used for the same command

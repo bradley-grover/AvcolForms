@@ -1,4 +1,9 @@
-﻿namespace AvcolForms.Config.App.Attributes;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+namespace AvcolForms.Config.App.Attributes;
 
 /// <summary>
 /// Module information for a command in the terminal

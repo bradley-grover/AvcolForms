@@ -1,4 +1,9 @@
-﻿namespace AvcolForms.Config.App;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+namespace AvcolForms.Config.App;
 
 /// <summary>
 /// Program class for the entry point of <see cref="Main"/>

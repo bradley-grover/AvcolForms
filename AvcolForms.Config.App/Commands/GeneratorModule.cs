@@ -1,4 +1,9 @@
-﻿namespace AvcolForms.Config.App.Commands;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+namespace AvcolForms.Config.App.Commands;
 
 /// <summary>
 /// Generates items randomly or determined
@@ -6,7 +11,6 @@
 [Module("Generater", "Generates items randomly or determined")]
 public class GeneratorModule
 {
-
     /// <summary>
     /// Generates a Global-Unique-Identifier
     /// </summary>

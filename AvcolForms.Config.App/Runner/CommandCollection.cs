@@ -1,4 +1,9 @@
-﻿namespace AvcolForms.Config.App;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+namespace AvcolForms.Config.App;
 
 /// <summary>
 /// Collection for commands to initialize and run
