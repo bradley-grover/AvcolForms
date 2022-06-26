@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AvcolForms.Web.Areas.Account.Controllers;
 
+/// <summary>
+/// Accounts controller to manage account related actions
+/// </summary>
 public class AccountController : Controller
 {
     private IDataProtector LoginProtector { get; }
@@ -12,6 +14,12 @@ public class AccountController : Controller
     public UserManager<ApplicationUser> UserManager { get; }
     public SignInManager<ApplicationUser> SignInManager { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AccountController"/> class
+    /// </summary>
+    /// <param name="dataProtectionProvider"></param>
+    /// <param name="userManager"></param>
+    /// <param name="signInManager"></param>
     public AccountController(IDataProtectionProvider dataProtectionProvider, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
     {
         UserManager = userManager;
@@ -19,7 +27,13 @@ public class AccountController : Controller
         LoginProtector = dataProtectionProvider.CreateProtector(Protected.Login);
         EmailConfirmProtector = dataProtectionProvider.CreateProtector(Protected.ConfirmEmail);
     }
-    [HttpGet("/account/authenticate_login")]
+
+    /// <summary>
+    /// Authenticates a login through the login page
+    /// </summary>
+    /// <param name="t">The data delimited by a character</param>
+    /// <returns>A <see cref="Task{TResult}"/> of <see cref="IActionResult"/></returns>
+    [HttpGet(AccountRoutes.AuthenticateLogin)]
     public async Task<IActionResult> AuthenticateLoginAsync(string t)
     {
         var data = LoginProtector.Unprotect(t);
@@ -46,6 +60,11 @@ public class AccountController : Controller
         }
     }
 
+    /// <summary>
+    /// Authenticates/verifies that the email is actually the users
+    /// </summary>
+    /// <param name="t">Data delimited by a character</param>
+    /// <returns>A <see cref="Task{TResult}"/> of <see cref="IActionResult"/></returns>
     [HttpGet(AccountRoutes.EmailConfirmGet)]
     public async Task<IActionResult> AuthenticateEmailAsync(string t)
     {
@@ -65,6 +84,10 @@ public class AccountController : Controller
         return Redirect("/account/email_confirmed");
     }
 
+    /// <summary>
+    /// Logs out an authenticated user
+    /// </summary>
+    /// <returns>A <see cref="Task{TResult}"/> of <see cref="IActionResult"/></returns>
     [Authorize]
     [HttpGet("account/logout")]
     public async Task<IActionResult> LogOutAsync()
@@ -73,5 +96,4 @@ public class AccountController : Controller
 
         return Redirect("/account/logged_out");
     }
-
 }

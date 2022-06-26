@@ -1,9 +1,11 @@
 ﻿using AvcolForms.Core.Accounts;
-using AvcolForms.Web.Areas.Account.ViewModels;
 using Microsoft.AspNetCore.DataProtection;
 
 namespace AvcolForms.Web.Areas.Account.Pages;
 
+/// <summary>
+/// Login page for the user to sign in
+/// </summary>
 public partial class Login
 {
 #nullable disable

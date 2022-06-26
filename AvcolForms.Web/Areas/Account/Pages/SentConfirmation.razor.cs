@@ -1,5 +1,8 @@
 ﻿namespace AvcolForms.Web.Areas.Account.Pages;
 
+/// <summary>
+/// Page to be displayed to the user when the email has been sent
+/// </summary>
 public partial class SentConfirmation
 {
 #nullable disable
@@ -17,7 +20,7 @@ public partial class SentConfirmation
         new("Account", href: null, disabled: true, icon: Icons.Material.Filled.AccountCircle),
         new("Confirm Your Email", href: null, disabled: true, icon: Icons.Material.Filled.ConfirmationNumber)
     };
-
+    
     public void GoToResend()
     {
         NavManager.NavigateTo(AccountRoutes.ResendConfirmation);
