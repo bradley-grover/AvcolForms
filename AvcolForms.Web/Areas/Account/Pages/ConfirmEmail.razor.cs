@@ -1,7 +1,7 @@
 ﻿namespace AvcolForms.Web.Areas.Account.Pages;
 
 /// <summary>
-/// The confirm page for confirming an email
+/// Guard page for users who have not confirmed their email
 /// </summary>
 public partial class ConfirmEmail
 {

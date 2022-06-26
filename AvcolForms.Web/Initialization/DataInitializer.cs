@@ -17,6 +17,10 @@ public class DataInitializer : IDataInitializor
 
     private ILogger<IDataInitializor> Logger { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DataInitializer"/> class
+    /// </summary>
+    /// <param name="provider">A service provider passed in to resolve dependencies as there are a lot</param>
     public DataInitializer(IServiceProvider provider)
     {
         ArgumentNullException.ThrowIfNull(provider, nameof(provider));
@@ -42,6 +46,7 @@ public class DataInitializer : IDataInitializor
         InitializeMultipleUsers();
         InitializeRootUser();
     }
+
     private void InitializeRootUser()
     {
         Logger.LogInformation("R-User: {email} | {passwordLength} | Root", RootUserOptions.Value.Email, new string('*', RootUserOptions.Value.Password.Length));

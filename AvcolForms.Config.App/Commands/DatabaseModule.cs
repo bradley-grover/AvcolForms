@@ -1,18 +1,30 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+using System.Diagnostics.CodeAnalysis;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using AvcolForms.Core.Data;
 
 namespace AvcolForms.Config.App.Commands;
 
+/// <summary>
+/// Database module to group database related commands
+/// </summary>
 [Module("Database", "Commands Related to the database")]
 public class DatabaseModule
 {
     private const string Usage = "migrate [provider] [migration-name]";
 
+    /// <summary>
+    /// Migrates the specified database provider
+    /// </summary>
+    /// <param name="parameters">Parameters to be passed in to get the database provider</param>
+    /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
     [Command("migrate", "migrates a provider")]
     public static async Task CreateMigrationAsync(string[] parameters)
     {

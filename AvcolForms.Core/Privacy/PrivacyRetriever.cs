@@ -1,4 +1,9 @@
-﻿using AvcolForms.Core.Options;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+using AvcolForms.Core.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

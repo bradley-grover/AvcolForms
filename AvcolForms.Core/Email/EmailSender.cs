@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MailKit;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
 using MimeKit;
 using MimeKit.Text;
 using MailKit.Net.Smtp;
 using AvcolForms.Core.Options;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace AvcolForms.Core.Email;
 
