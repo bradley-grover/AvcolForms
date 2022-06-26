@@ -1,8 +1,17 @@
 ﻿namespace AvcolForms.Config.App.Runner;
 
+/// <summary>
+/// Runs commands using the <see cref="ICommandCollection"/>
+/// </summary>
 public class CommandRunner
 {
     private readonly ICommandCollection _commands = new CommandCollection();
+
+    /// <summary>
+    /// Runs the commands using the user input
+    /// </summary>
+    /// <param name="args">User input to pass in</param>
+    /// <returns>A <see cref="Result"/></returns>
     public async Task<Result> RunAsync(string[] args)
     {
         ArgumentNullException.ThrowIfNull(args);

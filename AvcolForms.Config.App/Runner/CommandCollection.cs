@@ -1,20 +1,23 @@
-﻿using System.Reflection;
+﻿namespace AvcolForms.Config.App;
 
-namespace AvcolForms.Config.App;
-
+/// <summary>
+/// Collection for commands to initialize and run
+/// </summary>
 public class CommandCollection : ICommandCollection
 {
     private readonly Dictionary<string, Func<Task>> _commands;
     private readonly Dictionary<string, Func<string[], Task>> _commandsWithParameters;
     private readonly Dictionary<string, string> _aliases;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CommandCollection"/> class
+    /// </summary>
     public CommandCollection()
     {
         _commands = new Dictionary<string, Func<Task>>();
         _commandsWithParameters = new();
         _aliases = new();
         Initialize();
-
     }
 
     private void Initialize()
@@ -85,21 +88,25 @@ public class CommandCollection : ICommandCollection
 
     }
 
+    /// <inheritdoc></inheritdoc>
     public bool CommandExistsWithoutParameters(string commandName)
     {
         return _commands.ContainsKey(commandName.ToLower().Trim());
     }
 
+    /// <inheritdoc></inheritdoc>
     public bool CommandExistsWithParameters(string commandName)
     {
         return _commandsWithParameters.ContainsKey((commandName.ToLower().Trim()));
     }
 
+    /// <inheritdoc></inheritdoc>
     public async Task RunCommandAsync(string commandName)
     {
         await _commands[commandName.ToLower().Trim()].Invoke();
     }
 
+    /// <inheritdoc></inheritdoc>
     public async Task RunParamCommandAsync(string commandName, string[] args)
     {
         await _commandsWithParameters[commandName.ToLower().Trim()].Invoke(args);

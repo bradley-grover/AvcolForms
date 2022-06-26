@@ -1,10 +1,15 @@
-﻿using System.Reflection;
+﻿namespace AvcolForms.Config.App;
 
-namespace AvcolForms.Config.App;
-
+/// <summary>
+/// Program class for the entry point of <see cref="Main"/>
+/// </summary>
 public class Program
 {
-    public static async Task Main(string[] args)
+    /// <summary>
+    /// Entry point for console config app
+    /// </summary>
+    /// <returns>A <see cref="Task"/></returns>
+    public static async Task Main()
     {
         Console.Title = typeof(Program).Assembly.FullName!;
 
@@ -14,6 +19,7 @@ public class Program
             new PromptConfiguration
             (prompt: new PrettyPrompt.Highlighting.FormattedString(">> ")
             ));
+
         while (true)
         {
             string input = (await prompt.ReadLineAsync()).Text;
