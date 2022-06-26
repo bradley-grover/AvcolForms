@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+using Microsoft.AspNetCore.Http;
 
 namespace AvcolForms.Core.FileSaving;
 
