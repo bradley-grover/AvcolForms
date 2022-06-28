@@ -29,6 +29,9 @@ public class CommandAttribute : Attribute
     /// <param name="description">Command description</param>
     public CommandAttribute(string name, string description)
     {
+        ArgumentNullException.ThrowIfNull(name, nameof(name));
+        ArgumentNullException.ThrowIfNull(description, nameof(description));
+
         Name = name;
         Description = description;
     }

@@ -17,11 +17,11 @@ public class CommandRunner
     /// </summary>
     /// <param name="args">User input to pass in</param>
     /// <returns>A <see cref="Result"/></returns>
-    public async Task<Result> RunAsync(string[] args)
+    public async Task<Result> RunAsync(Memory<string> args)
     {
         ArgumentNullException.ThrowIfNull(args);
 
-        string command = args[0];
+        string command = args.Span[0];
 
 
         if (args.Length == 1)
@@ -31,20 +31,15 @@ public class CommandRunner
                 await _commands.RunCommandAsync(command);
                 return Result.Success;
             }
-            else
-            {
-                return Result.NotFound;
-            }
+            return Result.NotFound;
         }
 
         if (_commands.CommandExistsWithParameters(command))
         {
-            await _commands.RunParamCommandAsync(command, args.Skip(1).ToArray());
+            await _commands.RunParamCommandAsync(command, args.Span[1..].ToArray());
             return Result.Success;
         }
-        else
-        {
-            return Result.NotFound;
-        }
+
+        return Result.NotFound;
     }
 }
