@@ -14,7 +14,7 @@ public class AliasAttribute : Attribute
     /// <summary>
     /// String array of trhe aliases that can be used
     /// </summary>
-    public string[]? Aliases { get; set; }
+    public string[] Aliases { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AliasAttribute"/> class
@@ -22,6 +22,8 @@ public class AliasAttribute : Attribute
     /// <param name="aliases">Arbitrary amount of aliases to be used</param>
     public AliasAttribute(params string[] aliases)
     {
+        ArgumentNullException.ThrowIfNull(aliases, nameof(aliases));
+
         Aliases = aliases;
     }
 }

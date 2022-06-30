@@ -24,96 +24,113 @@ public class CommandCollection : ICommandCollection
         _aliases = new();
         Initialize();
     }
-
     private void Initialize()
     {
-        var assembly = Assembly.GetAssembly(typeof(Program))!;
+        var assembly = typeof(CommandCollection).Assembly;
 
-        foreach (var type in assembly.GetTypes())
+        IEnumerable<Type> types = assembly.GetTypes().Where(x => x.IsClass && x.GetCustomAttribute<ModuleAttribute>() is not null);
+
+        foreach (var type in types)
         {
-            if (!type.IsClass)
-            {
-                continue;
-            }
+            IEnumerable<MethodInfo> methods = type.GetMethods().Where(m => m.GetCustomAttribute<CommandAttribute>() is not null);
 
-            var attribute = type.GetCustomAttribute<ModuleAttribute>();
+            AddMethods(methods);
+        }
+    }
 
-            if (attribute is null)
-            {
-                continue;
-            }
-
-            var unfiltered = type.GetMethods();
-            var methods = unfiltered.Where(m => m.GetCustomAttributes(typeof(CommandAttribute), false).Length > 0);
-
-            foreach (var method in methods)
-            {
-                if (!(method.ReturnType == typeof(Task)))
-                {
-                    throw new InvalidOperationException("Method with a Command Attribute must return a Task");
-                }
-
-                var methodAttribute = method.GetCustomAttribute<CommandAttribute>()!;
-                var aliases = method.GetCustomAttribute<AliasAttribute>();
-
-                ParameterInfo[] parameters = method.GetParameters();
-
-                if (parameters.Length == 0)
-                {
-                    var del = method.CreateDelegate<Func<Task>>();
-                    string methodName = methodAttribute.Name.ToLower().Trim();
-                    _commands.Add(methodName, del);
-
-                    if (aliases is not null)
-                    {
-                        if (aliases.Aliases is not null)
-                        {
-                            //Array.ForEach(aliases.Aliases, alias => _aliases.Add(alias, methodName));
-                        }
-                    }
-
-                    continue;
-                }
-
-                var methodWithParam = method.CreateDelegate<Func<string[],Task>>();
-
-                var methodWithParamName = methodAttribute.Name.ToLower().Trim();
-                _commandsWithParameters.Add(methodAttribute.Name.ToLower().Trim(), methodWithParam);
+    private void AddMethods(IEnumerable<MethodInfo> methods)
+    {
+        foreach (var method in methods)
+        {
+            AddMethod(method);
+        }
+    }
 
 
-                if (aliases is not null)
-                {
-                    if (aliases.Aliases is not null)
-                    {
-                        //Array.ForEach(aliases.Aliases, alias => _aliases.Add(alias, methodWithParamName));
-                    }
-                }
-            }
+    private void AddMethod(MethodInfo method)
+    {
+        if (method.ReturnType != typeof(Task))
+        {
+            return;
         }
 
+        var methodAttribute = method.GetCustomAttribute<CommandAttribute>()!;
+
+        var methodParameters = method.GetParameters();
+
+        if (methodParameters.Length == 0)
+        {
+            var @delegate = method.CreateDelegate<Func<Task>>();
+
+            string methodName = methodAttribute.Name.ToLower().Trim();
+
+            _commands.Add(methodName, @delegate);
+
+            var aliases = method.GetCustomAttribute<AliasAttribute>();
+
+            if (aliases is null)
+            {
+                return;
+            }
+
+            Array.ForEach(aliases.Aliases, element => _aliases.TryAdd(element, methodName));
+
+            return;
+        }
+        else
+        {
+            var methodWithParam = method.CreateDelegate<Func<string[], Task>>();
+
+            var methodWithParamName = methodAttribute.Name.ToLower().Trim();
+
+            _commandsWithParameters.Add(methodAttribute.Name.ToLower().Trim(), methodWithParam);
+
+            var aliases = method.GetCustomAttribute<AliasAttribute>();
+
+            if (aliases is null)
+            {
+                return;
+            }
+
+            Array.ForEach(aliases.Aliases, element => _aliases.TryAdd(element, methodWithParamName));
+        }
     }
 
     /// <inheritdoc></inheritdoc>
     public bool CommandExistsWithoutParameters(string commandName)
     {
-        return _commands.ContainsKey(commandName.ToLower().Trim());
+        return _commands.ContainsKey(commandName.ToLower().Trim())
+            || _aliases.ContainsKey(commandName.ToLower().Trim());
     }
 
     /// <inheritdoc></inheritdoc>
     public bool CommandExistsWithParameters(string commandName)
     {
-        return _commandsWithParameters.ContainsKey((commandName.ToLower().Trim()));
+        return _commandsWithParameters.ContainsKey((commandName.ToLower().Trim()))
+            || _aliases.ContainsKey(commandName.ToLower().Trim());
     }
 
     /// <inheritdoc></inheritdoc>
     public async Task RunCommandAsync(string commandName)
     {
+        if (_aliases.TryGetValue(commandName.ToLower().Trim(), out var alias))
+        {
+            await _commands[alias].Invoke();
+            return;
+        }
+
         await _commands[commandName.ToLower().Trim()].Invoke();
     }
 
     /// <inheritdoc></inheritdoc>
     public async Task RunParamCommandAsync(string commandName, string[] args)
     {
+        if (_aliases.TryGetValue(commandName.ToLower().Trim(), out var alias))
+        {
+            await _commandsWithParameters[alias].Invoke(args);
+            return;
+        }
+
         await _commandsWithParameters[commandName.ToLower().Trim()].Invoke(args);
     }
 }

@@ -30,6 +30,9 @@ public class ModuleAttribute : Attribute
     /// <param name="description">The module description</param>
     public ModuleAttribute(string name, string description)
     {
+        ArgumentNullException.ThrowIfNull(name, nameof(name));
+        ArgumentNullException.ThrowIfNull(description, nameof(description));
+
         Name = name;
         Description = description;
     }
