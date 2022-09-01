@@ -2,6 +2,9 @@
 using AvcolForms.Core.Options;
 using Microsoft.Extensions.Options;
 
+// In this class implementation of IDataInitializor we use the async methods of Entity Framework's RoleManager and UserManager to create and assign roles to users
+// The methods are run using sync instead of async as we can't await async methods in a sync call stack without getting a lot of build warnings.
+
 namespace AvcolForms.Web.Initialization;
 
 /// <summary>
@@ -36,6 +39,7 @@ public class DataInitializer : IDataInitializor
     {
         bool dbHasAdminRole = Async.RunSync(() => RoleManager.RoleExistsAsync(Roles.Admin));
 
+        // if the admin role doesn't exist in the database we create it
 
         if (!dbHasAdminRole)
         {
@@ -49,6 +53,8 @@ public class DataInitializer : IDataInitializor
 
     private void InitializeRootUser()
     {
+        // creates a 'sudo' user that will have full authority over the system
+
         Logger.LogInformation("R-User: {email} | {passwordLength} | Root", RootUserOptions.Value.Email, new string('*', RootUserOptions.Value.Password.Length));
 
         var user = Async.RunSync(() => UserManager.FindByEmailAsync(RootUserOptions.Value.Email));
@@ -75,6 +81,8 @@ public class DataInitializer : IDataInitializor
 
     private void InitializeMultipleUsers()
     {
+        // creates demo users for debug purposes
+
         if (SeededAccounts.Value.Accounts is null || SeededAccounts.Value.Accounts.Length == 0)
         {
             Logger.LogInformation("There are zero accounts to be added for seeding");

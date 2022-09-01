@@ -17,7 +17,7 @@ public class CommandRunner
     /// </summary>
     /// <param name="args">User input to pass in</param>
     /// <returns>A <see cref="Result"/></returns>
-    public async Task<Result> RunAsync(Memory<string> args)
+    public async Task<Result> RunAsync(ReadOnlyMemory<string> args)
     {
         ArgumentNullException.ThrowIfNull(args);
 

@@ -13,7 +13,7 @@ namespace AvcolForms.Core.FileSaving;
 public class FileSaver : IFileSaver
 {
     /// <inheritdoc></inheritdoc>
-    public async Task SaveAsync(Memory<byte> data, string path, CancellationToken cancellationToken = default)
+    public async Task SaveAsync(ReadOnlyMemory<byte> data, string path, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(path, nameof(path));
 
