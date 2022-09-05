@@ -35,6 +35,7 @@ public class DataInitializer : IDataInitializor
         Logger = provider.GetRequiredService<ILogger<IDataInitializor>>();
     }
 
+    /// <inheritdoc></inheritdoc>
     public void Initialize()
     {
         bool dbHasAdminRole = Async.RunSync(() => RoleManager.RoleExistsAsync(Roles.Admin));
