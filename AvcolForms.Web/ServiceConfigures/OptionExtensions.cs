@@ -23,6 +23,7 @@ internal static class OptionExtensions
         return services;
     }
 
+    // methods below validate the options by using the annotations assigned to them, they are validated during startup instead of runtime
     private static void ValidateByDataAnnotation<T>(T instance, string sectionName) where T : notnull
     {
         var validationResults = new List<ValidationResult>();
