@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
+// this class uses outlook during testing
+
 namespace AvcolForms.Core.Email;
 
 /// <summary>
