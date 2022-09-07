@@ -17,6 +17,7 @@ public class AccountModel
     /// </summary>
     [EmailAddress]
     [Required]
+    [MaxLength(Constants.MaxEmailLength)]
     public string Email { get; set; }
 
     /// <summary>

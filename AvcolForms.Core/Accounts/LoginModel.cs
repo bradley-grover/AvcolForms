@@ -17,6 +17,7 @@ public class LoginModel
     /// </summary>
     [Required]
     [EmailAddress]
+    [MaxLength(Constants.MaxEmailLength)]
     public string Email { get; set; }
 
     /// <summary>
