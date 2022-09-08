@@ -1,7 +1,7 @@
 ﻿namespace AvcolForms.Tests.Unit.Core.Files;
 
 /// <summary>
-/// Tests saving with the <see cref="Memory{T}"/> overload of <see cref="IFileSaver.SaveAsync(Memory{byte}, string, CancellationToken)"/>
+/// Tests saving with the <see cref="Memory{T}"/> overload of <see cref="IFileSaver.SaveAsync(ReadOnlyMemory{byte}, string, CancellationToken)"/>
 /// </summary>
 public class SaveOnArrayTests
 {

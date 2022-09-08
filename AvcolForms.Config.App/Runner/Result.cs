@@ -18,9 +18,12 @@ public enum Result
     /// The runner successfully ran the command
     /// </summary>
     Success,
-
     /// <summary>
     /// The runner found the command, but the params were incorrect
     /// </summary>
-    Mismatch
+    Mismatch,
+    /// <summary>
+    /// Execution of the command ran into an erro
+    /// </summary>
+    Error
 }

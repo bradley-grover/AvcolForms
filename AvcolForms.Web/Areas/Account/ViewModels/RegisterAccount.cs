@@ -14,6 +14,7 @@ public class RegisterAccount
     /// </summary>
     [Required]
     [EmailAddress]
+    [MaxLength(Constants.MaxEmailLength, ErrorMessage = Constants.MaxEmailLengthError)]
     public string Email { get; set; }
 
     /// <summary>

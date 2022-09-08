@@ -28,7 +28,15 @@ public class CommandRunner
         {
             if (_commands.CommandExistsWithoutParameters(command))
             {
-                await _commands.RunCommandAsync(command);
+                try
+                {
+                    await _commands.RunCommandAsync(command);
+                }
+                catch
+                {
+                    return Result.Error;
+                }
+                
                 return Result.Success;
             }
             return Result.NotFound;
@@ -36,7 +44,15 @@ public class CommandRunner
 
         if (_commands.CommandExistsWithParameters(command))
         {
-            await _commands.RunParamCommandAsync(command, args.Span[1..].ToArray());
+            try
+            {
+                await _commands.RunParamCommandAsync(command, args.Span[1..].ToArray());
+            }
+            catch
+            {
+                return Result.Error;
+            }
+
             return Result.Success;
         }
 

@@ -17,7 +17,7 @@ public class AccountModel
     /// </summary>
     [EmailAddress]
     [Required]
-    [MaxLength(Constants.MaxEmailLength)]
+    [MaxLength(Constants.MaxEmailLength, ErrorMessage = Constants.MaxEmailLengthError)]
     public string Email { get; set; }
 
     /// <summary>
