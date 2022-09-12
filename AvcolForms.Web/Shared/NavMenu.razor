@@ -7,15 +7,18 @@
 <AuthorizeView>
     <MudNavLink Href="/account" Icon="@Icons.Material.Filled.AccountCircle">Account</MudNavLink>
 </AuthorizeView>
-<AuthorizeView Roles="Admin">
-    <MudNavLink Href="@Routes.Admin.Dash" Icon="@Icons.Material.Filled.AdminPanelSettings">Admin</MudNavLink>
+<AuthorizeView Roles="@Roles.Admin">
+    <MudNavGroup Title="@Roles.Admin" Icon="@Icons.Material.Filled.AdminPanelSettings">
+        <MudNavLink Href="@Routes.Admin.Dash" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+        <MudNavLink Href="@Routes.Admin.Users" Icon="@Icons.Material.Filled.ManageAccounts">Users</MudNavLink>
+    </MudNavGroup>
 </AuthorizeView>
 <AuthorizeView>
     <MudNavLink Icon="@Icons.Material.Filled.Logout" OnClick="@Logout">Logout</MudNavLink>
 </AuthorizeView>
 
 @code {
-    async void Logout()
+    async Task Logout()
     {
         var parameters = new DialogParameters();
         parameters.Add("ContentText", "Do you really want to logout?");

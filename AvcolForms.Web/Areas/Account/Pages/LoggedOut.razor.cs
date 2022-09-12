@@ -5,19 +5,8 @@
 /// </summary>
 public partial class LoggedOut
 {
-    /// <summary>
-    /// Seconds before the redirect occurs
-    /// </summary>
-    public int Seconds { get; set; } = 5;
-
-    protected override void OnAfterRender(bool firstRender)
+    protected override void OnInitialized()
     {
-        for (; Seconds > 0; Seconds--)
-        {
-            Thread.Sleep(1000);
-            StateHasChanged();
-        }
-
-        NavManager.NavigateTo("/account/login");
+        NavManager.NavigateTo(Routes.Accounts.Login);
     }
 }

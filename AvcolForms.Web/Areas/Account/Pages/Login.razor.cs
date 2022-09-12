@@ -1,4 +1,5 @@
-﻿using AvcolForms.Core.Accounts;
+﻿using System.Web;
+using AvcolForms.Core.Accounts;
 using Microsoft.AspNetCore.DataProtection;
 
 namespace AvcolForms.Web.Areas.Account.Pages;
@@ -31,7 +32,7 @@ public partial class Login
 
     void GoToRegister()
     {
-        NavManager.NavigateTo("/account/register");
+        NavManager.NavigateTo(Routes.Accounts.Register);
     }
 
     async Task LoginAsync()
@@ -50,9 +51,9 @@ public partial class Login
 
             var token = await UserManager.GenerateUserTokenAsync(user, TokenOptions.DefaultProvider, Protected.Login);
 
-            var data = $"{user.Id}|{token}";
+            var data = $"{user.Id}|{token}|{SignIn.Persist}";
 
-            var parsedQuery = System.Web.HttpUtility.ParseQueryString(new Uri(NavManager.Uri).Query);
+            var parsedQuery = HttpUtility.ParseQueryString(new Uri(NavManager.Uri).Query);
 
             var returnUrl = parsedQuery["returnUrl"];
 

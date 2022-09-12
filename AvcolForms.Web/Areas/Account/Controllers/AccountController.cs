@@ -44,13 +44,15 @@ public class AccountController : Controller
 
         var isTokenValid = await UserManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, Protected.Login, parts[1]);
 
+        _ = bool.TryParse(parts[2].AsSpan(), out bool persist);
+
         if (isTokenValid)
         {
-            await SignInManager.SignInAsync(user, true);
+            await SignInManager.SignInAsync(user, persist);
 
-            if (parts.Length == 3 && Url.IsLocalUrl(parts[2]))
+            if (parts.Length == 4 && Url.IsLocalUrl(parts[3]))
             {
-                return Redirect(parts[2]);
+                return Redirect(parts[3]);
             }
             return Redirect("/");
         }
@@ -81,7 +83,7 @@ public class AccountController : Controller
             return BadRequest("Failed to authenticate the email");
         }
 
-        return Redirect("/account/email_confirmed");
+        return Redirect(Routes.Accounts.EmailConfirmedPage);
     }
 
     /// <summary>
@@ -89,11 +91,11 @@ public class AccountController : Controller
     /// </summary>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IActionResult"/></returns>
     [Authorize]
-    [HttpGet("account/logout")]
+    [HttpGet(Routes.Accounts.Logout)]
     public async Task<IActionResult> LogOutAsync()
     {
         await SignInManager.SignOutAsync();
 
-        return Redirect("/account/logged_out");
+        return Redirect(Routes.Accounts.LogoutPage);
     }
 }

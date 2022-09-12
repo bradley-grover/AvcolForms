@@ -26,4 +26,10 @@ public class LoginModel
     [Required]
     [DataType(DataType.Password)]
     public string Password { get; set; }
+
+    /// <summary>
+    /// Whether the login persists or not
+    /// </summary>
+    [Required]
+    public bool Persist { get; set; }
 }

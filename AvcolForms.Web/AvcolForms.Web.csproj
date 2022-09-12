@@ -47,8 +47,4 @@
     <ProjectReference Include="..\AvcolForms.Core\AvcolForms.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Account\Pages\Manage\" />
-  </ItemGroup>
-
 </Project>

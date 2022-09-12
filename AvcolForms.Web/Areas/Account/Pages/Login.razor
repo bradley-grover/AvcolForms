@@ -28,6 +28,7 @@
                               @bind-Value="SignIn.Password" For="@(() => SignIn.Password)" InputType="InputType.Password"/>
             </MudCardContent>
             <MudCardActions>
+                <MudCheckBox T="bool" @bind-Checked="SignIn.Persist">Remember Me?</MudCheckBox>
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Login</MudButton>
             </MudCardActions>
         </MudCard>

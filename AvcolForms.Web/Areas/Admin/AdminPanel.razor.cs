@@ -14,14 +14,13 @@ public partial class AdminPanel
 
     private bool isLoading = false;
     private int userCount;
-    private int adminUserCount;
 
 #nullable restore
 
     private readonly List<BreadcrumbItem> items = new()
     {
-        new("Home", href: "#", disabled: false, Icons.Material.Filled.Home),
-        new("Admin", href: Routes.Admin.Dash, disabled: false, icon: Icons.Material.Filled.AdminPanelSettings),
+        new("Home", href: Routes.Home, disabled: false, Icons.Material.Filled.Home),
+        new("Admin", href: Routes.Admin.Dash, disabled: true, icon: Icons.Material.Filled.AdminPanelSettings),
     };
 
     private void GoToUsersPage()

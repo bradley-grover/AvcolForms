@@ -3,8 +3,20 @@
  * Copyright (c) 2022 Bradley Grover
  */
 
-using System.Reflection;
-using Microsoft.AspNetCore.Identity;
+/*
+ * The code in this class sets up our dbcontext and selects a provider.
+ * Some things to note about what this setup does
+ * - This extension method setups up the database so that we spawn instance of DbContextFactory as well
+ *   because we want to manage the lifetime and disposal of our context manually because of the way Blazor server works
+ * - This code works differently in release build to debug:
+ *    In debug mode compilation: 
+ *      The method will use an in memory tables to act as the database and will enable detailed errors and sensitive logging of data to the logger
+ *    In release mode:
+ *      The method will use any of the selected real database providers read from the configuration and load the connection string for the database.
+ *      If the provider is not found then it will throw an exception on startup
+ * This code also adds the entity framework stores for our authentication of the app and adds account settings
+ */
+
 
 namespace AvcolForms.Web.ServiceConfigures;
 
