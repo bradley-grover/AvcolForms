@@ -5,9 +5,42 @@
 /// </summary>
 public partial class AdminPanel
 {
+#nullable disable
+    [Inject]
+    private NavigationManager NavManager { get; set; }
+
+    [Inject]
+    private IDbContextFactory<ApplicationDbContext> Factory { get; set; }
+
+    private bool isLoading = false;
+    private int userCount;
+    private int adminUserCount;
+
+#nullable restore
+
     private readonly List<BreadcrumbItem> items = new()
     {
         new("Home", href: "#", disabled: false, Icons.Material.Filled.Home),
-        new("Admin", href: null, disabled: true, icon: Icons.Material.Filled.AdminPanelSettings),
+        new("Admin", href: Routes.Admin.Dash, disabled: false, icon: Icons.Material.Filled.AdminPanelSettings),
     };
+
+    private void GoToUsersPage()
+    {
+        NavManager.NavigateTo(Routes.Admin.Users);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+
+        try
+        {
+            using var context = await Factory.CreateDbContextAsync();
+            userCount = await context.Users.CountAsync();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
 }

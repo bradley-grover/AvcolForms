@@ -45,6 +45,6 @@ public partial class SentConfirmation
 
     public void GoToResend()
     {
-        NavManager.NavigateTo(AccountRoutes.ResendConfirmation);
+        NavManager.NavigateTo(Routes.Accounts.ResendConfirmation);
     }
 }

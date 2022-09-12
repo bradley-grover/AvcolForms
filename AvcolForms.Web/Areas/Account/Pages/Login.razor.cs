@@ -44,7 +44,7 @@ public partial class Login
 
             if (!await UserManager.IsEmailConfirmedAsync(user))
             {
-                NavManager.NavigateTo(AccountRoutes.ConfirmEmailPage);
+                NavManager.NavigateTo(Routes.Accounts.ConfirmEmailPage);
                 return;
             }
 

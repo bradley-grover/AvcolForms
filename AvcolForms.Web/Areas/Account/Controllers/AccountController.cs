@@ -33,7 +33,7 @@ public class AccountController : Controller
     /// </summary>
     /// <param name="t">The data delimited by a character</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IActionResult"/></returns>
-    [HttpGet(AccountRoutes.AuthenticateLogin)]
+    [HttpGet(Routes.Accounts.AuthenticateLogin)]
     public async Task<IActionResult> AuthenticateLoginAsync(string t)
     {
         var data = LoginProtector.Unprotect(t);
@@ -65,7 +65,7 @@ public class AccountController : Controller
     /// </summary>
     /// <param name="t">Data delimited by a character</param>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IActionResult"/></returns>
-    [HttpGet(AccountRoutes.EmailConfirmGet)]
+    [HttpGet(Routes.Accounts.EmailConfirmGet)]
     public async Task<IActionResult> AuthenticateEmailAsync(string t)
     {
         var data = EmailConfirmProtector.Unprotect(t);

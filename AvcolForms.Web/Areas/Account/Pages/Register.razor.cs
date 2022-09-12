@@ -102,7 +102,7 @@ public partial class Register
 
             value = protecter.Protect(value);
 
-            Uri uri = NavManager.ToAbsoluteUri($"{AccountRoutes.EmailConfirmGet}?t={value}");
+            Uri uri = NavManager.ToAbsoluteUri($"{Routes.Accounts.EmailConfirmGet}?t={value}");
 
             try
             {
@@ -113,7 +113,7 @@ public partial class Register
             {
                 Logger.LogError("{exception}", exception);
                 success = false;
-                error = $"An error occured whilst trying to send you a confirmation email, resend by <a href='{AccountRoutes.ResendConfirmation}'>clicking here</a>.";
+                error = $"An error occured whilst trying to send you a confirmation email, resend by <a href='{Routes.Accounts.ResendConfirmation}'>clicking here</a>.";
                 proccessing = false;
                 return;
             }
