@@ -9,14 +9,17 @@ public partial class Users
 {
 #nullable disable
     private MudTable<UserViewModel> userTable;
-    private readonly List<int> _items = new();
+    private TableData<UserViewModel> currentData = new();
+    private bool isBusy = false;
     private string searchString;
-    private int pageSize = 10;
+    private bool isAdminstrator;
 
     [Inject]
     private IDbContextFactory<ApplicationDbContext> Factory { get; set; }
 
-    private bool Lock { get; set; } = false;
+    [Inject]
+    private UserManager<ApplicationUser> UserManager { get; set; }
+
 #nullable restore
 
     private readonly List<BreadcrumbItem> items = new()
@@ -28,21 +31,31 @@ public partial class Users
 
     private async Task<TableData<UserViewModel>> GetUsersAsync(TableState state)
     {
-        using var context = Factory.CreateDbContext();
-
-        var itemCount = await context.Users.CountAsync();
-
-        var items = await context.Users.Take(pageSize).ToListAsync();
-
-        var data = items.Select(x =>
+        if (isBusy)
         {
-            return new UserViewModel()
-            {
-                Email = x.Email,
-                EmailIsConfirmed = x.EmailConfirmed
-            };
-        });
+            return currentData;
+        }
 
-        return new TableData<UserViewModel> { Items = data, TotalItems = itemCount };
+        isBusy = true;
+
+        try
+        {
+            using var context = Factory.CreateDbContext();
+
+            var itemCount = await context.Users.CountAsync();
+
+            var items = await context.Users.Take(state.PageSize)
+                .ToListAsync();
+
+            var converted = items.Select(x => UserViewModel.ConvertToUIModel(x));
+
+            currentData = new() { Items = converted, TotalItems = itemCount };
+
+            return currentData;
+        }
+        finally
+        {
+            isBusy = false;
+        }
     }
 }

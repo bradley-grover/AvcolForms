@@ -16,9 +16,18 @@
         <MudSpacer/>
         <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
-    <HeaderContent>
-        <MudTh><MudTableSortLabel SortLabel="sort_email" T="UserViewModel">Email</MudTableSortLabel></MudTh>
+   <HeaderContent>
+        <MudTh>Email Address</MudTh>
+        <MudTh>Email Confirmed</MudTh>
+        <MudTh>
+            <MudCheckBox @bind-Checked="@isAdminstrator">Administrator?</MudCheckBox>
+        </MudTh>
     </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Email Address">@context.Email</MudTd>
+        <MudTd DataLabel="Email Confirmed">@context.EmailConfirmed</MudTd>
+        <MudTd DataLabel="Administrator">@context.IsElevated</MudTd>
+    </RowTemplate>
     <NoRecordsContent>
         No users found
     </NoRecordsContent>
