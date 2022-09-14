@@ -23,5 +23,6 @@ internal static class Routes
         public const string EmailConfirmedPage = $"{Account}/email_confirmed";
         public const string Logout = $"{Account}/logout";
         public const string LogoutPage = $"{Account}/logged_out";
+        public const string ForgotPassword = $"{Account}/forgot_password";
     }
 }

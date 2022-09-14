@@ -5,7 +5,7 @@
 /// </summary>
 public partial class LoggedOut
 {
-    protected override void OnInitialized()
+    protected override void OnAfterRender(bool firstRender)
     {
         NavManager.NavigateTo(Routes.Accounts.Login);
     }

@@ -15,7 +15,7 @@ namespace AvcolForms.Web;
 /// <summary>
 /// Startup class to register application services and the HTTP Request Pipeline
 /// </summary>
-public class Startup
+public sealed class Startup
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Startup"/> class

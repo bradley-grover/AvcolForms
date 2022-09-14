@@ -35,7 +35,9 @@
     </MudItem>
 </MudGrid>
 </EditForm>
-<MudSpacer/>
-<MudButton Color="Color.Transparent" OnClick="@(() => GoToRegister())">
-    Don't have an account? Register Now
-</MudButton>
+<br/>
+<MudText>
+    <MudLink Href="@Routes.Accounts.ForgotPassword">Forgot Password?</MudLink>
+    |
+    <MudLink Href="@Routes.Accounts.Register">Register</MudLink>
+</MudText>

@@ -30,11 +30,6 @@ public partial class Login
 
     private LoginModel SignIn { get; } = new();
 
-    void GoToRegister()
-    {
-        NavManager.NavigateTo(Routes.Accounts.Register);
-    }
-
     async Task LoginAsync()
     {
         var user = await UserManager.FindByEmailAsync(SignIn.Email);

@@ -10,7 +10,7 @@ namespace AvcolForms.Web.Initialization;
 /// <summary>
 /// Used for initiailizing seeed data that needs to run during startup of the application
 /// </summary>
-public class DataInitializer : IDataInitializor
+public sealed class DataInitializer : IDataInitializor
 {
     private RoleManager<IdentityRole> RoleManager { get; }
     private UserManager<ApplicationUser> UserManager { get; }
