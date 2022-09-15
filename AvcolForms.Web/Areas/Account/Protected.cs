@@ -14,4 +14,9 @@ internal static class Protected
     /// Protected data for confirming the email
     /// </summary>
     public const string ConfirmEmail = nameof(ConfirmEmail);
+
+    /// <summary>
+    /// Protected data for when resetting password
+    /// </summary>
+    public const string ForgotPassword = nameof(ForgotPassword);
 }

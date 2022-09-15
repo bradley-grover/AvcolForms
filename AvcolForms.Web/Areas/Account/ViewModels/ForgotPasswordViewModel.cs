@@ -7,7 +7,7 @@ namespace AvcolForms.Web.Areas.Account.ViewModels;
 /// <summary>
 /// View model for a user who has forgot their password
 /// </summary>
-public class ForgotPassword
+public class ForgotPasswordViewModel
 {
     /// <summary>
     /// Email to send confirmation to
