@@ -45,11 +45,10 @@ public partial class Users
             var itemCount = await context.Users.CountAsync();
 
             var items = await context.Users.Take(state.PageSize)
+                .Select(x => UserViewModel.ConvertToUIModel(x))
                 .ToListAsync();
 
-            var converted = items.Select(x => UserViewModel.ConvertToUIModel(x));
-
-            currentData = new() { Items = converted, TotalItems = itemCount };
+            currentData = new() { Items = items, TotalItems = itemCount };
 
             return currentData;
         }
