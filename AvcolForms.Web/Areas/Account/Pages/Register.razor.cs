@@ -48,11 +48,6 @@ public partial class Register
     bool registerButtonLock = false;
     bool proccessing = false;
 
-    void GoToLogin()
-    {
-        NavManager.NavigateTo("/account/login");
-    }
-
     private readonly List<BreadcrumbItem> items = new()
     {
         new("Account", href: null, disabled: true, Icons.Material.Filled.AccountCircle),

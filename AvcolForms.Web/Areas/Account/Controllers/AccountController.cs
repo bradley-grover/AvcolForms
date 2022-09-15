@@ -76,6 +76,11 @@ public class AccountController : Controller
 
         var user = await UserManager.FindByIdAsync(parts[0]);
 
+        if (user is null)
+        {
+            return Unauthorized();
+        }
+
         var confirmResult = await UserManager.ConfirmEmailAsync(user, parts[1]);
 
         if (!confirmResult.Succeeded)
@@ -91,7 +96,7 @@ public class AccountController : Controller
     /// </summary>
     /// <returns>A <see cref="Task{TResult}"/> of <see cref="IActionResult"/></returns>
     [Authorize]
-    [HttpGet(Routes.Accounts.Logout)]
+    [HttpGet(Routes.Accounts.Logout)]       
     public async Task<IActionResult> LogOutAsync()
     {
         await SignInManager.SignOutAsync();

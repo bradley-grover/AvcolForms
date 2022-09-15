@@ -1,5 +1,7 @@
 ﻿@inject NavigationManager NavigationManager;
 
+<PageTitle>404 - Not Found</PageTitle>
+
 <MudAlert
     Severity=Severity.Error 
     ContentAlignment=HorizontalAlignment.Center     
@@ -14,6 +16,6 @@
 @code {
     void ReturnToHomePage()
     {
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo(Routes.Home);
     }
 }

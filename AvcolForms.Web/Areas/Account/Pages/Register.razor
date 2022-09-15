@@ -49,6 +49,4 @@
 </EditForm>
 
 <MudSpacer/>
-<MudButton Color="Color.Transparent" OnClick="@(() => GoToLogin())">
-    Already have an account? Click here to login
-</MudButton>
+<MudLink Href="@Routes.Accounts.Login">Already have an account? Click here to login</MudLink>

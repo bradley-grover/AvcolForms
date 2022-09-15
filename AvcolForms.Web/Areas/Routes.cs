@@ -25,5 +25,7 @@ internal static class Routes
         public const string LogoutPage = $"{Account}/logged_out";
         public const string ForgotPassword = $"{Account}/forgot_password";
         public const string ChangeForgotPassword = $"{Account}/reset_password";
+        public const string PasswordResetRequested = $"{Account}/password_reset_requested";
+        public const string ResetAccountPassword = $"{Account}/reset_account_password";
     }
 }
