@@ -14,14 +14,28 @@ Blazor Server App used for managing and creating forms
 # Installation/Running
 ## Prerequisites:
 - .NET 6 runtime
-- Powershell Script Exectuion Access (Optional), this is to generate migrations faster you don't actually need this, although to run ef scripts you should build in release
+- Powershell Script Execution Access (Optional), this is to generate migrations faster you don't actually need this, although to run ef scripts you should build in release
+## Required to Run The Project:
+
+You have to set these config keys for the project to run as intended
+
+These can be set in appsettings.json or secrets.json
+
+Privacy & Website Options:
+eg. </br>
+<img src="./resources/required-options-01.jpg">
+
+You must also set the RootUserOptions like above, the fields are Email & Password</br>
+For email confirmation to be set up properly the configuration in the core library EmailOptions has to be set for emails to be sent on registration
 
 ## Notes:
 - Before running the project I advise you to configure some things as you may not like the defaults
 ### Database & Entity Framework Core:
-- If your run your project in debug it will use [an in memory provider](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory)
+- If you run the web project in debug it will use [an in memory provider](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory)
 - If you run in release it will use the selected provider and run the `Database.EnsureCreated()` function which creates the db if it doesn't exist already
-- Db-Provider in [./appsettings.json](https://github.com/ac111897/AvcolForms/master/AvcolForms.Web/appsettings.json)
+- Db-Provider in [./appsettings.json](https://github.com/ac111897/AvcolForms/master/AvcolForms.Web/appsettings.json) sets what database provider the application will use.
+The supported options are Sqlite, SqlServer & Postgres
+ 
 - Once the provider is set you can use the powershell scripts in the project root to create a migration
 - You should run `./setup.ps1` if you don't have Entity Framework Tools installed, or if you need to update them as you might need to update them for new versions of the app
 - To run for a provider the syntax is `./[provider-name]-migrate.ps1 [migration-name]`
@@ -31,14 +45,12 @@ Blazor Server App used for managing and creating forms
 ## Git Commands:
 ### Running the web project
 1. ```git clone https://github.com/ac111897/AvcolForms.git```
-2. ```cd AvcolForms```
-3. ```cd AvcolForms.Web```
-4. ```dotnet run```
+2. ```cd AvcolForms\AvcolForms.Web```
+3. ```dotnet run```
 ### Running the unit tests
 1. ```git clone https://github.com/ac111897/AvcolForms.git```
-2. ```cd AvcolForms```
-3. ```cd AvcolForms.Tests```
-4. ```dotnet test```
+2. ```cd AvcolForms\AvcolForms.Test```
+3. ```dotnet test```
 
 ## Other README Files
 [Web Project README](https://github.com/ac111897/AvcolForms/tree/master/AvcolForms.Web/README.MD)</br>
