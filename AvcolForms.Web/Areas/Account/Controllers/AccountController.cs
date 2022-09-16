@@ -36,9 +36,19 @@ public class AccountController : Controller
     [HttpGet(Routes.Accounts.AuthenticateLogin)]
     public async Task<IActionResult> AuthenticateLoginAsync(string t)
     {
+        if (string.IsNullOrWhiteSpace(t))
+        {
+            return BadRequest();
+        }
+
         var data = LoginProtector.Unprotect(t);
 
         var parts = data.Split('|');
+
+        if (!(parts.Length >= 3))
+        {
+            return BadRequest();
+        }
 
         var user = await UserManager.FindByIdAsync(parts[0]);
 
@@ -56,10 +66,8 @@ public class AccountController : Controller
             }
             return Redirect("/");
         }
-        else
-        {
-            return Unauthorized("Unauthorized request");
-        }
+
+        return Unauthorized();
     }
 
     /// <summary>

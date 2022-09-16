@@ -10,7 +10,7 @@ public partial class DeleteConfirmation
     /// Mud Dialog instance passed by DI
     /// </summary>
     [CascadingParameter] 
-    MudDialogInstance MudDialog { get; set; }
+    internal MudDialogInstance MudDialog { get; set; }
 
     /// <summary>
     /// Content to be displayed

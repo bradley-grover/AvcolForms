@@ -44,6 +44,12 @@ public partial class Login
                 return;
             }
 
+            if (await UserManager.IsLockedOutAsync(user))
+            {
+                NavManager.NavigateTo(Routes.Accounts.AccountLockedOut);
+                return;
+            }
+
             var token = await UserManager.GenerateUserTokenAsync(user, TokenOptions.DefaultProvider, Protected.Login);
 
             var data = $"{user.Id}|{token}|{SignIn.Persist}";

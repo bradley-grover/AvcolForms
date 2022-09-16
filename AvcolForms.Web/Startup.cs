@@ -5,8 +5,6 @@
 
 using AvcolForms.Web.Initialization;
 using AvcolForms.Web.ServiceConfigures;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 using Serilog;
 
