@@ -17,6 +17,17 @@ Blazor Server App used for managing and creating forms
 - Powershell Script Execution Access (Optional), this is to generate migrations faster you don't actually need this, although to run ef scripts you should build in release
 ## Required to Run The Project:
 
+You have to set these config keys for the project to run as intended
+
+These can be set in appsettings.json or secrets.json
+
+Privacy & Website Options:
+eg. </br>
+<img src="./resources/required-options-01.jpg">
+
+You must also set the RootUserOptions like above, the fields are Email & Password</br>
+For email confirmation to be set up properly the configuration in the core library EmailOptions has to be set for emails to be sent on registration
+
 ## Notes:
 - Before running the project I advise you to configure some things as you may not like the defaults
 ### Database & Entity Framework Core:
