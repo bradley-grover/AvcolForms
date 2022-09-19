@@ -38,15 +38,16 @@ public sealed class DataInitializer : IDataInitializor
     /// <inheritdoc></inheritdoc>
     public void Initialize()
     {
-        bool dbHasAdminRole = Async.RunSync(() => RoleManager.RoleExistsAsync(Roles.Admin));
+        // create each role if they dont exist
+        ReadOnlySpan<string> roles = Roles.Every;
 
-        // if the admin role doesn't exist in the database we create it
-
-        if (!dbHasAdminRole)
+        foreach (var role in roles)
         {
-            Async.RunSync(() => RoleManager.CreateAsync(new IdentityRole(Roles.Admin)));
+            if (!Async.RunSync(() => RoleManager.RoleExistsAsync(role)))
+            {
+                Async.RunSync(() => RoleManager.CreateAsync(new IdentityRole(role)));
+            }
         }
-
 
         InitializeMultipleUsers();
         InitializeRootUser();

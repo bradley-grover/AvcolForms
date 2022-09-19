@@ -17,11 +17,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\savedFile.png" />
+    <None Remove="Assets\01.png" />
+    <None Remove="Assets\02.png" />
+    <None Remove="Assets\03.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\savedFile.png">
+    <Content Include="Assets\01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\03.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

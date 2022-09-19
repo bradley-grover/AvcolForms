@@ -8,7 +8,7 @@ namespace AvcolForms.Tests.Unit.Core.Files;
 public class SaveOnFormFile
 {
     private static readonly IFileSaver _fileSaver = new FileSaver();
-    private readonly string _filePath = Path.Join(Directory.GetCurrentDirectory(), "/Assets/savedFile.png");
+    private readonly string _filePath = Path.Join(Directory.GetCurrentDirectory(), "/Assets/02.png");
 
     /// <summary>
     /// Save should throw on an empty memory block
@@ -44,7 +44,7 @@ public class SaveOnFormFile
 
         long length = stream.Length;
 
-        string savePath = Path.Join(Directory.GetCurrentDirectory(), "/Output/savedImage.png");
+        string savePath = Path.Join(Directory.GetCurrentDirectory(), "/Output/02-out.png");
 
         if (File.Exists(savePath))
         {
@@ -56,16 +56,9 @@ public class SaveOnFormFile
 
         await _fileSaver.SaveAsync(file, savePath);
 
-        try
-        {
-            using var fileStream = File.Open(savePath, FileMode.Open);
+        using var fileStream = File.Open(savePath, FileMode.Open);
 
-            Assert.True(File.Exists(savePath));
-            Assert.Equal(length, fileStream.Length);
-        }
-        catch (IOException)
-        {
-
-        }
+        Assert.True(File.Exists(savePath));
+        Assert.Equal(length, fileStream.Length);
     }
 }

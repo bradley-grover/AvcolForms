@@ -6,7 +6,7 @@
 public class SaveOnArrayTests
 {
     private static readonly IFileSaver _fileSaver = new FileSaver();
-    private readonly string _filePath = Path.Join(Directory.GetCurrentDirectory(), "/Assets/savedFile.png");
+    private readonly string _filePath = Path.Join(Directory.GetCurrentDirectory(), "/Assets/01.png");
 
     /// <summary>
     /// Save should throw on an empty memory block
@@ -42,7 +42,7 @@ public class SaveOnArrayTests
 
         long length = stream.Length;
 
-        string savePath = Path.Join(Directory.GetCurrentDirectory(), "/Output/savedImage.png");
+        string savePath = Path.Join(Directory.GetCurrentDirectory(), "/Output/01-out.png");
 
         if (File.Exists(savePath))
         {
@@ -60,16 +60,9 @@ public class SaveOnArrayTests
 
         stream?.Dispose();
 
-        try
-        {
-            using var fileStream = File.Open(savePath, FileMode.Open);
+        using var fileStream = File.Open(savePath, FileMode.Open);
 
-            Assert.True(File.Exists(savePath));
-            Assert.Equal(length, fileStream.Length);
-        }
-        catch (IOException)
-        {
-
-        }
+        Assert.True(File.Exists(savePath));
+        Assert.Equal(length, fileStream.Length);
     }
 }
