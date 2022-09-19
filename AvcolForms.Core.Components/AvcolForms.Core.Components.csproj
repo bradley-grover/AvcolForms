@@ -20,4 +20,8 @@
     <ProjectReference Include="..\AvcolForms.Core\AvcolForms.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AvcolForms.Core.Data\AvcolForms.Core.Data.csproj"/>
+  </ItemGroup>
+
 </Project>

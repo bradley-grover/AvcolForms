@@ -8,6 +8,7 @@ namespace AvcolForms.Web.Areas.Account.Pages;
 /// <summary>
 /// Page for when you forget your password
 /// </summary>
+[Route(Routes.Accounts.ForgotPassword)]
 public partial class ForgotPassword
 {
 #nullable disable

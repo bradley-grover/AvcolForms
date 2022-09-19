@@ -21,6 +21,7 @@ internal static class Routes
         public const string ConfirmEmailPage = $"{Account}/confirm_email";
         public const string ResendConfirmation = $"{Account}/resend_email";
         public const string EmailConfirmedPage = $"{Account}/email_confirmed";
+        public const string SentEmailConfirmation = "/account/sent_confirmation/{Email}";
         public const string Logout = $"{Account}/logout";
         public const string LogoutPage = $"{Account}/logged_out";
         public const string ForgotPassword = $"{Account}/forgot_password";

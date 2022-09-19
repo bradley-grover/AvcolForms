@@ -5,6 +5,7 @@ namespace AvcolForms.Web.Areas.Account.Pages;
 /// <summary>
 /// Page to be displayed to the user when the email has been sent
 /// </summary>
+[Route(Routes.Accounts.SentEmailConfirmation)]
 public partial class SentConfirmation
 {
     [Parameter]

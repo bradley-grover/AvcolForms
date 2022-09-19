@@ -3,6 +3,7 @@
 /// <summary>
 /// Page the user gets sent to after they request to reset their password
 /// </summary>
+[Route(Routes.Accounts.PasswordResetRequested)]
 public partial class SentResetRequest
 {
     private readonly List<BreadcrumbItem> items = new()

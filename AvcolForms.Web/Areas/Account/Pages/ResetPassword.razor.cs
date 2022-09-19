@@ -5,6 +5,7 @@ namespace AvcolForms.Web.Areas.Account.Pages;
 /// <summary>
 /// Page for resetting password after the account password has been forgotten
 /// </summary>
+[Route(Routes.Accounts.ResetAccountPassword)]
 public partial class ResetPassword
 {
     [Parameter]

@@ -3,6 +3,7 @@
 /// <summary>
 /// Account page of the app
 /// </summary>
+[Route(Routes.Accounts.Account)]
 public partial class Account
 {
     private readonly List<BreadcrumbItem> items = new()

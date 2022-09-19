@@ -1,5 +1,4 @@
-﻿
-using System.Text;
+﻿using System.Text;
 using System.Text.Encodings.Web;
 using AvcolForms.Core.Components.Dialogs;
 using AvcolForms.Web.Areas.Account.ViewModels;
@@ -11,6 +10,7 @@ namespace AvcolForms.Web.Areas.Account.Pages;
 /// <summary>
 /// Register class for the page
 /// </summary>
+[Route(Routes.Accounts.Register)]
 public partial class Register
 {
 #nullable disable

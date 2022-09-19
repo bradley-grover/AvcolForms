@@ -5,6 +5,7 @@ namespace AvcolForms.Web.Areas.Admin;
 /// <summary>
 /// Page to manage users in administrative mode
 /// </summary>
+[Route(Routes.Admin.Users)]
 public partial class Users
 {
 #nullable disable

@@ -7,6 +7,7 @@ namespace AvcolForms.Web.Areas.Account.Pages;
 /// <summary>
 /// Login page for the user to sign in
 /// </summary>
+[Route(Routes.Accounts.Login)]
 public partial class Login
 {
 #nullable disable

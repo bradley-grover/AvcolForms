@@ -3,6 +3,7 @@
 /// <summary>
 /// Guard page for users who have not confirmed their email
 /// </summary>
+[Route(Routes.Accounts.ConfirmEmailPage)]
 public partial class ConfirmEmail
 {
     private readonly List<BreadcrumbItem> items = new()

@@ -3,6 +3,7 @@
 /// <summary>
 /// The admin home page for users with high level permission 
 /// </summary>
+[Route(Routes.Admin.Dash)]
 public partial class AdminPanel
 {
 #nullable disable
