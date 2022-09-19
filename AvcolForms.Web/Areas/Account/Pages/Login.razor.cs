@@ -28,6 +28,8 @@ public partial class Login
 
     private bool showLoginError = false;
 
+    private readonly SensitiveStore PasswordStore = new();
+
     private LoginModel SignIn { get; } = new();
 
     async Task LoginAsync()

@@ -25,7 +25,8 @@
                 <MudTextField Label="Email*" Class="mt-3" Placeholder="Enter Email .."
                               @bind-Value="SignIn.Email" For="@(() => SignIn.Email)"/>
                 <MudTextField Label="Password*" Class="mt-3" Placeholder="Enter Password .."
-                              @bind-Value="SignIn.Password" For="@(() => SignIn.Password)" InputType="InputType.Password"/>
+                              @bind-Value="SignIn.Password" For="@(() => SignIn.Password)" InputType="@PasswordStore.InputType" Adornment="Adornment.End" AdornmentIcon="@PasswordStore.Icon"
+                              AdornmentAriaLabel="Show Password" OnAdornmentClick="@PasswordStore.ToggleState"/>
             </MudCardContent>
             <MudCardActions>
                 <MudCheckBox Color="Color.Primary" T="bool" @bind-Checked="SignIn.Persist">Remember Me?</MudCheckBox>

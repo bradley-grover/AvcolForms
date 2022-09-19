@@ -52,9 +52,17 @@ public class AccountController : Controller
 
         var user = await UserManager.FindByIdAsync(parts[0]);
 
+        if (!await UserManager.IsEmailConfirmedAsync(user) || await UserManager.IsLockedOutAsync(user))
+        {
+            return Unauthorized();
+        }
+
         var isTokenValid = await UserManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, Protected.Login, parts[1]);
 
-        _ = bool.TryParse(parts[2].AsSpan(), out bool persist);
+        if (!bool.TryParse(parts[2].AsSpan(), out bool persist))
+        {
+            return BadRequest();
+        }
 
         if (isTokenValid)
         {
