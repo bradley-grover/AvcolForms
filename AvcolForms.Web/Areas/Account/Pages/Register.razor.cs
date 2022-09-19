@@ -54,6 +54,9 @@ public partial class Register
         new("Register", href: null, disabled: true, Icons.Material.Filled.AppRegistration)
     };
 
+    private readonly SensitiveStore PasswordStore = new();
+    private readonly SensitiveStore ConfirmStore = new();
+
     async Task OpenDialogAsync()
     {
         if (dialogIsAlreadyOpen)
