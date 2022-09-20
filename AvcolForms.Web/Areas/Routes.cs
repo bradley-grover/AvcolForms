@@ -30,4 +30,10 @@ internal static class Routes
         public const string ResetAccountPassword = $"{Account}/reset_account_password";
         public const string AccountLockedOut = $"{Account}/account_locked_out";
     }
+
+    internal static class Forms
+    {
+        public const string Base = "/forms";
+        public const string Create = $"{Base}/create";
+    }
 }
