@@ -13,11 +13,21 @@
     <Compile Include="**/*Debug.cs" Condition=" '$(Configuration)' == 'Debug' " />
   </ItemGroup>
 
+  <!-- Remove Serilog from showing its logs in working tree -->
+  <ItemGroup>
+    <Compile Remove="Serilogs\**" />
+    <Content Remove="Serilogs\**" />
+    <EmbeddedResource Remove="Serilogs\**" />
+    <None Remove="Serilogs\**" />
+  </ItemGroup>
+
   <ItemGroup>
     <Content Include="privacy-policy.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  
+  <!-- Project Dependencies -->
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.8" />
@@ -39,6 +49,8 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
    </ItemGroup>
+  
+  <!-- Project References -->
 
   <ItemGroup>
     <ProjectReference Include="..\AvcolForms.Core.Components\AvcolForms.Core.Components.csproj" />
