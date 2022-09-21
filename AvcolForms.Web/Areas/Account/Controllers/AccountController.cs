@@ -62,25 +62,24 @@ public class AccountController : Controller
             return Unauthorized();
         }
 
-        var isTokenValid = await UserManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, Protected.Login, parts[1]);
-
         if (!bool.TryParse(parts[2].AsSpan(), out bool persist))
         {
             return BadRequest();
         }
 
-        if (isTokenValid)
+        if (!await UserManager.VerifyUserTokenAsync(user, TokenOptions.DefaultProvider, Protected.Login, parts[1]))
         {
-            await SignInManager.SignInAsync(user, persist);
-
-            if (parts.Length == 4 && Url.IsLocalUrl(parts[3]))
-            {
-                return Redirect(parts[3]);
-            }
-            return Redirect("/");
+            return Unauthorized();
         }
 
-        return Unauthorized();
+        await SignInManager.SignInAsync(user, persist);
+
+        if (parts.Length == 4 && Url.IsLocalUrl(parts[3]))
+        {
+            return Redirect(parts[3]);
+        }
+
+        return Redirect("/");
     }
 
     /// <summary>
