@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using System.Diagnostics.Contracts;
+using System.Security.Principal;
 
 namespace AvcolForms.Core.Data;
 
@@ -13,6 +14,7 @@ public static class RoleExtensions
     /// <param name="user"></param>
     /// <param name="roles"></param>
     /// <returns></returns>
+    [Pure]
     public static bool IsInAnyRole(this IPrincipal user, ReadOnlySpan<string> roles)
     {
         return roles.Any(user.IsInRole);
