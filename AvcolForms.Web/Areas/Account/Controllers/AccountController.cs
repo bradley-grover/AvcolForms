@@ -52,6 +52,11 @@ public class AccountController : Controller
 
         var user = await UserManager.FindByIdAsync(parts[0]);
 
+        if (user is null)
+        {
+            return NotFound();
+        }
+
         if (!await UserManager.IsEmailConfirmedAsync(user) || await UserManager.IsLockedOutAsync(user))
         {
             return Unauthorized();
