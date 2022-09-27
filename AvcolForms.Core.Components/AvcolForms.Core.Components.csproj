@@ -1,12 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-
-
+  
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -18,10 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AvcolForms.Core\AvcolForms.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AvcolForms.Core.Data\AvcolForms.Core.Data.csproj"/>
+    <ProjectReference Include="..\AvcolForms.Core.Data\AvcolForms.Core.Data.csproj" />
   </ItemGroup>
 
 </Project>

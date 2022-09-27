@@ -1,19 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
-
-    <ImplicitUsings>enable</ImplicitUsings>
-
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Description>Tests library for unit tests and integration test for AvcolForms</Description>
-    <Copyright>Licensed under the MIT License, Copyright (c) Bradley Grover</Copyright>
-    <PackageProjectUrl>https://github.com/ac111897/AvcolForms</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ac111897/AvcolForms</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
