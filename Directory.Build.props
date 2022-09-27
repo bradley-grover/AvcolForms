@@ -1,4 +1,4 @@
-<Project DefaultTargets="BuildExtension" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   
   <!-- Standard properties that are included in each project -->
   <!-- Each project uses the same .NET version and lang version and includes 'Debug.cs' extension files only when the set mode is for debugging -->
