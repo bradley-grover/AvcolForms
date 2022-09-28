@@ -13,6 +13,11 @@
         <MudNavLink Href="@Routes.Admin.Users" Icon="@Icons.Material.Filled.ManageAccounts">Users</MudNavLink>
     </MudNavGroup>
 </AuthorizeView>
+@{
+    #if DEBUG
+    
+    #endif
+}
 <AuthorizeView>
     <MudNavLink Icon="@Icons.Material.Filled.Logout" OnClick="@Logout">Logout</MudNavLink>
 </AuthorizeView>
@@ -33,7 +38,7 @@
 
         if (!result.Cancelled)
         {
-            NavManager.NavigateTo("/account/logout", forceLoad: true);
+            NavManager.NavigateTo(Routes.Accounts.Logout, forceLoad: true);
         }
     }
 }
