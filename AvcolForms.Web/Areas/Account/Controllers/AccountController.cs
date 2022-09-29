@@ -105,7 +105,7 @@ public class AccountController : Controller
 
         if (!confirmResult.Succeeded)
         {
-            return BadRequest("Failed to authenticate the email");
+            return BadRequest("Failed to authenticate the email");  
         }
 
         return Redirect(Routes.Accounts.EmailConfirmedPage);

@@ -5,7 +5,7 @@
     <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
 </MudNavMenu>
 <AuthorizeView>
-    <MudNavLink Href="/account" Icon="@Icons.Material.Filled.AccountCircle">Account</MudNavLink>
+    <MudNavLink Href="@Routes.Accounts.Account" Icon="@Icons.Material.Filled.AccountCircle">Account</MudNavLink>
 </AuthorizeView>
 <AuthorizeView Roles="@Roles.Admin">
     <MudNavGroup Title="@Roles.Admin" Icon="@Icons.Material.Filled.AdminPanelSettings">
@@ -13,32 +13,10 @@
         <MudNavLink Href="@Routes.Admin.Users" Icon="@Icons.Material.Filled.ManageAccounts">Users</MudNavLink>
     </MudNavGroup>
 </AuthorizeView>
-@{
-    #if DEBUG
-    
-    #endif
+@if (IsDebug)
+{
+    <MudNavLink Href="@Routes.Debug.SignIn" Icon="@Icons.Filled.BugReport">Debug SO</MudNavLink>
 }
 <AuthorizeView>
     <MudNavLink Icon="@Icons.Material.Filled.Logout" OnClick="@Logout">Logout</MudNavLink>
 </AuthorizeView>
-
-@code {
-    async Task Logout()
-    {
-        var parameters = new DialogParameters();
-        parameters.Add("ContentText", "Do you really want to logout?");
-        parameters.Add("ButtonText", "Sign Out");
-        parameters.Add("Color", Color.Error);
-
-        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
-
-        var dialog = Dialog.Show<DeleteConfirmation>("Logout", parameters, options);
-
-        var result = await dialog.Result;
-
-        if (!result.Cancelled)
-        {
-            NavManager.NavigateTo(Routes.Accounts.Logout, forceLoad: true);
-        }
-    }
-}
