@@ -10,7 +10,7 @@ namespace AvcolForms.Core.Accounts;
 /// <summary>
 /// The login model to sign into the account
 /// </summary>
-public class LoginModel
+public sealed class LoginModel
 {
     /// <summary>
     /// Email address for the account

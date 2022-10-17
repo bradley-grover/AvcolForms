@@ -18,7 +18,7 @@ namespace AvcolForms.Core.Email;
 /// <summary>
 /// Email sender used for verifying email authentication
 /// </summary>
-public class EmailSender : IEmailSender
+public sealed class EmailSender : IEmailSender
 {
     /// <summary>
     /// Logger for the email sender

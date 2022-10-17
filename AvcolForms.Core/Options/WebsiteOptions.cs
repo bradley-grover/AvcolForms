@@ -10,7 +10,7 @@ namespace AvcolForms.Core.Options;
 /// <summary>
 /// Settings for the website
 /// </summary>
-public class WebsiteOptions
+public sealed class WebsiteOptions
 {
     /// <summary>
     /// Title of the website

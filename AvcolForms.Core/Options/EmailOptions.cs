@@ -10,7 +10,7 @@ namespace AvcolForms.Core.Options;
 /// <summary>
 /// Email settings used for the application
 /// </summary>
-public class EmailOptions
+public sealed class EmailOptions
 {
     /// <summary>
     /// The email address that sends the email

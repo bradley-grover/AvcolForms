@@ -10,7 +10,7 @@ namespace AvcolForms.Core.Accounts;
 /// <summary>
 /// Model for registering a seeded account
 /// </summary>
-public class AccountModel
+public sealed class AccountModel
 {
     /// <summary>
     /// Email address for the account

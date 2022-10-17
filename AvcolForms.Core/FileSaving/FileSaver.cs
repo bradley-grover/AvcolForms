@@ -10,7 +10,7 @@ namespace AvcolForms.Core.FileSaving;
 /// <summary>
 /// Saves files to the specified paths
 /// </summary>
-public class FileSaver : IFileSaver
+public sealed class FileSaver : IFileSaver
 {
     /// <inheritdoc></inheritdoc>
     public async Task SaveAsync(ReadOnlyMemory<byte> data, string path, CancellationToken cancellationToken = default)
