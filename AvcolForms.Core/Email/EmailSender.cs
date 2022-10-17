@@ -56,7 +56,8 @@ public sealed class EmailSender : IEmailSender
     /// <param name="message">The message of the email</param>
     /// <param name="toEmail"></param>
     /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
-    public async Task ExecuteAsync(string subject, string message, string toEmail)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)] // inline this method as its only called above
+    internal async Task ExecuteAsync(string subject, string message, string toEmail)
     {
         var email = new MimeMessage
         {

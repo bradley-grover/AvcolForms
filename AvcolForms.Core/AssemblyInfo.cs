@@ -4,8 +4,8 @@
  */
 
 global using System.ComponentModel.DataAnnotations;
+global using System.Runtime.CompilerServices;
 
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
