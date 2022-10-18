@@ -18,22 +18,22 @@ public partial class PrivacyDialog
     {
         await base.OnInitializedAsync();
 
-        Loading = true;
+        _loading = true;
 
-        Content = await Privacy.RetrieveAsync();
+        _content = await Privacy.RetrieveAsync();
 
-        Loading = false;
+        _loading = false;
     }
 
     /// <summary>
     /// Content to display
     /// </summary>
-    private string Content;
+    private string _content;
 
     /// <summary>
     /// Flag for when the content is getting loaded
     /// </summary>
-    private bool Loading = false;
+    private bool _loading = false;
 
     /// <summary>
     /// Closes the privacy dialog

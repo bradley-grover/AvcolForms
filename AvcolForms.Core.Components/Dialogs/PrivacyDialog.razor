@@ -1,13 +1,13 @@
 ﻿<MudDialog DisableSidePadding="true">
     <DialogContent>
         <MudContainer Style="max-height: 300px; overflow-y: scroll">
-            @if (Loading)
+            @if (_loading)
             {
                 <MudProgressCircular Indeterminate="true"></MudProgressCircular>
             }
             else
             {
-                <MudText Style="white-space: pre-wrap;">@Content</MudText>
+                <MudText Style="white-space: pre-wrap;">@_content</MudText>
             }
         </MudContainer>
     </DialogContent>

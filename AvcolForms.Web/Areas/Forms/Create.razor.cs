@@ -4,6 +4,6 @@
 /// Create page, for creating data forms for users to respond to.
 /// </summary>
 [Route(Routes.Forms.Create)]
-public partial class Create
+public sealed partial class Create
 {
 }

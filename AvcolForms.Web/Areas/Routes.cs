@@ -39,6 +39,7 @@ internal static class Routes
     internal static class Forms
     {
         public const string Base = "/forms";
+        public const string Dash = $"{Base}/dash";
         public const string Create = $"{Base}/create";
     }
 }

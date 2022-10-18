@@ -7,6 +7,7 @@ global using System.ComponentModel.DataAnnotations;
 global using System.Runtime.CompilerServices;
 
 using System.Runtime.InteropServices;
+using AvcolForms.Core;
 
 [assembly: ComVisible(false)]
-[assembly: InternalsVisibleTo("AvcolForms.Tests")]
+[assembly: InternalsVisibleTo(Constants.Assemblies.TestsExecutable)]

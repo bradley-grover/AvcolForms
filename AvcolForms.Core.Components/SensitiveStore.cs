@@ -5,9 +5,20 @@
 /// </summary>
 public sealed class SensitiveStore
 {
-    public bool Show { get; set; } = false;
-    public InputType InputType { get; set; } = InputType.Password;
-    public string Icon { get; set; } = Icons.Filled.VisibilityOff;
+    /// <summary>
+    /// Whether the field is showing right now
+    /// </summary>
+    public bool Show { get; internal set; } = false;
+
+    /// <summary>
+    /// The input type of the data field
+    /// </summary>
+    public InputType InputType { get; internal set; } = InputType.Password;
+
+    /// <summary>
+    /// The icon of the field
+    /// </summary>
+    public string Icon { get; internal set; } = Icons.Filled.VisibilityOff;
 
     public void ToggleState()
     {

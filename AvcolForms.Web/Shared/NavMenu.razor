@@ -7,6 +7,12 @@
 <AuthorizeView>
     <MudNavLink Href="@Routes.Accounts.Account" Icon="@Icons.Material.Filled.AccountCircle">Account</MudNavLink>
 </AuthorizeView>
+<AuthorizeView>
+    <MudNavGroup Title="@nameof(Routes.Forms)" Icon="@Icons.Material.Filled.DynamicForm">
+        <MudNavLink Href="@Routes.Forms.Dash" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+        <MudNavLink Href="@Routes.Forms.Create" Icon="@Icons.Material.Filled.Create">Create</MudNavLink>
+    </MudNavGroup>
+</AuthorizeView>
 <AuthorizeView Roles="@Roles.Admin">
     <MudNavGroup Title="@Roles.Admin" Icon="@Icons.Material.Filled.AdminPanelSettings">
         <MudNavLink Href="@Routes.Admin.Dash" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
