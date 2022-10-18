@@ -17,7 +17,7 @@ public abstract class DbRecord
     /// Represents the date that the database record was last modified by
     /// </summary>
     [Required]
-    [Display(Name = "Date Created")]
+    [Display(Name = "Date Modified")]
     [JsonPropertyName("modified")]
     public DateTimeOffset Modified { get; set; }
 }
