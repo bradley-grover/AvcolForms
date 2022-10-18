@@ -11,6 +11,26 @@ public static class Constants
     public const int MaxEmailLength = 256;
 
     /// <summary>
+    /// The maximum amount of characters allowed in a form title
+    /// </summary>
+    public const int MaxFormTitleLength = 72;
+
+    /// <summary>
+    /// The maximum amount of characters allowed in a form description
+    /// </summary>
+    public const int MaxFormDescLength = 72;
+
+    /// <summary>
+    /// The error message for when the form has exceeded <see cref="MaxFormDescLength"/>
+    /// </summary>
+    public const string MaxFormDescLengthError = "The maximum allowed form description length is 72";
+
+    /// <summary>
+    /// The error message for when a form title has exceeded <see cref="MaxFormTitleLength"/>
+    /// </summary>
+    public const string MaxFormTitleLengthError = "The maximum allowed length for a form title is 72";
+
+    /// <summary>
     /// The error message for when the email is too long
     /// </summary>
     public const string MaxEmailLengthError = $"The maximum allowed length for an email is 256";
