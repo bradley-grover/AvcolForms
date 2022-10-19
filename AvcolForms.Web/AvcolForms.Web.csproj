@@ -53,4 +53,8 @@
     <ProjectReference Include="..\AvcolForms.Core\AvcolForms.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Workers\" />
+  </ItemGroup>
+  
 </Project>

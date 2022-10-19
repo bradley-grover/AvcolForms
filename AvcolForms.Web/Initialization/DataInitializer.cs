@@ -70,7 +70,8 @@ public sealed class DataInitializer : IDataInitializor
         {
             Email = RootUserOptions.Value.Email,
             UserName = RootUserOptions.Value.Email,
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            Created = DateTimeOffset.UtcNow
         };
 
         var result = Async.RunSync(() => UserManager.CreateAsync(rootAccount, RootUserOptions.Value.Password));
@@ -105,7 +106,8 @@ public sealed class DataInitializer : IDataInitializor
             ApplicationUser userAccount = new()
             {
                 Email = account.Email,
-                UserName = account.Email
+                UserName = account.Email,
+                Created = DateTimeOffset.UtcNow
             };
 
             if (account.BypassEmail != null && account.BypassEmail.Value)

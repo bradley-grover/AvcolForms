@@ -30,6 +30,20 @@ public class Form : DbRecord
     public string Description { get; set; }
 
     /// <summary>
+    /// Users that receive the form and need to answer
+    /// </summary>
+    [Required]
+    [JsonPropertyName("recipients")]
+    public ICollection<ApplicationUser> Recipients { get; set; }
+
+    /// <summary>
+    /// The user that created the form to respond to
+    /// </summary>
+    [Required]
+    [JsonPropertyName("createdBy")]
+    public ApplicationUser CreatedBy { get; set; }
+
+    /// <summary>
     /// Gets the time left before the form expires
     /// </summary>
     [JsonIgnore, NotMapped] // ignore from db & serialization

@@ -81,7 +81,7 @@ public partial class Register
         registerButtonLock = true;
         proccessing = true;
 
-        var user = new ApplicationUser { UserName = Registration.Email, Email = Registration.Email };
+        var user = new ApplicationUser { UserName = Registration.Email, Email = Registration.Email, Created = DateTimeOffset.UtcNow };
 
         var result = await UserManager.CreateAsync(user, Registration.Password);
 
