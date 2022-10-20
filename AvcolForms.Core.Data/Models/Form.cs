@@ -44,6 +44,22 @@ public class Form : DbRecord
     public ApplicationUser CreatedBy { get; set; }
 
     /// <summary>
+    /// Represents the content of the form
+    /// </summary>
+    [Required]
+    [JsonPropertyName("content")]
+    public ICollection<FormContent> Content { get; set; }
+
+    /// <summary>
+    /// The email address for form responses to be sent to
+    /// </summary>
+    [Required]
+    [EmailAddress]
+    [StringLength(Constants.MaxEmailLength, ErrorMessage = Constants.MaxEmailLengthError)]
+    [JsonPropertyName("receiver")]
+    public string Receiver { get; set; }
+
+    /// <summary>
     /// Gets the time left before the form expires
     /// </summary>
     [JsonIgnore, NotMapped] // ignore from db & serialization
