@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a form saved to the database
 /// </summary>
-public class Form : DbRecord
+public class Form : KeyedDbRecord
 {
     /// <summary>
     /// The close date of the form if any is set

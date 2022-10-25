@@ -12,6 +12,17 @@ public readonly struct UserAlert
     internal readonly string _userMessage;
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="UserAlert"/> struct
+    /// </summary>
+    /// <param name="severity">The severity of the alert</param>
+    /// <param name="userMessage">The message to display</param>
+    public UserAlert(AlertSeverity severity, string userMessage)
+    {
+        _severity = severity;
+        _userMessage = userMessage;
+    }
+
+    /// <summary>
     /// The severity of the alert
     /// </summary>
     public AlertSeverity Severity

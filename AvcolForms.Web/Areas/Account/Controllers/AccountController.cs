@@ -74,6 +74,10 @@ public class AccountController : Controller
 
         await SignInManager.SignInAsync(user, persist);
 
+        user.LastLogin = DateTimeOffset.UtcNow;
+
+        await UserManager.UpdateAsync(user);
+
         if (parts.Length == 4 && Url.IsLocalUrl(parts[3]))
         {
             return Redirect(parts[3]);

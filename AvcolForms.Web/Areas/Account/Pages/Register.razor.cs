@@ -125,6 +125,10 @@ public partial class Register
                 c.VisibleStateDuration = 10 * 1000;
             });
 
+            user.Created = DateTimeOffset.UtcNow;
+
+            await UserManager.UpdateAsync(user);
+
             NavManager.NavigateTo($"/account/sent_confirmation/{email}", forceLoad: true);
 
             proccessing = false;

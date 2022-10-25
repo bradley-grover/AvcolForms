@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a response to a form
 /// </summary>
-public class FormResponse : DbRecord
+public class FormResponse : KeyedDbRecord
 {
 #nullable disable
     /// <summary>

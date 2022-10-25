@@ -1,7 +1,8 @@
 ﻿@page "/"
 @using AvcolForms.Core.Notifications
 @attribute [Authorize]
-@inject INotificationService _notificationService;
+@inject INotificationService<ApplicationUser> _notificationService;
+@inject UserManager<ApplicationUser> _userManager;
 @inject AuthenticationStateProvider authenticationStateProvider
 
 <PageTitle>Home</PageTitle>

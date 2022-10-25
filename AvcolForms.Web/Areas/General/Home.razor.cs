@@ -17,9 +17,11 @@ public partial class Home
 
     protected override async Task OnInitializedAsync()
     {
-        await authenticationStateProvider.GetAuthenticationStateAsync();
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
 
-        _alerts = (await _notificationService.GetUserNotificationsAsync()).ToList();
+        var user = await _userManager.GetUserAsync(authState.User).ConfigureAwait(false);
+
+        _alerts = (await _notificationService.GetUserNotificationsAsync(user)).ToList();
         _fetchedNotifications = true;
     }
 }

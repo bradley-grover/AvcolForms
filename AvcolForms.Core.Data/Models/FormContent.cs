@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a section in a <see cref="Form"/>
 /// </summary>
-public class FormContent : DbRecord
+public class FormContent : KeyedDbRecord
 {
     /// <summary>
     /// The type of item that the form content contains within it

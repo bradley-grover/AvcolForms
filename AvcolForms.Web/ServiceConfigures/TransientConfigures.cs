@@ -22,7 +22,7 @@ internal static class TransientConfigures
     {
         services.AddTransient<IFileSaver, FileSaver>();
         services.AddTransient<IEmailSender, EmailSender>();
-        services.AddTransient<INotificationService, NotificationService>();
+        services.AddTransient<INotificationService<ApplicationUser>, NotificationService>();
 
         return services;
     }
