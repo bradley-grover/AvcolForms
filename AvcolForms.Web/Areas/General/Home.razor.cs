@@ -22,6 +22,7 @@ public partial class Home
         var user = await _userManager.GetUserAsync(authState.User).ConfigureAwait(false);
 
         _alerts = (await _notificationService.GetUserNotificationsAsync(user)).ToList();
+
         _fetchedNotifications = true;
     }
 }

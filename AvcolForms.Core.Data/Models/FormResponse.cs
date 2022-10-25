@@ -3,6 +3,7 @@
 /// <summary>
 /// Represents a response to a form
 /// </summary>
+[Table("FormResponse")]
 public class FormResponse : KeyedDbRecord
 {
 #nullable disable

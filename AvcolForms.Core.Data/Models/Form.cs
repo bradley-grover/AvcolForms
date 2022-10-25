@@ -3,6 +3,7 @@
 /// <summary>
 /// Represents a form saved to the database
 /// </summary>
+[Table("Forms")]
 public class Form : KeyedDbRecord
 {
     /// <summary>

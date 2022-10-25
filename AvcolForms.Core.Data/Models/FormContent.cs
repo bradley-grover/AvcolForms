@@ -3,6 +3,7 @@
 /// <summary>
 /// Represents a section in a <see cref="Form"/>
 /// </summary>
+[Table("FormContent")]
 public class FormContent : KeyedDbRecord
 {
     /// <summary>

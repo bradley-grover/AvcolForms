@@ -28,4 +28,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     /// The table 'Forms' of the database
     /// </summary>
     public DbSet<Form> Forms { get; set; }
+
+    /// <summary>
+    /// The table 'Responses' of the database. This table contains the responses to items in the <see cref="Forms"/> table linked by key
+    /// </summary>
+    public DbSet<FormResponse> Responses { get; set; }
 }
