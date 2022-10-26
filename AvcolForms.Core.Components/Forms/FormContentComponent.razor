@@ -1,0 +1,9 @@
+﻿@{
+    switch (Content.ContentType) {
+        case FormContentType.Checkbox:
+            <MudCheckBox T="bool">@Content.Data</MudCheckBox>
+            break;
+        case FormContentType.Multichoice:
+            break;
+    }
+}

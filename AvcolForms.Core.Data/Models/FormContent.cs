@@ -1,5 +1,7 @@
 ﻿namespace AvcolForms.Core.Data.Models;
 
+#nullable disable
+
 /// <summary>
 /// Represents a section in a <see cref="Form"/>
 /// </summary>
@@ -12,4 +14,11 @@ public class FormContent : KeyedDbRecord
     [JsonPropertyName("contentType")]
     [Required]
     public FormContentType ContentType { get; set; }
+
+    /// <summary>
+    /// The data used for the form content
+    /// </summary>
+    [JsonPropertyName("data")]
+    [Required]
+    public string Data { get; set; }
 }

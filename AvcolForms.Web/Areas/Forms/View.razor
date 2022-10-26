@@ -1,0 +1,9 @@
+﻿@attribute [Authorize]
+@inject UserManager<ApplicationUser> _userManager;
+@inject NavigationManager _navManager;
+
+@if (_firstLoading){
+    <PageTitle>Loading Form ...</PageTitle>
+    <MudProgressCircular Indeterminate="true"></MudProgressCircular>
+}
+<MudText>Form</MudText>

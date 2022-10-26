@@ -41,5 +41,6 @@ internal static class Routes
         public const string Base = "/forms";
         public const string Dash = $"{Base}/dash";
         public const string Create = $"{Base}/create";
+        public const string ViewUrl = "/forms/form/{Id:guid}";
     }
 }

@@ -12,7 +12,7 @@ namespace AvcolForms.Web;
 /// <summary>
 /// Program class for the application, in this class the program starts from <see cref="Main(string[])"/> method
 /// </summary>
-public class Program
+public sealed class Program
 {
     /// <summary>
     /// Entry point for the application
