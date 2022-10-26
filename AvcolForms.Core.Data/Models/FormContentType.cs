@@ -13,5 +13,10 @@ public enum FormContentType
     /// <summary>
     /// A multi choice question
     /// </summary>
-    Multichoice
+    Multichoice,
+
+    /// <summary>
+    /// An input box to put a string 
+    /// </summary>
+    InputBox,
 }

@@ -1,5 +1,6 @@
 ﻿using AvcolForms.Core.Data.Models;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 #nullable disable
 
@@ -17,6 +18,11 @@ public partial class View
     [CascadingParameter]
     [Inject]
     public AuthenticationStateProvider AuthState { get; set; }
+
+    [Inject]
+    public IEmailSender EmailSender { get; set; }
+
+
     
     [Parameter]
     public Guid Id { get; set; }
@@ -39,7 +45,15 @@ public partial class View
         var form = await context.Forms
             .Where(f => f.Id == Id)
             .Where(f => f.Recipients.Any(u => u == user))
-            .FirstAsync();
+            .FirstOrDefaultAsync();
+
+        if (form is null)
+        {
+            _navManager.NavigateTo("/");
+            return;
+        }
+
+        AppForm = form;
 
         _firstLoading = false; // set loading flag
     }

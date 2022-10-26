@@ -1,5 +1,6 @@
 ﻿@attribute [Authorize]
 @inject UserManager<ApplicationUser> _userManager;
+@using AvcolForms.Core.Components.Forms;
 @inject NavigationManager _navManager;
 
 @if (_firstLoading){
@@ -7,3 +8,10 @@
     <MudProgressCircular Indeterminate="true"></MudProgressCircular>
 }
 <MudText>Form</MudText>
+
+@if (AppForm.Content is not null) {
+    @foreach (var item in AppForm.Content)
+    {
+        <FormContentComponent Content="@item"/>
+    }
+}

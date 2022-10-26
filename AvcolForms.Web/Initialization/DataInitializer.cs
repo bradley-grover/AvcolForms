@@ -1,4 +1,5 @@
 ﻿using AvcolForms.Core.Accounts;
+using AvcolForms.Core.Data.Models;
 using AvcolForms.Core.Options;
 using Microsoft.Extensions.Options;
 
@@ -19,6 +20,7 @@ public sealed class DataInitializer : IDataInitializor
     private IOptions<RootUserOptions> RootUserOptions { get; }
 
     private ILogger<IDataInitializor> Logger { get; }
+    private IServiceProvider Provider { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DataInitializer"/> class
@@ -27,7 +29,7 @@ public sealed class DataInitializer : IDataInitializor
     public DataInitializer(IServiceProvider provider)
     {
         ArgumentNullException.ThrowIfNull(provider, nameof(provider));
-
+        Provider = provider;
         RoleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
         UserManager = provider.GetRequiredService<UserManager<ApplicationUser>>();
         SeededAccounts = provider.GetRequiredService<IOptions<SeedAccountOptions>>();
@@ -51,6 +53,27 @@ public sealed class DataInitializer : IDataInitializor
 
         InitializeMultipleUsers();
         InitializeRootUser();
+
+        var db = Provider.GetRequiredService<ApplicationDbContext>();
+
+        var form = new Form
+        {
+            Id = Guid.NewGuid(),
+            Description = "Demo form",
+            Closes = null,
+            Content = new List<FormContent>(),
+            Created = DateTimeOffset.UtcNow,
+            Receiver = RootUserOptions.Value.Email,
+            CreatedBy = Async.RunSync(() => UserManager.FindByEmailAsync(RootUserOptions.Value.Email)),
+            Recipients = db.Users.ToList(),
+            Title = "Demo"
+        };
+
+        form.Modified = form.Created;
+
+        db.Forms.Add(form);
+
+        db.SaveChanges();
     }
 
     private void InitializeRootUser()

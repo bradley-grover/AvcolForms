@@ -1,5 +1,4 @@
-﻿using AvcolForms.Core.Data.Models;
-using AvcolForms.Core.Notifications;
+﻿using AvcolForms.Core.Notifications;
 
 namespace AvcolForms.Web.Services;
 
@@ -22,7 +21,6 @@ public sealed class NotificationService : INotificationService<ApplicationUser>
     /// <inheritdoc></inheritdoc>
     public async ValueTask<UserAlert[]> GetUserNotificationsAsync(ApplicationUser user)
     {
-
         return await _context.Forms
             .Where(f => f.Recipients.Any(u => u == user) && f.Closes != null && f.Closes > DateTimeOffset.UtcNow)
             .Select(f => new UserAlert(AlertSeverity.Info, $"{f.TimeLeft}\n{f.Receiver}\n{f.Title}")).ToArrayAsync();
