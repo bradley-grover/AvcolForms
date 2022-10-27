@@ -7,11 +7,19 @@
     <PageTitle>Loading Form ...</PageTitle>
     <MudProgressCircular Indeterminate="true"></MudProgressCircular>
 }
-<MudText>Form</MudText>
+
+<PageTitle>Form - @AppForm?.Title ?? "Loading"</PageTitle>
+
+<MudBreadcrumbs Items="@_items"></MudBreadcrumbs>
+
+<MudText>@AppForm?.Title ?? "Loading"</MudText>
 
 @if (AppForm.Content is not null) {
     @foreach (var item in AppForm.Content)
     {
         <FormContentComponent Content="@item"/>
     }
+}
+else {
+    <MudText>Form is empty!</MudText>
 }

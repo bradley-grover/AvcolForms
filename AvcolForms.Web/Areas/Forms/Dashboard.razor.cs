@@ -40,11 +40,12 @@ public partial class Dashboard
             NavManager.NavigateTo(Routes.Accounts.Login, true);
             return;
         }
+        
 
         using var context = await Factory.CreateDbContextAsync();
 
         _forms = await context.Forms
-            .Where(f => f.TimeLeft != TimeSpan.Zero || f.Closes == null && f.Recipients.Contains(user))
+            .Where(f => f.Closes == null && f.Recipients.Contains(user))
             .Select(f => new UnansweredFormItem()
             {
                 ContentCount = f.Recipients.Count,
@@ -53,5 +54,10 @@ public partial class Dashboard
                 EndDate = f.Closes
             })
             .ToListAsync();
+    }
+
+    private void RowClickRedirectToPage(TableRowClickEventArgs<UnansweredFormItem> args)
+    {
+        NavManager.NavigateTo($"{Routes.Forms.View}/{args.Item.Id}");
     }
 }

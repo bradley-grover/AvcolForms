@@ -12,6 +12,11 @@ public partial class View
     internal Form AppForm { get; set; }
     internal bool _firstLoading = true;
 
+    private readonly List<BreadcrumbItem> _items = new()
+    {
+        new BreadcrumbItem("Forms", Routes.Forms.Dash, icon: Icons.Filled.Forum)
+    };
+
     [Inject]
     public IDbContextFactory<ApplicationDbContext> Factory { get; set; }
 
@@ -21,8 +26,6 @@ public partial class View
 
     [Inject]
     public IEmailSender EmailSender { get; set; }
-
-
     
     [Parameter]
     public Guid Id { get; set; }
@@ -54,6 +57,8 @@ public partial class View
         }
 
         AppForm = form;
+
+        _items.Add(new BreadcrumbItem(AppForm.Title, null, true, Icons.Filled.Forum));
 
         _firstLoading = false; // set loading flag
     }

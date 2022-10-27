@@ -14,7 +14,7 @@ public static class TimeExtensions
     {
         if (time == null)
         {
-            return "None";
+            return "Unspecified";
         }
 
         return time.Value.ToLocalTime().ToString();

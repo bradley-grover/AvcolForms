@@ -1,4 +1,5 @@
-﻿@attribute [Authorize]
+﻿@using AvcolForms.Web.Areas.Forms.ViewModel
+@attribute [Authorize]
 
 <PageTitle>Forms - Dashboard</PageTitle>
 
@@ -8,7 +9,9 @@
     Unanswered Forms
 </MudText>
 
-<MudTable Items="@_forms" Hover="true">
+<MudSpacer/>
+
+<MudTable Items="@_forms" Hover="true" OnRowClick="@RowClickRedirectToPage" T="UnansweredFormItem">
     <HeaderContent>
         <MudTh>Title</MudTh>
         <MudTh>Questions</MudTh>
