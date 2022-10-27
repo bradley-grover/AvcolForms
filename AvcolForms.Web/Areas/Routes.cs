@@ -3,6 +3,8 @@
 internal static class Routes
 {
     public const string Home = "#";
+    public const string Error = "/Error";
+    public const string Fallback = "/_Host";
 
     internal static class Admin
     {

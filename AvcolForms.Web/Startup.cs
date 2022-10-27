@@ -70,7 +70,7 @@ public sealed class Startup
         if (!env.IsDevelopment())
         {
             app.UseMigrationsEndPoint();
-            app.UseExceptionHandler("/Error");
+            app.UseExceptionHandler(Routes.Error);
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
@@ -86,7 +86,7 @@ public sealed class Startup
         {
             endpoints.MapControllers();
             endpoints.MapBlazorHub();
-            endpoints.MapFallbackToPage("/_Host");
+            endpoints.MapFallbackToPage(Routes.Fallback);
         });
 
         initializer.Initialize();
