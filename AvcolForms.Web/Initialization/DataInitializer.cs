@@ -1,13 +1,17 @@
 ﻿using AvcolForms.Core.Accounts;
+using AvcolForms.Core.Data.Models;
 using AvcolForms.Core.Options;
 using Microsoft.Extensions.Options;
+
+// In this class implementation of IDataInitializor we use the async methods of Entity Framework's RoleManager and UserManager to create and assign roles to users
+// The methods are run using sync instead of async as we can't await async methods in a sync call stack without getting a lot of build warnings.
 
 namespace AvcolForms.Web.Initialization;
 
 /// <summary>
 /// Used for initiailizing seeed data that needs to run during startup of the application
 /// </summary>
-public class DataInitializer : IDataInitializor
+public sealed class DataInitializer : IDataInitializor
 {
     private RoleManager<IdentityRole> RoleManager { get; }
     private UserManager<ApplicationUser> UserManager { get; }
@@ -16,11 +20,16 @@ public class DataInitializer : IDataInitializor
     private IOptions<RootUserOptions> RootUserOptions { get; }
 
     private ILogger<IDataInitializor> Logger { get; }
+    private IServiceProvider Provider { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DataInitializer"/> class
+    /// </summary>
+    /// <param name="provider">A service provider passed in to resolve dependencies as there are a lot</param>
     public DataInitializer(IServiceProvider provider)
     {
         ArgumentNullException.ThrowIfNull(provider, nameof(provider));
-
+        Provider = provider;
         RoleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
         UserManager = provider.GetRequiredService<UserManager<ApplicationUser>>();
         SeededAccounts = provider.GetRequiredService<IOptions<SeedAccountOptions>>();
@@ -28,22 +37,49 @@ public class DataInitializer : IDataInitializor
         Logger = provider.GetRequiredService<ILogger<IDataInitializor>>();
     }
 
+    /// <inheritdoc></inheritdoc>
     public void Initialize()
     {
-        bool dbHasAdminRole = Async.RunSync(() => RoleManager.RoleExistsAsync(Roles.Admin));
+        // create each role if they dont exist
+        ReadOnlySpan<string> roles = Roles.Every;
 
-
-        if (!dbHasAdminRole)
+        foreach (var role in roles)
         {
-            Async.RunSync(() => RoleManager.CreateAsync(new IdentityRole(Roles.Admin)));
+            if (!Async.RunSync(() => RoleManager.RoleExistsAsync(role)))
+            {
+                Async.RunSync(() => RoleManager.CreateAsync(new IdentityRole(role)));
+            }
         }
-
 
         InitializeMultipleUsers();
         InitializeRootUser();
+
+        var db = Provider.GetRequiredService<ApplicationDbContext>();
+
+        var form = new Form
+        {
+            Id = Guid.NewGuid(),
+            Description = "Demo form",
+            Closes = null,
+            Content = new List<FormContent>(),
+            Created = DateTimeOffset.UtcNow,
+            Receiver = RootUserOptions.Value.Email,
+            CreatedBy = Async.RunSync(() => UserManager.FindByEmailAsync(RootUserOptions.Value.Email)),
+            Recipients = db.Users.ToList(),
+            Title = "Demo"
+        };
+
+        form.Modified = form.Created;
+
+        db.Forms.Add(form);
+
+        db.SaveChanges();
     }
+
     private void InitializeRootUser()
     {
+        // creates a 'sudo' user that will have full authority over the system
+
         Logger.LogInformation("R-User: {email} | {passwordLength} | Root", RootUserOptions.Value.Email, new string('*', RootUserOptions.Value.Password.Length));
 
         var user = Async.RunSync(() => UserManager.FindByEmailAsync(RootUserOptions.Value.Email));
@@ -57,7 +93,8 @@ public class DataInitializer : IDataInitializor
         {
             Email = RootUserOptions.Value.Email,
             UserName = RootUserOptions.Value.Email,
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            Created = DateTimeOffset.UtcNow
         };
 
         var result = Async.RunSync(() => UserManager.CreateAsync(rootAccount, RootUserOptions.Value.Password));
@@ -70,6 +107,8 @@ public class DataInitializer : IDataInitializor
 
     private void InitializeMultipleUsers()
     {
+        // creates demo users for debug purposes
+
         if (SeededAccounts.Value.Accounts is null || SeededAccounts.Value.Accounts.Length == 0)
         {
             Logger.LogInformation("There are zero accounts to be added for seeding");
@@ -90,7 +129,8 @@ public class DataInitializer : IDataInitializor
             ApplicationUser userAccount = new()
             {
                 Email = account.Email,
-                UserName = account.Email
+                UserName = account.Email,
+                Created = DateTimeOffset.UtcNow
             };
 
             if (account.BypassEmail != null && account.BypassEmail.Value)

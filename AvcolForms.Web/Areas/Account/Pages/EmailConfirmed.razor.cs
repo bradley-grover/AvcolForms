@@ -1,5 +1,9 @@
 ﻿namespace AvcolForms.Web.Areas.Account.Pages;
 
+/// <summary>
+/// Page to be displayed when the email has been confirmed
+/// </summary>
+[Route(Routes.Accounts.EmailConfirmedPage)]
 public partial class EmailConfirmed
 {
     private readonly List<BreadcrumbItem> items = new()

@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+using Microsoft.AspNetCore.Http;
 
 namespace AvcolForms.Core.FileSaving;
 
@@ -14,7 +19,7 @@ public interface IFileSaver
     /// <param name="path"></param>
     /// <param name="cancellationToken"></param>
     /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
-    Task SaveAsync(Memory<byte> data, string path, CancellationToken cancellationToken = default);
+    Task SaveAsync(ReadOnlyMemory<byte> data, string path, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Saves a stream of data to the file path

@@ -1,4 +1,9 @@
-﻿using AvcolForms.Core.Options;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+using AvcolForms.Core.Options;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -13,7 +18,7 @@ public class PrivacyRetriever : IPrivacyRetriever
     private ILogger<IPrivacyRetriever> Logger { get; }
 
     private string? _privacyContent = null;
-    private bool retrieved;
+    private bool _retrieved;
     private readonly object _lock = new();
 
     /// <summary>
@@ -30,7 +35,7 @@ public class PrivacyRetriever : IPrivacyRetriever
     /// <inheritdoc></inheritdoc>
     public async ValueTask<string> RetrieveAsync()
     {
-        if (!retrieved)
+        if (!_retrieved)
         {
             try
             {
@@ -47,7 +52,7 @@ public class PrivacyRetriever : IPrivacyRetriever
             finally
             {
                 Logger.LogInformation("Privacy Retriever has ran setup");
-                retrieved = true;
+                _retrieved = true;
             }
             
         }

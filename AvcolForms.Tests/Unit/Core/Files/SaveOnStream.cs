@@ -6,7 +6,7 @@
 public class SaveOnStreamTests
 {
     private static readonly IFileSaver _fileSaver = new FileSaver();
-    private readonly string _filePath = Path.Join(Directory.GetCurrentDirectory(), "/Assets/savedFile.png");
+    private readonly string _filePath = Path.Join(Directory.GetCurrentDirectory(), "/Assets/03.png");
 
     /// <summary>
     /// The save should throw on an empty/null stream
@@ -42,7 +42,7 @@ public class SaveOnStreamTests
 
         long length = stream.Length;
 
-        string savePath = Path.Join(Directory.GetCurrentDirectory(), "/Output/savedImageStream.png");
+        string savePath = Path.Join(Directory.GetCurrentDirectory(), "/Output/03-out.png");
 
         if (File.Exists(savePath))
         {

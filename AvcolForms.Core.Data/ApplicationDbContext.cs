@@ -3,9 +3,12 @@
  * Copyright (c) 2022 Bradley Grover
  */
 
+using AvcolForms.Core.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AvcolForms.Core.Data;
+
+#nullable disable
 
 /// <summary>
 /// The data context for out application
@@ -20,4 +23,14 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         Database.EnsureCreated();
     }
+
+    /// <summary>
+    /// The table 'Forms' of the database
+    /// </summary>
+    public DbSet<Form> Forms { get; set; }
+
+    /// <summary>
+    /// The table 'Responses' of the database. This table contains the responses to items in the <see cref="Forms"/> table linked by key
+    /// </summary>
+    public DbSet<FormResponse> Responses { get; set; }
 }

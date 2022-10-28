@@ -1,19 +1,29 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MailKit;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
 using MimeKit;
 using MimeKit.Text;
 using MailKit.Net.Smtp;
 using AvcolForms.Core.Options;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System.Diagnostics;
+
+// this class uses outlook during testing
 
 namespace AvcolForms.Core.Email;
 
 /// <summary>
 /// Email sender used for verifying email authentication
 /// </summary>
-public class EmailSender : IEmailSender
+public sealed class EmailSender : IEmailSender
 {
+    /// <summary>
+    /// Logger for the email sender
+    /// </summary>
     private ILogger<IEmailSender> Logger { get; }
 
     /// <summary>
@@ -23,6 +33,8 @@ public class EmailSender : IEmailSender
     /// <param name="logger">Logger to log events</param>
     public EmailSender(IOptions<EmailOptions> options, ILogger<IEmailSender> logger)
     {
+        Debug.Assert(options != null);
+
         Options = options.Value;
         Logger = logger;
     }
@@ -35,7 +47,10 @@ public class EmailSender : IEmailSender
     /// <inheritdoc></inheritdoc>
     public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
+        ArgumentNullException.ThrowIfNull(email);
+
         Logger.LogInformation("Executing sending email operation to {email}", email);
+
         await ExecuteAsync(subject, htmlMessage, email);
     }
 
@@ -47,7 +62,8 @@ public class EmailSender : IEmailSender
     /// <param name="message">The message of the email</param>
     /// <param name="toEmail"></param>
     /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
-    public async Task ExecuteAsync(string subject, string message, string toEmail)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)] // inline this method as its only called above
+    internal async Task ExecuteAsync(string subject, string message, string toEmail)
     {
         var email = new MimeMessage
         {

@@ -74,20 +74,16 @@ public static class Providers
     /// Gets the <see cref="Provider"/> from the string
     /// </summary>
     /// <param name="provider"></param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Provider"/>, could be <see langword="null"/></returns>
     public static Provider? GetProvider(string provider)
     {
-        switch (provider.ToLower())
+        return provider.ToLower() switch
         {
-            case "postgres":
-                return Provider.Postgres;
-            case "sqlite":
-                return Provider.Sqlite;
-            case "sqlserver":
-                return Provider.SqlServer;
-            default:
-                return null;
-        }
+            "postgres" => (Provider?)Provider.Postgres,
+            "sqlite" => (Provider?)Provider.Sqlite,
+            "sqlserver" => (Provider?)Provider.SqlServer,
+            _ => null,
+        };
     }
 
     /// <summary>

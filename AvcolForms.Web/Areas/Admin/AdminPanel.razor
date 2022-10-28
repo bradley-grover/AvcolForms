@@ -1,8 +1,38 @@
-﻿@page "/admin_page"
-@attribute [Authorize(Roles = "Admin")]
+﻿@inherits AdminBase
+
+<PageTitle>Admin</PageTitle>
 
 <MudBreadcrumbs Items="@items"></MudBreadcrumbs>
 
-<MudText Typo="Typo.h2">
-    Administration Page
-</MudText>
+<MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Administration Page</MudText>
+
+@if (!isLoading)
+{
+    <MudGrid Class="mt-8">
+        <MudItem xs="12" sm="6" md="4">
+            <MudButton OnClick="@GoToUsersPage">
+                <MudCard Elevation="25" Class="rounded-lg pb-4">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Align="Align.Center">Manage Users</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <div class="d-flex justify-center">
+                        <MudIcon Icon="@Icons.Material.Filled.AccountCircle" Size="Size.Large"></MudIcon>
+                    </div>
+                    <MudList>
+                        <MudListItem>
+                            @userCount users available
+                        </MudListItem>
+                    </MudList>
+                </MudCardContent>
+            </MudCard>
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+}
+else 
+{
+    <MudProgressCircular Indeterminate=true></MudProgressCircular>
+}

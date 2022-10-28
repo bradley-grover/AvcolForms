@@ -1,9 +1,13 @@
-﻿using AvcolForms.Core.Accounts;
-using AvcolForms.Web.Areas.Account.ViewModels;
+﻿using System.Web;
+using AvcolForms.Core.Accounts;
 using Microsoft.AspNetCore.DataProtection;
 
 namespace AvcolForms.Web.Areas.Account.Pages;
 
+/// <summary>
+/// Login page for the user to sign in
+/// </summary>
+[Route(Routes.Accounts.Login)]
 public partial class Login
 {
 #nullable disable
@@ -25,12 +29,9 @@ public partial class Login
 
     private bool showLoginError = false;
 
-    private LoginModel SignIn { get; } = new();
+    private readonly SensitiveStore PasswordStore = new();
 
-    void GoToRegister()
-    {
-        NavManager.NavigateTo("/account/register");
-    }
+    private LoginModel SignIn { get; } = new();
 
     async Task LoginAsync()
     {
@@ -42,15 +43,21 @@ public partial class Login
 
             if (!await UserManager.IsEmailConfirmedAsync(user))
             {
-                NavManager.NavigateTo(AccountRoutes.ConfirmEmailPage);
+                NavManager.NavigateTo(Routes.Accounts.ConfirmEmailPage);
+                return;
+            }
+
+            if (await UserManager.IsLockedOutAsync(user))
+            {
+                NavManager.NavigateTo(Routes.Accounts.AccountLockedOut);
                 return;
             }
 
             var token = await UserManager.GenerateUserTokenAsync(user, TokenOptions.DefaultProvider, Protected.Login);
 
-            var data = $"{user.Id}|{token}";
+            var data = $"{user.Id}|{token}|{SignIn.Persist}";
 
-            var parsedQuery = System.Web.HttpUtility.ParseQueryString(new Uri(NavManager.Uri).Query);
+            var parsedQuery = HttpUtility.ParseQueryString(new Uri(NavManager.Uri).Query);
 
             var returnUrl = parsedQuery["returnUrl"];
 

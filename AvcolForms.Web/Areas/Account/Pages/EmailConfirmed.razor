@@ -1,6 +1,11 @@
-﻿@page "/account/email_confirmed"
-@page "/email_confirmed"
-
-<PageTitle>Confirm Email</PageTitle>
+﻿<PageTitle>Confirmed Email</PageTitle>
 
 <MudBreadcrumbs Items="@items"></MudBreadcrumbs>
+
+<MudAlert Severity="Severity.Success">Email Confirmed!</MudAlert>
+
+<br/>
+
+<MudText Typo="Typo.h3">
+    <MudLink Href="@Routes.Accounts.Login" Typo="Typo.h3">Click here</MudLink> to go to the login
+</MudText>

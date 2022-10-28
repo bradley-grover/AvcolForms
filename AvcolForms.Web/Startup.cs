@@ -5,16 +5,15 @@
 
 using AvcolForms.Web.Initialization;
 using AvcolForms.Web.ServiceConfigures;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
+using Serilog;
 
 namespace AvcolForms.Web;
 
 /// <summary>
 /// Startup class to register application services and the HTTP Request Pipeline
 /// </summary>
-public class Startup
+public sealed class Startup
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Startup"/> class
@@ -23,6 +22,9 @@ public class Startup
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configuration)
+            .CreateLogger();
     }
 
     /// <summary>
@@ -68,7 +70,7 @@ public class Startup
         if (!env.IsDevelopment())
         {
             app.UseMigrationsEndPoint();
-            app.UseExceptionHandler("/Error");
+            app.UseExceptionHandler(Routes.Error);
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
@@ -84,7 +86,7 @@ public class Startup
         {
             endpoints.MapControllers();
             endpoints.MapBlazorHub();
-            endpoints.MapFallbackToPage("/_Host");
+            endpoints.MapFallbackToPage(Routes.Fallback);
         });
 
         initializer.Initialize();

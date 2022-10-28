@@ -1,6 +1,4 @@
-﻿@page "/account/register"
-@page "/register"
-@layout MainLayout
+﻿@layout MainLayout
 
 <PageTitle>Register</PageTitle>
 
@@ -20,23 +18,33 @@
     }
 }
 
+@if (proccessing)
+{
+    <MudProgressLinear Color="Color.Primary" Striped="true" Size="Size.Large" Value="75" Class="my-7" />
+}
+
 <EditForm Model="@Registration" OnValidSubmit="@RegisterAsync">
 <ValidationSummary/>
 <MudGrid>
     <MudItem xs="12" sm="7">
         <MudCard>
             <MudCardContent>
-                <MudTextField Label="Email" Class="mt-3"
+                <MudTextField Label="Email" Class="mt-3" Required=true
                               @bind-Value="Registration.Email" For="@(() => Registration.Email)"/>
-                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
-                              @bind-Value="Registration.Password" For="@(() => Registration.Password)" InputType="InputType.Password"/>
-                <MudTextField Label="Confirm Password" HelperText="Repeat the password" Class="mt-3"
-                              @bind-Value="Registration.ConfirmPassword" For="@(() => Registration.ConfirmPassword)" InputType="InputType.Password"/>
+                <MudTextField Label="Password" Required=true HelperText="Choose a strong password" Class="mt-3"
+                              @bind-Value="Registration.Password" For="@(() => Registration.Password)" InputType="@PasswordStore.InputType" Adornment="Adornment.End" AdornmentIcon="@PasswordStore.Icon"
+                              AdornmentAriaLabel="Show Password" OnAdornmentClick="@PasswordStore.ToggleState"/>
+                <MudTextField Label="Confirm Password" Required=true HelperText="Repeat the password" Class="mt-3"
+                              @bind-Value="Registration.ConfirmPassword" For="@(() => Registration.ConfirmPassword)" InputType="@ConfirmStore.InputType" Adornment="Adornment.End"
+                              AdornmentAriaLabel="Show Password" AdornmentIcon="@ConfirmStore.Icon" OnAdornmentClick="@ConfirmStore.ToggleState"/>
             </MudCardContent>
             <MudCardActions>
+                <MudSpacer/>
                 <MudButton OnClick="@OpenDialogAsync" Variant="Variant.Filled" Color="Color.Primary">Privacy Policy</MudButton>
-                <MudCheckBox @bind-bind-Checked="@acceptedLicense" T="bool" Required="true" RequiredError="You must agree" Class="ml-n2" Label="I agree!"/>
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                <MudSpacer/>
+                <MudCheckBox @bind-Checked="@acceptedLicense" T="bool" Required="true" RequiredError="You must agree" Color="Color.Primary" Class="ml-n2" Label="I agree!" />
+                <MudSpacer/>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" Disabled="@registerButtonLock">Register</MudButton>
             </MudCardActions>
         </MudCard>
     </MudItem>
@@ -44,6 +52,4 @@
 </EditForm>
 
 <MudSpacer/>
-<MudButton Color="Color.Transparent" OnClick="@(() => GoToLogin())">
-    Already have an account? Click here to login
-</MudButton>
+<MudLink Href="@Routes.Accounts.Login">Already have an account? Click here to login</MudLink>

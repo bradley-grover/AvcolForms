@@ -1,7 +1,4 @@
-﻿@page "/account/login"
-@page "/login"
-
-<PageTitle>Login</PageTitle>
+﻿<PageTitle>Login</PageTitle>
 
 <MudBreadcrumbs Items="@items"></MudBreadcrumbs>
 
@@ -22,19 +19,23 @@
     <MudItem xs="12" sm="7">
         <MudCard>
             <MudCardContent>
-                <MudTextField Label="Email*" Class="mt-3"
+                <MudTextField Label="Email*" Class="mt-3" Placeholder="Enter Email .."
                               @bind-Value="SignIn.Email" For="@(() => SignIn.Email)"/>
-                <MudTextField Label="Password*" Class="mt-3"
-                              @bind-Value="SignIn.Password" For="@(() => SignIn.Password)" InputType="InputType.Password"/>
+                <MudTextField Label="Password*" Class="mt-3" Placeholder="Enter Password .."
+                              @bind-Value="SignIn.Password" For="@(() => SignIn.Password)" InputType="@PasswordStore.InputType" Adornment="Adornment.End" AdornmentIcon="@PasswordStore.Icon"
+                              AdornmentAriaLabel="Show Password" OnAdornmentClick="@PasswordStore.ToggleState"/>
             </MudCardContent>
             <MudCardActions>
+                <MudCheckBox Color="Color.Primary" T="bool" @bind-Checked="SignIn.Persist">Remember Me?</MudCheckBox>
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Login</MudButton>
             </MudCardActions>
         </MudCard>
     </MudItem>
 </MudGrid>
 </EditForm>
-<MudSpacer/>
-<MudButton Color="Color.Transparent" OnClick="@(() => GoToRegister())">
-    Don't have an account? Register Now
-</MudButton>
+<br/>
+<MudText>
+    <MudLink Href="@Routes.Accounts.ForgotPassword">Forgot Password?</MudLink>
+    |
+    <MudLink Href="@Routes.Accounts.Register">Register</MudLink>
+</MudText>

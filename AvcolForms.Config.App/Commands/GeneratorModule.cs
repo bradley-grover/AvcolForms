@@ -1,4 +1,9 @@
-﻿namespace AvcolForms.Config.App.Commands;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+namespace AvcolForms.Config.App.Commands;
 
 /// <summary>
 /// Generates items randomly or determined
@@ -6,6 +11,10 @@
 [Module("Generater", "Generates items randomly or determined")]
 public class GeneratorModule
 {
+    /// <summary>
+    /// Generates a Global-Unique-Identifier
+    /// </summary>
+    /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
     [Command("uuid", "generates a guid")]
     [Alias("guid")]
     public static async Task GenerateGuidAsync()
@@ -13,6 +22,11 @@ public class GeneratorModule
         await GenerateGuidAsync(null!);
     }
 
+    /// <summary>
+    /// Generates multiple GUID's from the integer parameter specified
+    /// </summary>
+    /// <param name="parameters">Contains the amount to be generated</param>
+    /// <returns>A <see cref="Task"/> to <see langword="await"/></returns>
     [Command("uuid", "generates a guid")]
     [Alias("guid")]
     public static Task GenerateGuidAsync(string[] parameters)

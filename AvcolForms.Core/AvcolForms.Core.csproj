@@ -1,29 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <SignAssembly>False</SignAssembly>
-    <Authors>Bradley Grover</Authors>
-    <Product>AvcolForms</Product>
     <Description>Core library for AvcolForms</Description>
-    <Copyright>Licensed under the MIT License, Copyright (c) Bradley Grover</Copyright>
-    <PackageProjectUrl>https://github.com/users/ac111897/AvcolForms</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/users/ac111897/AvcolForms</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="3.3.0" />
+    <PackageReference Include="MailKit" Version="3.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.8" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AvcolForms.Core.Data\AvcolForms.Core.Data.csproj" />
   </ItemGroup>
 
 </Project>

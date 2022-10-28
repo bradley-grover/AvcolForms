@@ -4,13 +4,15 @@
  */
 
 using System.Reflection;
+using Serilog;
+using Serilog.AspNetCore;
 
 namespace AvcolForms.Web;
 
 /// <summary>
 /// Program class for the application, in this class the program starts from <see cref="Main(string[])"/> method
 /// </summary>
-public class Program
+public sealed class Program
 {
     /// <summary>
     /// Entry point for the application
@@ -29,6 +31,7 @@ public class Program
     /// <returns>A <see cref="IHostBuilder"/></returns>
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
+        .UseSerilog()
         .ConfigureWebHostDefaults(webBuilder =>
         {
             webBuilder.UseStartup<Startup>();

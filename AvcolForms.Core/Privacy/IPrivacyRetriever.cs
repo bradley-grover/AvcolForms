@@ -1,4 +1,9 @@
-﻿namespace AvcolForms.Core.Privacy;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
+
+namespace AvcolForms.Core.Privacy;
 
 /// <summary>
 /// Retrieves the privacy policy to display to the user

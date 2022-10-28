@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
 
 namespace AvcolForms.Core.Options;
 
@@ -7,7 +10,7 @@ namespace AvcolForms.Core.Options;
 /// <summary>
 /// Settings for the website
 /// </summary>
-public class WebsiteOptions
+public sealed class WebsiteOptions
 {
     /// <summary>
     /// Title of the website

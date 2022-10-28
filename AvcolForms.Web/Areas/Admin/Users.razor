@@ -1,0 +1,40 @@
+﻿@using AvcolForms.Web.Areas.Account.ViewModels
+@attribute [Authorize(Roles = Roles.Admin)]
+
+<PageTitle>Manage Users</PageTitle>
+
+<MudBreadcrumbs Items="@items"></MudBreadcrumbs>
+
+<MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Manage Users</MudText>
+
+<MudTable ServerData="new Func<TableState, Task<TableData<UserViewModel>>>(GetUsersAsync)"
+    Hover="true"
+    @ref="userTable">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Users</MudText>
+        <MudSpacer/>
+        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+   <HeaderContent>
+        <MudTh>Email Address</MudTh>
+        <MudTh>Email Confirmed</MudTh>
+        <MudTh>
+            <MudCheckBox @bind-Checked="@isAdminstrator">Administrator?</MudCheckBox>
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Email Address">@context.Email</MudTd>
+        <MudTd DataLabel="Email Confirmed">@context.EmailConfirmed</MudTd>
+        <MudTd DataLabel="Administrator">@context.IsElevated</MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        No users found
+    </NoRecordsContent>
+    <LoadingContent>
+        Loading Users ...
+        <MudProgressCircular Indeterminate=true></MudProgressCircular>
+    </LoadingContent>
+    <PagerContent>
+        <MudTablePager/>
+    </PagerContent>
+</MudTable>

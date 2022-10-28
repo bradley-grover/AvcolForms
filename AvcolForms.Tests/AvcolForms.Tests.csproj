@@ -1,34 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
-
-    <ImplicitUsings>enable</ImplicitUsings>
-
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Description>Tests library for unit tests and integration test for AvcolForms</Description>
-    <Copyright>Licensed under the MIT License, Copyright (c) Bradley Grover</Copyright>
-    <PackageProjectUrl>https://github.com/ac111897/AvcolForms</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ac111897/AvcolForms</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\savedFile.png" />
+    <None Remove="Assets\01.png" />
+    <None Remove="Assets\02.png" />
+    <None Remove="Assets\03.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\savedFile.png">
+    <Content Include="Assets\01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\03.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.1" />
+    <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>

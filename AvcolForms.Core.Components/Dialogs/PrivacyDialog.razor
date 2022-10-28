@@ -1,16 +1,13 @@
-﻿@using System.Text
-@using AvcolForms.Core.Privacy
-
-<MudDialog DisableSidePadding="true">
+﻿<MudDialog DisableSidePadding="true">
     <DialogContent>
         <MudContainer Style="max-height: 300px; overflow-y: scroll">
-            @if (Loading)
+            @if (_loading)
             {
                 <MudProgressCircular Indeterminate="true"></MudProgressCircular>
             }
             else
             {
-                <MudText Style="white-space: pre-wrap;">@Content</MudText>
+                <MudText Style="white-space: pre-wrap;">@_content</MudText>
             }
         </MudContainer>
     </DialogContent>
@@ -18,26 +15,3 @@
         <MudButton Color="Color.Primary" OnClick="Ok">Accept</MudButton>
     </DialogActions>
 </MudDialog>
-@code {
-    #nullable disable
-    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-    [Inject] IPrivacyRetriever Privacy { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        Loading = true;
-
-        Content = await Privacy.RetrieveAsync();
-
-        Loading = false;
-    }
-
-    private string Content;
-    private bool Loading = false;
-
-    private void Ok()
-    {
-        MudDialog.Close(DialogResult.Ok(true));
-    }
-}

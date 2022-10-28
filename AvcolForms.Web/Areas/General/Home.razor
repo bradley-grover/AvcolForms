@@ -1,16 +1,27 @@
 ﻿@page "/"
+@using AvcolForms.Core.Notifications
 @attribute [Authorize]
+@inject INotificationService<ApplicationUser> _notificationService;
+@inject UserManager<ApplicationUser> _userManager;
 @inject AuthenticationStateProvider authenticationStateProvider
 
 <PageTitle>Home</PageTitle>
 
-<MudText>
-    Logged in!
-</MudText>
+<MudBreadcrumbs Items="@items"></MudBreadcrumbs>
 
-@code {
-    protected override async Task OnInitializedAsync()
-    {
-        var state = await authenticationStateProvider.GetAuthenticationStateAsync();
+<MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Home</MudText>
+
+@if (_fetchedNotifications) {
+    if (_alerts.Any()) {
+        foreach (var item in _alerts) {
+            <MudAlert Severity="@item.Severity.UserAlertSeverityToMud()">@item.Message</MudAlert>
+        }
     }
+    else
+    {
+        <MudText>No Notifications Available</MudText>
+    }
+}
+else {
+    <MudText>Getting Notifications . . .</MudText>
 }

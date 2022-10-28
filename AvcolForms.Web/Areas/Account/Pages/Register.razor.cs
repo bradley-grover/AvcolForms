@@ -10,6 +10,7 @@ namespace AvcolForms.Web.Areas.Account.Pages;
 /// <summary>
 /// Register class for the page
 /// </summary>
+[Route(Routes.Accounts.Register)]
 public partial class Register
 {
 #nullable disable
@@ -41,18 +42,20 @@ public partial class Register
     bool dialogIsAlreadyOpen = false;
     bool acceptedLicense;
     bool success;
+
     private string? error = null;
 
-    void GoToLogin()
-    {
-        NavManager.NavigateTo("/account/login");
-    }
+    bool registerButtonLock = false;
+    bool proccessing = false;
 
     private readonly List<BreadcrumbItem> items = new()
     {
         new("Account", href: null, disabled: true, Icons.Material.Filled.AccountCircle),
         new("Register", href: null, disabled: true, Icons.Material.Filled.AppRegistration)
     };
+
+    private readonly SensitiveStore PasswordStore = new();
+    private readonly SensitiveStore ConfirmStore = new();
 
     async Task OpenDialogAsync()
     {
@@ -75,7 +78,10 @@ public partial class Register
 
     private async Task RegisterAsync()
     {
-        var user = new ApplicationUser { UserName = Registration.Email, Email = Registration.Email };
+        registerButtonLock = true;
+        proccessing = true;
+
+        var user = new ApplicationUser { UserName = Registration.Email, Email = Registration.Email, Created = DateTimeOffset.UtcNow };
 
         var result = await UserManager.CreateAsync(user, Registration.Password);
 
@@ -94,7 +100,7 @@ public partial class Register
 
             value = protecter.Protect(value);
 
-            Uri uri = NavManager.ToAbsoluteUri($"{AccountRoutes.EmailConfirmGet}?t={value}");
+            Uri uri = NavManager.ToAbsoluteUri($"{Routes.Accounts.EmailConfirmGet}?t={value}");
 
             try
             {
@@ -105,7 +111,8 @@ public partial class Register
             {
                 Logger.LogError("{exception}", exception);
                 success = false;
-                error = $"An error occured whilst trying to send you a confirmation email, resend by <a href='{AccountRoutes.ResendConfirmation}'>clicking here</a>.";
+                error = $"An error occured whilst trying to send you a confirmation email, resend by <a href='{Routes.Accounts.ResendConfirmation}'>clicking here</a>.";
+                proccessing = false;
                 return;
             }
 
@@ -114,10 +121,17 @@ public partial class Register
             Snackbar.Add("Succesfully Registered!", Severity.Success, c =>
             {
                 c.ShowCloseIcon = true;
-                c.VisibleStateDuration = 2 * 1000;
+                c.CloseAfterNavigation = false;
+                c.VisibleStateDuration = 10 * 1000;
             });
 
+            user.Created = DateTimeOffset.UtcNow;
+
+            await UserManager.UpdateAsync(user);
+
             NavManager.NavigateTo($"/account/sent_confirmation/{email}", forceLoad: true);
+
+            proccessing = false;
 
             return;
         }
@@ -126,6 +140,9 @@ public partial class Register
             success = false;
 
             error = string.Join("\n", result.Errors.Select(x => x.Description));
+
+            proccessing = false;
+            registerButtonLock = false;
         }
     }
 }

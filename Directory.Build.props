@@ -1,0 +1,22 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <!-- Standard properties that are included in each project -->
+  <!-- Each project uses the same .NET version and lang version and includes 'Debug.cs' extension files only when the set mode is for debugging -->
+  <PropertyGroup>
+    <LangVersion>10</LangVersion>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/*.Debug.cs</DefaultItemExcludes>
+    <Product>AvcolForms</Product>
+    <Authors>Bradley Grover</Authors>
+    <Copyright>Licensed under the MIT License, Copyright (c) Bradley Grover</Copyright>
+    <PackageProjectUrl>https://github.com/ac111897/AvcolForms</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ac111897/AvcolForms</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="**/*Debug.cs" Condition=" '$(Configuration)' == 'Debug' " />
+  </ItemGroup>
+</Project>

@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/*
+ * Licensed under the MIT License
+ * Copyright (c) 2022 Bradley Grover
+ */
 
 namespace AvcolForms.Core.Accounts;
 
@@ -7,13 +10,14 @@ namespace AvcolForms.Core.Accounts;
 /// <summary>
 /// Model for registering a seeded account
 /// </summary>
-public class AccountModel
+public sealed class AccountModel
 {
     /// <summary>
     /// Email address for the account
     /// </summary>
     [EmailAddress]
     [Required]
+    [MaxLength(Constants.MaxEmailLength, ErrorMessage = Constants.MaxEmailLengthError)]
     public string Email { get; set; }
 
     /// <summary>

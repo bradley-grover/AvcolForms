@@ -1,0 +1,25 @@
+﻿@using AvcolForms.Web.Areas.Forms.ViewModel
+@attribute [Authorize]
+
+<PageTitle>Forms - Dashboard</PageTitle>
+
+<MudBreadcrumbs Items="@_items"></MudBreadcrumbs>
+
+<MudText Align="Align.Center" Typo="Typo.h2">
+    Unanswered Forms
+</MudText>
+
+<MudSpacer/>
+
+<MudTable Items="@_forms" Hover="true" OnRowClick="@RowClickRedirectToPage" T="UnansweredFormItem">
+    <HeaderContent>
+        <MudTh>Title</MudTh>
+        <MudTh>Questions</MudTh>
+        <MudTh>Ends At</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Title">@context.Title</MudTd>
+        <MudTd DataLabel="Questions">@context.ContentCount</MudTd>
+        <MudTd DataLabel="Ends At">@context.EndDate.ToLocalTimeOrNone()</MudTd>
+    </RowTemplate>
+</MudTable>

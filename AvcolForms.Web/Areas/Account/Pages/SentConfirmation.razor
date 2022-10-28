@@ -1,6 +1,4 @@
-﻿@page "/sent_confirmation/{Email}"
-@page "/account/sent_confirmation/{Email}"
-@using System.Text
+﻿@using System.Text
 
 <PageTitle>Sent Confirmation</PageTitle>
 
@@ -10,13 +8,11 @@
 
 <br/>
 
-<MudText Typo="Typo.h3">
-    We sent an email confirmation to @Encoding.UTF8.GetString(Convert.FromBase64String(Email))
-</MudText>
+<MudText Typo="Typo.h3">@Email</MudText>
 
 <br/>
 <br />
 
 <MudText>
-    Didn't get it? Check your junk mail or <MudLink Href="@AccountRoutes.ResendConfirmation">click here</MudLink> to resend confirmation email
+    Didn't get it? Check your junk mail or <MudLink Href="@Routes.Accounts.ResendConfirmation">click here</MudLink> to resend confirmation email
 </MudText>
