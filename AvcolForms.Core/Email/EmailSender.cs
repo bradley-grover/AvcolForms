@@ -10,6 +10,7 @@ using AvcolForms.Core.Options;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
 
 // this class uses outlook during testing
 
@@ -32,6 +33,8 @@ public sealed class EmailSender : IEmailSender
     /// <param name="logger">Logger to log events</param>
     public EmailSender(IOptions<EmailOptions> options, ILogger<IEmailSender> logger)
     {
+        Debug.Assert(options != null);
+
         Options = options.Value;
         Logger = logger;
     }
@@ -44,7 +47,10 @@ public sealed class EmailSender : IEmailSender
     /// <inheritdoc></inheritdoc>
     public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
+        ArgumentNullException.ThrowIfNull(email);
+
         Logger.LogInformation("Executing sending email operation to {email}", email);
+
         await ExecuteAsync(subject, htmlMessage, email);
     }
 

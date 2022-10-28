@@ -1,4 +1,8 @@
-﻿@attribute [Authorize]
+﻿@using System.Web
+@attribute [Authorize]
+@inject AuthenticationStateProvider _stateProvider;
+@inject IDbContextFactory<ApplicationDbContext> _factory;
+@inject UserManager<ApplicationUser> _userManager;
 
 <PageTitle>Account</PageTitle>
 
@@ -7,3 +11,31 @@
 <MudText Align="Align.Center" Typo="Typo.h2">
     Account Information
 </MudText>
+
+<br/>
+
+@if (_user is not null) {
+    <MudSimpleTable>
+        <thead>
+            <tr/>
+            <tr/>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>Email</b></td>
+                <td>@HttpUtility.HtmlEncode(_user.Email)</td>
+            </tr>
+            <tr>
+                <td><b>Date Created</b></td>
+                <td>@_user.Created.ToLocalTime()</td>
+            </tr>
+            <tr>
+                <td><b>Last Login Time</b></td>
+                <td>@_user.LastLogin.ToLocalTime()</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+}
+else {
+    <MudText Align="Align.Center">Could not load data for this user account</MudText>
+}

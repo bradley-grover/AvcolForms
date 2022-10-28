@@ -1,19 +1,54 @@
 ﻿namespace AvcolForms.Web.Areas;
 
+/// <summary>
+/// Represents all accessible routes of the application
+/// </summary>
 internal static class Routes
 {
+    /// <summary>
+    /// The route of the home page
+    /// </summary>
     public const string Home = "#";
+
+    /// <summary>
+    /// The route for when a error occurs
+    /// </summary>
     public const string Error = "/Error";
+
+    /// <summary>
+    /// The fallback page for when the client loses connection
+    /// </summary>
     public const string Fallback = "/_Host";
 
+    /// <summary>
+    /// Routes that only a user with the role of <see cref="Roles.Admin"/> can access
+    /// </summary>
     internal static class Admin
     {
+        /// <summary>
+        /// The base route of the admin routes
+        /// </summary>
         internal const string Base = "/admin";
+        
+        /// <summary>
+        /// The dashboard page for admins
+        /// </summary>
         internal const string Dash = $"{Base}/dash";
+
+        /// <summary>
+        /// The manage users page for the admins
+        /// </summary>
         internal const string Users = $"{Base}/users";
     }
+
+    /// <summary>
+    /// The accounts routes, for registering, login, signout and any other user related action
+    /// </summary>
     internal static class Accounts
     {
+        /// <summary>
+        /// Standard account page to display information to the user about their account
+        /// </summary>
         public const string Account = "/account";
 
         public const string AuthenticateLogin = $"{Account}/authenticate_login";

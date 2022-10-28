@@ -11,4 +11,13 @@ public partial class Account
         new("Home", href: "#", disabled: false, Icons.Material.Filled.Home),
         new("Account", href: null, disabled: true, icon: Icons.Material.Filled.AccountCircle),
     };
+
+    private ApplicationUser? _user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await _stateProvider.GetAuthenticationStateAsync();
+
+        _user = await _userManager.GetUserAsync(state.User);
+    }
 }
