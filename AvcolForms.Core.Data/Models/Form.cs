@@ -52,6 +52,12 @@ public class Form : KeyedDbRecord
     public ICollection<FormContent> Content { get; set; }
 
     /// <summary>
+    /// User responses to the form
+    /// </summary>
+    [JsonPropertyName("responses")]
+    public ICollection<FormResponse> Responses { get; set; }
+
+    /// <summary>
     /// The email address for form responses to be sent to
     /// </summary>
     [Required]

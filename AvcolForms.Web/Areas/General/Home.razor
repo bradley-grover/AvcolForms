@@ -1,9 +1,10 @@
 ﻿@page "/"
 @using AvcolForms.Core.Notifications
 @attribute [Authorize]
-@inject INotificationService<ApplicationUser> _notificationService;
 @inject UserManager<ApplicationUser> _userManager;
+@inject NavigationManager _navManager;
 @inject AuthenticationStateProvider authenticationStateProvider
+
 
 <PageTitle>Home</PageTitle>
 
@@ -11,17 +12,37 @@
 
 <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Home</MudText>
 
-@if (_fetchedNotifications) {
-    if (_alerts.Any()) {
-        foreach (var item in _alerts) {
-            <MudAlert Severity="@item.Severity.UserAlertSeverityToMud()">@item.Message</MudAlert>
-        }
-    }
-    else
-    {
-        <MudText>No Notifications Available</MudText>
-    }
-}
-else {
-    <MudText>Getting Notifications . . .</MudText>
-}
+<MudGrid Justify="Justify.Center">
+<MudItem>
+    <MudButton Size="Size.Large" Style="display:flex;" OnClick="@(() => _navManager.NavigateTo(Routes.Accounts.Account))">
+        <MudCard Outlined="true">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5" Align="Align.Center">Account</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <div class="d-flex justify-center">
+                    <MudIcon Icon="@Icons.Material.Filled.AccountCircle" Size="Size.Large"></MudIcon>
+                </div>
+            </MudCardContent>
+        </MudCard>
+    </MudButton>
+</MudItem>
+<MudItem>
+    <MudButton Size="Size.Large" OnClick="@(() => _navManager.NavigateTo(Routes.Forms.Dash))">
+        <MudCard Outlined="true">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h5" Align="Align.Center">Forms</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <div class="d-flex justify-center">
+                    <MudIcon Icon="@Icons.Material.Filled.Forum" Size="Size.Large"></MudIcon>
+                </div>
+            </MudCardContent>
+        </MudCard>
+    </MudButton>
+</MudItem>
+</MudGrid>

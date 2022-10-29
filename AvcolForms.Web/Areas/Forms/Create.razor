@@ -1,7 +1,36 @@
-﻿@attribute [Authorize]
+﻿@using AvcolForms.Core.Accounts
+@attribute [AuthorizeMultiple(Roles.Admin, Roles.FormCreation, Roles.FormAdmin)]
+@inject IDbContextFactory<ApplicationDbContext> _factory;
+@inject UserManager<ApplicationUser> _userManager;
+@inject AuthenticationStateProvider _authProvider;
+@inject NavigationManager _navManager;
 
 <PageTitle>Forms - Create</PageTitle>
 
-<MudText>
-    Form Creation Tool
-</MudText>
+<MudBreadcrumbs Items="@_items"/>
+
+@if (_processLock) {
+    <MudProgressCircular Indeterminate="true" Size="Size.Large"/>
+}
+
+<MudText Typo="Typo.h2" Align="Align.Center">Form Creation Tool</MudText>
+
+<br/>
+
+<EditForm Model="@CreateForm" OnValidSubmit="@CreateAsync">
+<DataAnnotationsValidator />
+<ValidationSummary/>
+    <MudTextField FullWidth="true" Label="Title" Required="true" For="@(() => CreateForm.Title)" @bind-Value="@CreateForm.Title"/>
+    <MudTextField Label="Receiver" HelperText="Email Address" Required="true" For="@(() => CreateForm.Receiver)" @bind-Value="@CreateForm.Receiver" />
+    <MudTextField Label="Description" Required="true" @bind-Value="@CreateForm.Description" For="@(() => CreateForm.Description)"/>
+    <br/>
+    <MudText Typo="Typo.h6">Form Expires At (Optional)</MudText>
+    <MudDatePicker MinDate="@DateTime.Now" Date="null" DateFormat="dd/MM/yyyy" Label="Close Date" Required="false" @bind-Value="@Time" For="@(() => Time)" />
+    <MudTimePicker Label="Close Time" Rounded="true" AmPm="true" Time="null" />
+    <br/>
+    <MudTooltip Text="Add">
+        <MudFab Icon="@Icons.Material.Filled.Add" Color="Color.Secondary" />
+    </MudTooltip>
+    <LineBreak Count="2"/>
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Create</MudButton>
+</EditForm>

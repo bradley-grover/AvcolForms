@@ -8,6 +8,7 @@
 global using AvcolForms.Core;
 global using AvcolForms.Core.Data;
 global using AvcolForms.Web.Areas;
+global using AvcolForms.Web.Extensions;
 #endregion
 #region Standard Libraries
 global using System.Text.Json;
