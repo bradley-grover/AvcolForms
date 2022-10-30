@@ -64,8 +64,8 @@ public sealed class DataInitializer : IDataInitializor
             Content = new List<FormContent>(),
             Created = DateTimeOffset.UtcNow,
             Receiver = RootUserOptions.Value.Email,
-            CreatedBy = Async.RunSync(() => UserManager.FindByEmailAsync(RootUserOptions.Value.Email)),
-            Recipients = db.Users.ToList(),
+            CreatedBy = Async.RunSync(() => UserManager.FindByEmailAsync(RootUserOptions.Value.Email)).Id,
+            Recipients = db.Users.Select(x => x.Id).ToList(),
             Title = "Demo"
         };
 

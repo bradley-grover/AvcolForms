@@ -1,9 +1,12 @@
 ﻿@using AvcolForms.Core.Accounts
+@using Microsoft.AspNetCore.Identity.UI.Services
 @attribute [AuthorizeMultiple(Roles.Admin, Roles.FormCreation, Roles.FormAdmin)]
 @inject IDbContextFactory<ApplicationDbContext> _factory;
 @inject UserManager<ApplicationUser> _userManager;
 @inject AuthenticationStateProvider _authProvider;
 @inject NavigationManager _navManager;
+@inject ILogger<Create> _logger;
+@inject IEmailSender _emailSender;
 
 <PageTitle>Forms - Create</PageTitle>
 
@@ -11,6 +14,11 @@
 
 @if (_processLock) {
     <MudProgressCircular Indeterminate="true" Size="Size.Large"/>
+}
+
+@if (_errorOccured){
+    <MudAlert Severity="Severity.Error">An error has occured, try again?</MudAlert>
+    <LineBreak Count="1"/>
 }
 
 <MudText Typo="Typo.h2" Align="Align.Center">Form Creation Tool</MudText>
@@ -25,12 +33,12 @@
     <MudTextField Label="Description" Required="true" @bind-Value="@CreateForm.Description" For="@(() => CreateForm.Description)"/>
     <br/>
     <MudText Typo="Typo.h6">Form Expires At (Optional)</MudText>
-    <MudDatePicker MinDate="@DateTime.Now" Date="null" DateFormat="dd/MM/yyyy" Label="Close Date" Required="false" @bind-Value="@Time" For="@(() => Time)" />
-    <MudTimePicker Label="Close Time" Rounded="true" AmPm="true" Time="null" />
+    <MudDatePicker MinDate="@DateTime.Now" DateFormat="dd/MM/yyyy" Label="Close Date" Required="false" @bind-Date="@Time"/>
+    <MudTimePicker Label="Close Time" Rounded="true" AmPm="true" @bind-Time="@Span"/>
     <br/>
     <MudTooltip Text="Add">
         <MudFab Icon="@Icons.Material.Filled.Add" Color="Color.Secondary" />
     </MudTooltip>
     <LineBreak Count="2"/>
-    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Create</MudButton>
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="@_processLock" Class="ml-auto">Create</MudButton>
 </EditForm>

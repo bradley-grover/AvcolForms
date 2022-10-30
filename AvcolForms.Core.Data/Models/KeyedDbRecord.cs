@@ -9,6 +9,7 @@ public abstract class KeyedDbRecord : DbRecord
     /// The identifier of the database record
     /// </summary>
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     [JsonPropertyName("id")]
     public Guid Id { get; set; }
 }

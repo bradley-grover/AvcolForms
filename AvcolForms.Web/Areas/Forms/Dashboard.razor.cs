@@ -46,7 +46,7 @@ public partial class Dashboard
 
         _forms = await context.Forms
             .Include(f => f.Responses)
-            .Where(f => f.Closes == null && f.Recipients.Contains(user))
+            .Where(f => f.Closes == null && f.Recipients.Contains(user.Id))
             .Where(f => !f.Responses.Any(r => r.User == user))
             .Select(f => new UnansweredFormItem()
             {
