@@ -124,10 +124,10 @@ public sealed partial class Create
         StringBuilder builder = new();
 
         builder.AppendLine("Hi there, a new form to be answered is now available.<br/><br/>");
-        builder.AppendLine($"The title of the form is {CreateForm.Title}.");
+        builder.AppendLine($"The title of the form is {CreateForm.Title}.<br/>");
         builder.Append($"Description is as: {CreateForm.Description}<br/>");
-        builder.Append($"You can access the form <a href='{HtmlEncoder.Default.Encode(uri.ToString())}'>here</a></b>");
-        builder.Append(CreateForm.Closes is null ? "This form does not expire" : $"Get in before it expires at {CreateForm.Closes.ToLocalTimeOrNone()}");
+        builder.Append($"You can access the form <a href='{HtmlEncoder.Default.Encode(uri.ToString())}'>here</a><br/><br/>");
+        builder.Append(CreateForm.Closes is null ? "<b>This form does not expire</b>" : $"<b>Get in before it expires at {CreateForm.Closes.ToLocalTimeOrNone()}</b>");
 
         await _emailSender.SendEmailAsync(user.Email, "New Form Available", builder.ToString());
     }
