@@ -18,6 +18,8 @@ public partial class View
         new BreadcrumbItem("Forms", Routes.Forms.Dash, icon: Icons.Filled.Forum)
     };
 
+    private readonly List<FormContent> _sections = new();
+
     [Inject]
     public IDbContextFactory<ApplicationDbContext> Factory { get; set; }
 
@@ -61,7 +63,9 @@ public partial class View
 
             builder.AppendLine($"{AppForm.Title}\n");
 
-            await EmailSender.SendEmailAsync(AppForm.Receiver, $"Response by {Response.User}", $"");
+            _ = EmailSender.SendEmailAsync(AppForm.Receiver, $"Response by {Response.User}", $"");
+
+            _navManager.NavigateTo(Routes.Forms.Dash, true);
         }
         finally
         {

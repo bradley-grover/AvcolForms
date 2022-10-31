@@ -15,7 +15,8 @@ else {
 
     <MudText Typo="Typo.h3" Align="Align.Center">@AppForm.Title</MudText>
 
-    <EditForm Model="@Response" OnInvalidSubmit="@CreateAsync">
+    <EditForm Model="@Response" OnValidSubmit="@CreateAsync">
+    <ValidationSummary/>
     <DataAnnotationsValidator/>
 
     @if (AppForm.Content is not null && AppForm.Content.Any())

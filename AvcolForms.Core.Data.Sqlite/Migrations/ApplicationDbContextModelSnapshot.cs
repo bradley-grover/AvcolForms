@@ -39,6 +39,9 @@ namespace AvcolForms.Core.Data.Sqlite.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTimeOffset>("LastLogin")
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
 
@@ -82,6 +85,131 @@ namespace AvcolForms.Core.Data.Sqlite.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.Form", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset?>("Closes")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(72)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("Modified")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Receiver")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Recipients")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(72)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Forms");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormContent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ContentType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("FormId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("Modified")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormId");
+
+                    b.ToTable("FormContent");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormContentResponse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Data")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("FormResponseId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("Modified")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("RespondsToId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormResponseId");
+
+                    b.HasIndex("RespondsToId");
+
+                    b.ToTable("ContentResponses");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormResponse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("FormId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("Modified")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FormResponse");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -212,6 +340,41 @@ namespace AvcolForms.Core.Data.Sqlite.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormContent", b =>
+                {
+                    b.HasOne("AvcolForms.Core.Data.Models.Form", null)
+                        .WithMany("Content")
+                        .HasForeignKey("FormId");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormContentResponse", b =>
+                {
+                    b.HasOne("AvcolForms.Core.Data.Models.FormResponse", null)
+                        .WithMany("Responses")
+                        .HasForeignKey("FormResponseId");
+
+                    b.HasOne("AvcolForms.Core.Data.Models.FormContent", "RespondsTo")
+                        .WithMany()
+                        .HasForeignKey("RespondsToId");
+
+                    b.Navigation("RespondsTo");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormResponse", b =>
+                {
+                    b.HasOne("AvcolForms.Core.Data.Models.Form", "Form")
+                        .WithMany("Responses")
+                        .HasForeignKey("FormId");
+
+                    b.HasOne("AvcolForms.Core.Data.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Form");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -261,6 +424,18 @@ namespace AvcolForms.Core.Data.Sqlite.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.Form", b =>
+                {
+                    b.Navigation("Content");
+
+                    b.Navigation("Responses");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormResponse", b =>
+                {
+                    b.Navigation("Responses");
                 });
 #pragma warning restore 612, 618
         }

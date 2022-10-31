@@ -44,6 +44,9 @@ namespace AvcolForms.Core.Data.Postgres.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTimeOffset>("LastLogin")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
@@ -87,6 +90,131 @@ namespace AvcolForms.Core.Data.Postgres.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.Form", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("Closes")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(72)
+                        .HasColumnType("character varying(72)");
+
+                    b.Property<DateTimeOffset>("Modified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Receiver")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("Recipients")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(72)
+                        .HasColumnType("character varying(72)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Forms");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormContent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("ContentType")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("FormId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("Modified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormId");
+
+                    b.ToTable("FormContent");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormContentResponse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Data")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("FormResponseId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("Modified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("RespondsToId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormResponseId");
+
+                    b.HasIndex("RespondsToId");
+
+                    b.ToTable("ContentResponses");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormResponse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("FormId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("Modified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FormResponse");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -221,6 +349,41 @@ namespace AvcolForms.Core.Data.Postgres.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormContent", b =>
+                {
+                    b.HasOne("AvcolForms.Core.Data.Models.Form", null)
+                        .WithMany("Content")
+                        .HasForeignKey("FormId");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormContentResponse", b =>
+                {
+                    b.HasOne("AvcolForms.Core.Data.Models.FormResponse", null)
+                        .WithMany("Responses")
+                        .HasForeignKey("FormResponseId");
+
+                    b.HasOne("AvcolForms.Core.Data.Models.FormContent", "RespondsTo")
+                        .WithMany()
+                        .HasForeignKey("RespondsToId");
+
+                    b.Navigation("RespondsTo");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormResponse", b =>
+                {
+                    b.HasOne("AvcolForms.Core.Data.Models.Form", "Form")
+                        .WithMany("Responses")
+                        .HasForeignKey("FormId");
+
+                    b.HasOne("AvcolForms.Core.Data.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Form");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -270,6 +433,18 @@ namespace AvcolForms.Core.Data.Postgres.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.Form", b =>
+                {
+                    b.Navigation("Content");
+
+                    b.Navigation("Responses");
+                });
+
+            modelBuilder.Entity("AvcolForms.Core.Data.Models.FormResponse", b =>
+                {
+                    b.Navigation("Responses");
                 });
 #pragma warning restore 612, 618
         }
