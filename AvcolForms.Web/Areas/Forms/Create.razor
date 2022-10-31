@@ -27,7 +27,6 @@
 
 <EditForm Model="@CreateForm" OnValidSubmit="@CreateAsync">
 <DataAnnotationsValidator />
-<ValidationSummary/>
     <MudTextField FullWidth="true" Label="Title" Required="true" For="@(() => CreateForm.Title)" @bind-Value="@CreateForm.Title"/>
     <MudTextField Label="Receiver" HelperText="Email Address" Required="true" For="@(() => CreateForm.Receiver)" @bind-Value="@CreateForm.Receiver" />
     <MudTextField Label="Description" Required="true" @bind-Value="@CreateForm.Description" For="@(() => CreateForm.Description)"/>
@@ -42,3 +41,5 @@
     <LineBreak Count="2"/>
     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="@_processLock" Class="ml-auto">Create</MudButton>
 </EditForm>
+
+<LineBreak Count="10"/>
