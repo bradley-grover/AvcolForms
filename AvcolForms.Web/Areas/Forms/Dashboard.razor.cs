@@ -45,7 +45,9 @@ public partial class Dashboard
         using var context = await Factory.CreateDbContextAsync();
 
         _forms = await context.Forms
-            .Where(f => f.Closes == null && f.Recipients.Contains(user))
+            .Include(f => f.Responses)
+            .Where(f => f.Closes == null && f.Recipients.Contains(user.Id))
+            .Where(f => !f.Responses.Any(r => r.User == user))
             .Select(f => new UnansweredFormItem()
             {
                 ContentCount = f.Recipients.Count,

@@ -35,14 +35,13 @@ public class Form : KeyedDbRecord
     /// </summary>
     [Required]
     [JsonPropertyName("recipients")]
-    public ICollection<ApplicationUser> Recipients { get; set; }
+    public List<string> Recipients { get; set; }
 
     /// <summary>
     /// The user that created the form to respond to
     /// </summary>
     [Required]
-    [JsonPropertyName("createdBy")]
-    public ApplicationUser CreatedBy { get; set; }
+    public string CreatedBy { get; set; }
 
     /// <summary>
     /// Represents the content of the form
@@ -50,6 +49,12 @@ public class Form : KeyedDbRecord
     [Required]
     [JsonPropertyName("content")]
     public ICollection<FormContent> Content { get; set; }
+
+    /// <summary>
+    /// User responses to the form
+    /// </summary>
+    [JsonPropertyName("responses")]
+    public ICollection<FormResponse> Responses { get; set; }
 
     /// <summary>
     /// The email address for form responses to be sent to

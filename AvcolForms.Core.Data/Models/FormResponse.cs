@@ -18,4 +18,10 @@ public class FormResponse : KeyedDbRecord
     /// </summary>
     [JsonPropertyName("form")]
     public Form Form { get; set; }
+
+    /// <summary>
+    /// Responses to certain elements
+    /// </summary>
+    [JsonPropertyName("responses")]
+    public ICollection<FormContentResponse> Responses { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AvcolForms.Core.Data.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace AvcolForms.Core.Data;
 

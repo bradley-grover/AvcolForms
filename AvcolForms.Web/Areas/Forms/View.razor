@@ -1,5 +1,6 @@
 ﻿@attribute [Authorize]
 @inject UserManager<ApplicationUser> _userManager;
+@inject IDbContextFactory<ApplicationDbContext> _factory;
 @using AvcolForms.Core.Components.Forms;
 @inject NavigationManager _navManager;
 
@@ -14,6 +15,10 @@ else {
 
     <MudText Typo="Typo.h3" Align="Align.Center">@AppForm.Title</MudText>
 
+    <EditForm Model="@Response" OnValidSubmit="@CreateAsync">
+    <ValidationSummary/>
+    <DataAnnotationsValidator/>
+
     @if (AppForm.Content is not null && AppForm.Content.Any())
     {
         @foreach (var item in AppForm.Content)
@@ -26,8 +31,17 @@ else {
         <MudAlert Severity="Severity.Warning">This form contains no elements to respond to!</MudAlert>
     }
 
-    <br/>
-    <br/>
+    <LineBreak Count="2"/>
 
     <MudAlert Severity="Severity.Info">Close Off: @AppForm.Closes.ToLocalTimeOrNone()</MudAlert>
+
+    <LineBreak Count="2"/>
+
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Submit</MudButton>
+
+    </EditForm>
+
+    <LineBreak Count="5"/>
 }
+
+<LineBreak Count="10"/>
